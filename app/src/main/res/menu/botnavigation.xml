@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_trangchu"
+        android:icon="@drawable/ic_homebot"
+        android:title="Trang Chủ" />
+
+    <item
+        android:id="@+id/navigation_tinnhan"
+        android:icon="@drawable/ic_messsss"
+        android:title="Tin Nhắn" />
+
+    <item
+        android:id="@+id/navigation_theodoi"
+        android:icon="@drawable/ic_study"
+        android:title="Theo Dõi" />
+
+    <item
+        android:id="@+id/navigation_canhan"
+        android:icon="@drawable/ic_userr"
+        android:title="Cá Nhân" />
+
+</menu>

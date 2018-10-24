@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "915833697223",
+    "firebase_url": "https://chamcong-61010.firebaseio.com",
+    "project_id": "chamcong-61010",
+    "storage_bucket": "chamcong-61010.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915833697223:android:555152f1d657d43f",
+        "android_client_info": {
+          "package_name": "com.tangtuongco.chamcong"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "915833697223-qtbv25uo04k70iui65304i79qp422iaa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tangtuongco.chamcong",
+            "certificate_hash": "7f1b4d1a2a14dbb597ddf131cfd7f13ef308229a"
+          }
+        },
+        {
+          "client_id": "915833697223-bfuso1ot21i3f8lbc2e93urprm4pukp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCd1H30tJS9kUDNdkOpIxfz1M_Ys3i8yJE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "915833697223-bfuso1ot21i3f8lbc2e93urprm4pukp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#c59783</color>
+    <color name="colorPrimaryDark">#b98068</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="yellowcolor">#000000</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="transperent">#00000000</color>
+    <color name="sub_txt">#8e8e93</color>
+    <color name="blue">#405499</color>
+    <color name="view_line">#8e8e93</color>
+    <color name="red">#ff3b30</color>
+    <color name="keyboard">#fafafa</color>
+    <color name="toolbar">#c59783</color>
+
+    <color name="primaryblue">#CCFFFFFF</color>
+    <color name="onprimary">#c59783</color>
+
+    <color name="nenmenu">#99FFFFFF</color>
+    <color name="nenitem">#898989</color>
+
+
+
+
+
+
+
+
+</resources>

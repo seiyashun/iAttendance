@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Fragments.TrangChuF">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#c59783">
+
+            <RadioGroup
+                android:id="@+id/rdogroup"
+                android:background="@drawable/custom_radiogroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+                <RadioButton
+                    android:textColor="@drawable/changetextradio"
+                    android:id="@+id/rdoCC"
+                    android:checked="true"
+                    android:button="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chấm công"
+                    android:background="@drawable/custom_radio_cc"
+                    android:padding="10dp"/>
+                <RadioButton
+                    android:textColor="@drawable/changetextradio"
+                    android:id="@+id/rdoTB"
+                    android:button="@android:color/transparent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thông báo"
+                    android:background="@drawable/custom_radio_tb"
+                    android:padding="10dp"/>
+
+
+            </RadioGroup>
+
+        </android.support.v7.widget.Toolbar>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_trangchu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

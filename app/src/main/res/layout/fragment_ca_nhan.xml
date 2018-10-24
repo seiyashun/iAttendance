@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Fragments.CaNhan">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imgAvaCaNhan"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+        <TextView
+            android:id="@+id/txtNameCaNhan"
+            android:textSize="25dp"
+            android:textColor="#ff0000"
+            android:layout_gravity="center"
+            android:text="Tăng Tường Cơ"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
+        android:paddingTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight=".7"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Mã nhân viên :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Họ và Tên :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Giới tính :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Địa chỉ :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Số điện thoại :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Ngày sinh :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Email :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Ngày vào làm :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Chức vụ :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight=".3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="3703"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Tăng Tường Cơ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Nam"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="256/34 Lãnh Binh Thăng TPHCM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="0933622770"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="18/08/1996"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="seiyashun96@yahoo.com"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="22/02/2017"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+                android:text="Phục Vụ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
