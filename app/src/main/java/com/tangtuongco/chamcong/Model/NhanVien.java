@@ -17,6 +17,7 @@ public class NhanVien {
     private String manv,hoten,diachi,chucvu,email,sdt,pass,ava;
     private Date ngayvaolam;
     List<GioCong> listGioCong;
+    //testtttt
 
 
     public NhanVien() {
