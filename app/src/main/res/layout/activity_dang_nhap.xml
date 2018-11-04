@@ -41,6 +41,7 @@
                 android:layout_marginTop="16dp"
                 android:background="#00000000"
                 android:hint="Email"
+                android:text="tangtuongco@gmail.com"
                 android:textColorHint="#24272b"
                 android:textSize="15sp" />
 
@@ -56,7 +57,7 @@
                 android:hint="Mật khẩu"
                 android:textSize="15sp"
                 android:inputType="textPassword"
-
+                android:text="9553185"
                 android:id="@+id/edtPassDN"
                 android:textColorHint="#4b5461"
                 android:background="#00000000"

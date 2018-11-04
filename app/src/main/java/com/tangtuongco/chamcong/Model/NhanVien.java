@@ -1,8 +1,11 @@
 package com.tangtuongco.chamcong.Model;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,15 +16,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class NhanVien {
     private String manv,hoten,diachi,chucvu,email,sdt,pass,ava;
     private Date ngayvaolam;
     List<GioCong> listGioCong;
-    //testtttt
+
 
 
     public NhanVien() {
-//
+
 
     }
 
@@ -123,31 +128,9 @@ public class NhanVien {
 
 
 
-//    public void getDanhSachNhanVien()
-//    {
-//        final List<NhanVien> listNhanVien  = new ArrayList<>();
-//        ValueEventListener valueEventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                DataSnapshot dataSnapshotNhanVien = dataSnapshot.child("NhanVien");
-//                for(DataSnapshot valueNhanVien:dataSnapshotNhanVien.getChildren())
-//                {
-//                    NhanVien a = valueNhanVien.getValue(NhanVien.class);
-//
-//                    listNhanVien.add(a);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        };
-//        nodeRoot.addListenerForSingleValueEvent(valueEventListener);
-//
-//
-//
-//    }
+
+
+
 
 
 

@@ -22,6 +22,8 @@
         <activity android:name=".View.DangNhap" />
         <activity android:name=".View.MainActivity" />
         <activity android:name=".View.DangKy" />
+        <activity android:name=".View.ChatNhom" />
+        <activity android:name=".View.ChatRieng"></activity>
     </application>
 
 </manifest>

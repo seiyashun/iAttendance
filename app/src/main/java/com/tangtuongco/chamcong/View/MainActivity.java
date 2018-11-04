@@ -1,23 +1,19 @@
 package com.tangtuongco.chamcong.View;
 
-import android.content.res.ColorStateList;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.tangtuongco.chamcong.R;
+import com.tangtuongco.chamcong.View.Fragments.BanBeF;
 import com.tangtuongco.chamcong.View.Fragments.CaNhan;
 import com.tangtuongco.chamcong.View.Fragments.TheoDoiF;
-import com.tangtuongco.chamcong.View.Fragments.TinNhan;
 import com.tangtuongco.chamcong.View.Fragments.TrangChuF;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigation;
     FrameLayout frameLayout;
     TrangChuF trangChuF;
-    TinNhan tinNhan;
     TheoDoiF theoDoiF;
     CaNhan canhan;
+    BanBeF banBeF;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void xuly() {
         trangChuF=new TrangChuF();
-        tinNhan=new TinNhan();
         theoDoiF=new TheoDoiF();
         canhan=new CaNhan();
+        banBeF=new BanBeF();
         setFragment(trangChuF);
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -55,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
                         return true;
                     case R.id.navigation_tinnhan:
-                        setFragment(tinNhan);
+                        setFragment(banBeF);
 
                         return true;
                     case R.id.navigation_theodoi:

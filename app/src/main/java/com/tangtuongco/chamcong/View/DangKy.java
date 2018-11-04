@@ -61,13 +61,15 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         final String chucvu=edtChucVu.getText().toString();
         final String ngayvaolam=edtNgayvaolam.getText().toString();
 
+
+
         mAuth.createUserWithEmailAndPassword(email,pass)
                 .addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                            Log.d("kiemtra1","cc");
+
                             NhanVien nv=new NhanVien();
                             nv.setManv(id);
                             nv.setEmail(email);
@@ -142,4 +144,5 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
                 datePickerDialog.show();
         }
     }
+
 }
