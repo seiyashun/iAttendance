@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,14 +25,18 @@ import com.tangtuongco.chamcong.Model.GioCong;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
+import com.tangtuongco.chamcong.Ulty.TinhThoiGian;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
 
-public class ChamCongF extends Fragment {
+public class ChamCongF extends Fragment implements View.OnClickListener {
     Button checkin,checkout;
     TextView txtNgay,txtIn,txtOut,txtTinhToan;
     FirebaseAuth mAuth;
@@ -67,19 +70,20 @@ public class ChamCongF extends Fragment {
         getData();
         //Check-in
 
-        checkin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ClickCheckIn();
-            }
-        });
-        checkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickCheckOut();
-            }
-        });
-
+//        checkin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ClickCheckIn();
+//            }
+//        });
+//        checkout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                clickCheckOut();
+//            }
+//        });
+        checkin.setOnClickListener(this);
+        checkout.setOnClickListener(this);
 
 
 
@@ -103,21 +107,24 @@ public class ChamCongF extends Fragment {
         data.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
-                {
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     GioCong a = dataSnapshot1.getValue(GioCong.class);
-                    if(a.getClickOut()==false)
-                    {
+                    if (a.getClickOut() == false) {
                         a.setGioRa(FormatHelper.formatGio(ngaycheckin));
                         txtOut.setText(FormatHelper.formatGio(ngaycheckin));
                         a.setClickOut(true);
+                        txtIn.setText(a.getGioRa());
                         data.child(currentNv.getManv()).setValue(a);
-                        Toasty.info(getActivity(),"Bạn đã check out vào " + a.getGioRa(),Toast.LENGTH_SHORT).show();
-                        data=firebaseDatabase.getReference().child("GioCong");
-                    }
-                    else
-                    {
-                        Toasty.warning(getActivity(),"Bạn đã check out rồi",Toast.LENGTH_SHORT).show();
+                        Toasty.info(getActivity(), "Bạn đã check out vào " + a.getGioRa(), Toast.LENGTH_SHORT).show();
+                        try {
+                            String giora = TinhThoiGian.GioRaTruGioVao(a.getGioVao(),a.getGioRa());
+                            txtTinhToan.setText(giora);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                    } else {
+                        Toasty.warning(getActivity(), "Bạn đã check out rồi", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -132,14 +139,12 @@ public class ChamCongF extends Fragment {
 
 
 
+
+
+
+
+
     private void ClickCheckIn() {
-        gioCong=new GioCong();
-        Date ngaycheckin= Calendar.getInstance().getTime();
-        int thang=Calendar.getInstance().get(Calendar.MONTH);
-        int ngay=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        long a=00;
-        String currentNgay = FormatHelper.formatNgay(ngaycheckin);
-        String currentGio=FormatHelper.formatGio(ngaycheckin);
 //        data=firebaseDatabase.getReference().child("GioCong");
 
         data=firebaseDatabase.getReference().child("OTP").child(currentNv.getManv());
@@ -154,11 +159,12 @@ public class ChamCongF extends Fragment {
                 if(edtOTP.getText().toString().equals(OTPPP.toString()))
                 {
 
-                    Toast.makeText(getActivity(), "TRUEEEEEE", Toast.LENGTH_SHORT).show();
+                   CheckIn();
+                   layoutOTP.setVisibility(View.INVISIBLE);
                 }
                 else
                 {
-                    Toast.makeText(getActivity(), "FALSEe", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -181,6 +187,27 @@ public class ChamCongF extends Fragment {
 //            Toasty.warning(getActivity(),"Bạn đã check in rồi",Toast.LENGTH_SHORT).show();
 //        }
 
+
+
+    }
+
+    private void CheckIn() {
+        gioCong=new GioCong();
+        Date ngaycheckin= Calendar.getInstance().getTime();
+        int thang=Calendar.getInstance().get(Calendar.MONTH);
+        int ngay=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        long a=00;
+        String currentNgay = FormatHelper.formatNgay(ngaycheckin);
+        String currentGio=FormatHelper.formatGio(ngaycheckin);
+        data=firebaseDatabase.getReference().child("GioCong");
+        gioCong.setGioVao(currentGio);
+        gioCong.setGioRa("00");
+        gioCong.setNgay(currentNgay);
+        gioCong.setClickIn(true);
+        data=firebaseDatabase.getReference().child("GioCong");
+        data.child(String.valueOf(thang)).child(String.valueOf(ngay)).child(currentNv.getManv()).setValue(gioCong);
+        Toasty.info(getActivity(),"Bạn đã check in vào " + currentGio,Toast.LENGTH_SHORT).show();
+        txtIn.setText(gioCong.getGioVao());
 
 
     }
@@ -248,7 +275,8 @@ public class ChamCongF extends Fragment {
         Calendar c = Calendar.getInstance();
         Date ngay = c.getTime();
         txtNgay.setText(FormatHelper.formatNgay(ngay));
-        txtIn.setText(FormatHelper.formatGio(ngay));
+        txtIn.setText("00:00");
+        txtOut.setText("00:00");
     }
 
     private void anhxa(View view) {
@@ -261,5 +289,20 @@ public class ChamCongF extends Fragment {
         layoutOTP=view.findViewById(R.id.LinearOTP);
         edtOTP=view.findViewById(R.id.edtOTP);
         btnOTP=view.findViewById(R.id.btnOTP);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.btnCheckInCC:
+                ClickCheckIn();
+                break;
+            case R.id.btnCheckOutCC:
+                clickCheckOut();
+                break;
+        }
+
     }
 }
