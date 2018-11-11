@@ -63,9 +63,6 @@ public class DangNhap extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             progressDialog.dismiss();
-                            Toasty.success(DangNhap.this,"Welcome " + FirebaseAuth.getInstance()
-                                    .getCurrentUser()
-                                    .getEmail(),Toast.LENGTH_SHORT).show();
                             Intent i =new Intent(DangNhap.this,MainActivity.class);
                             startActivity(i);
                         }

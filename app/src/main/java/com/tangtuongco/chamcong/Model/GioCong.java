@@ -14,61 +14,62 @@ import java.util.Date;
 import java.util.List;
 
 public class GioCong {
-   Date ngay;
-   Integer giovao,giora,giothucte;
+    private String Ngay,GioVao,GioRa;
+    private Boolean ClickIn,ClickOut;
 
     public GioCong() {
+        ClickIn = false;
+        ClickOut= false;
 
     }
 
-    public GioCong(Date ngay, Integer giovao, Integer giora, Integer giothucte) {
+    public GioCong(String ngay, String gioVao, String gioRa, Boolean clickIn, Boolean clickOut) {
 
-        this.ngay = ngay;
-        this.giovao = giovao;
-        this.giora = giora;
-        this.giothucte = giothucte;
+        Ngay = ngay;
+        GioVao = gioVao;
+        GioRa = gioRa;
+        ClickIn = clickIn;
+        ClickOut = clickOut;
     }
 
-    public Date getNgay() {
+    public String getNgay() {
 
-        return ngay;
+        return Ngay;
     }
 
-    public void setNgay(Date ngay) {
-        this.ngay = ngay;
+    public void setNgay(String ngay) {
+        Ngay = ngay;
     }
 
-    public Integer getGiovao() {
-        return giovao;
+    public String getGioVao() {
+        return GioVao;
     }
 
-    public void setGiovao(Integer giovao) {
-        this.giovao = giovao;
+    public void setGioVao(String gioVao) {
+        GioVao = gioVao;
     }
 
-    public Integer getGiora() {
-        return giora;
+    public String getGioRa() {
+        return GioRa;
     }
 
-    public void setGiora(Integer giora) {
-        this.giora = giora;
+    public void setGioRa(String gioRa) {
+        GioRa = gioRa;
     }
 
-    public Integer getGiothucte() {
-        return giothucte;
+    public Boolean getClickIn() {
+        return ClickIn;
     }
 
-    public void setGiothucte(Integer giothucte) {
-        this.giothucte = giothucte;
+    public void setClickIn(Boolean clickIn) {
+        ClickIn = clickIn;
     }
 
-    public void getlistGioCong()
-    {
-
-
-
-
-
+    public Boolean getClickOut() {
+        return ClickOut;
     }
 
+    public void setClickOut(Boolean clickOut) {
+        ClickOut = clickOut;
+    }
 }
