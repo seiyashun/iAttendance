@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <EditText
+        android:hint="Tên Chức Vụ"
+        android:id="@+id/edtEditTenChucVu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="Mã Chức Vụ"
+        android:id="@+id/edtEditMaChucVu"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtEditTenChucVu"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="Hệ Số Lương"
+        android:id="@+id/edtEditHeSoLuong"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtEditMaChucVu"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

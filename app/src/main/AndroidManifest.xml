@@ -23,7 +23,10 @@
         <activity android:name=".View.MainActivity" />
         <activity android:name=".View.DangKy" />
         <activity android:name=".View.ChatNhom" />
-        <activity android:name=".View.ChatRieng"></activity>
+        <activity android:name=".View.ChatRieng" />
+        <activity android:name=".View.AdminPanel" />
+        <activity android:name=".View.AdminChucVu" />
+        <activity android:name=".View.AdminQuanLy"></activity>
     </application>
 
 </manifest>
