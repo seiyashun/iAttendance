@@ -3,9 +3,9 @@ package com.tangtuongco.chamcong.Model;
 
 
 public class ChucVu {
-    private String idChucVu;
-    private String tenChucVu;
-    private double hesoluong;
+    public String idChucVu;
+    public String tenChucVu;
+    public double hesoluong;
 
 
     public ChucVu(String idChucVu, String tenChucVu, double hesoluong) {

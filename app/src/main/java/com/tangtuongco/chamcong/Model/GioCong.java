@@ -18,8 +18,7 @@ public class GioCong {
     private Boolean ClickIn,ClickOut;
 
     public GioCong() {
-        ClickIn = false;
-        ClickOut= false;
+        ClickOut=false;
 
     }
 
@@ -33,7 +32,6 @@ public class GioCong {
     }
 
     public String getNgay() {
-
         return Ngay;
     }
 

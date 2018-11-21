@@ -29,11 +29,9 @@ import es.dmoral.toasty.Toasty;
 public class DangNhap extends AppCompatActivity {
     Button btnDangNhap;
     private FirebaseAuth mAuth;
-    EditText edtID,edtPass;
+    EditText edtID, edtPass;
     ProgressDialog progressDialog;
     DatabaseReference mData;
-
-
 
 
     @Override
@@ -54,29 +52,24 @@ public class DangNhap extends AppCompatActivity {
         });
 
 
-
-
     }
 
     private void dangnhap() {
 
-        final String id,pass;
-        id=edtID.getText().toString().trim();
-        pass=edtPass.getText().toString().trim();
-        if(id.equals("admin"))
-        {
+        final String id, pass;
+        id = edtID.getText().toString().trim();
+        pass = edtPass.getText().toString().trim();
+        if (id.equals("admin")) {
             mData.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
-                    {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                         NhanVien a = dataSnapshot1.getValue(NhanVien.class);
-                        if(a.getPass().equals(pass))
-                        {
+                        if (a.getPass().equals(pass)) {
                             progressDialog.dismiss();
-                            Intent i =new Intent(DangNhap.this,AdminPanel.class);
+                            Intent i = new Intent(DangNhap.this, AdminPanel.class);
                             startActivity(i);
-                            Toasty.success(DangNhap.this,"Welcome back, Admin!",Toast.LENGTH_SHORT).show();
+                            Toasty.success(DangNhap.this, "Welcome back, Admin!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
@@ -86,24 +79,19 @@ public class DangNhap extends AppCompatActivity {
 
                 }
             });
-        }
-        else
-        {
-            mAuth.signInWithEmailAndPassword(id,pass)
+        } else {
+            mAuth.signInWithEmailAndPassword(id, pass)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful())
-                            {
+                            if (task.isSuccessful()) {
                                 progressDialog.dismiss();
-                                Intent i =new Intent(DangNhap.this,MainActivity.class);
-                                Toasty.success(DangNhap.this, "Welcome "+ mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(DangNhap.this, MainActivity.class);
+                                Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                                 startActivity(i);
-                            }
-                            else
-                            {
+                            } else {
                                 progressDialog.dismiss();
-                                Toasty.error(DangNhap.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
+                                Toasty.error(DangNhap.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -112,12 +100,10 @@ public class DangNhap extends AppCompatActivity {
     }
 
 
-
-
     private void anhxa() {
-        edtPass=findViewById(R.id.edtPassDN);
-        edtID=findViewById(R.id.edtEmailDN);
-        btnDangNhap=findViewById(R.id.btnDangNhap);
+        edtPass = findViewById(R.id.edtPassDN);
+        edtID = findViewById(R.id.edtEmailDN);
+        btnDangNhap = findViewById(R.id.btnDangNhap);
     }
 
 

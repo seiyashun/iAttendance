@@ -16,9 +16,9 @@ import com.bumptech.glide.Glide;
 import com.tangtuongco.chamcong.R;
 
 public class AdminPanel extends AppCompatActivity {
-    TextView txtTenCN1,txtTenCN2,txtMoTa1,txtMoTa2;
-    ImageView imgCN1,imgCN2;
-    LinearLayout linear1,linear2;
+    TextView txtTenCN1, txtTenCN2, txtMoTa1, txtMoTa2;
+    ImageView imgCN1, imgCN2;
+    LinearLayout linear1, linear2;
     Toolbar toolbar;
     ProgressDialog progressDialog;
 
@@ -48,7 +48,7 @@ public class AdminPanel extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.setMessage("Loading...");
                 progressDialog.show();
-                Intent i =new Intent(AdminPanel.this,AdminQuanLy.class);
+                Intent i = new Intent(AdminPanel.this, AdminQuanLy.class);
                 startActivity(i);
                 progressDialog.dismiss();
 
@@ -59,7 +59,7 @@ public class AdminPanel extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.setMessage("Loading...");
                 progressDialog.show();
-                Intent i =new Intent(AdminPanel.this,AdminChucVu.class);
+                Intent i = new Intent(AdminPanel.this, AdminChucVu.class);
                 startActivity(i);
                 progressDialog.dismiss();
             }
@@ -76,14 +76,14 @@ public class AdminPanel extends AppCompatActivity {
     }
 
     private void anhxa() {
-        txtTenCN1=findViewById(R.id.txtTenChucNang);
-        txtTenCN2=findViewById(R.id.txtTenChucNang2);
-        txtMoTa1=findViewById(R.id.txtMoTaChucNang);
-        txtMoTa2=findViewById(R.id.txtMoTaChucNang2);
-        imgCN1=findViewById(R.id.imgChucNang);
-        imgCN2=findViewById(R.id.imgChucNang2);
-        linear1=findViewById(R.id.linearNV);
-        linear2=findViewById(R.id.linearCV);
-        toolbar=findViewById(R.id.toolbarAdminMain);
+        txtTenCN1 = findViewById(R.id.txtTenChucNang);
+        txtTenCN2 = findViewById(R.id.txtTenChucNang2);
+        txtMoTa1 = findViewById(R.id.txtMoTaChucNang);
+        txtMoTa2 = findViewById(R.id.txtMoTaChucNang2);
+        imgCN1 = findViewById(R.id.imgChucNang);
+        imgCN2 = findViewById(R.id.imgChucNang2);
+        linear1 = findViewById(R.id.linearNV);
+        linear2 = findViewById(R.id.linearCV);
+        toolbar = findViewById(R.id.toolbarAdminMain);
     }
 }

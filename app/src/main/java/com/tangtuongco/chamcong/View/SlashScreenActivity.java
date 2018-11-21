@@ -19,12 +19,12 @@ public class SlashScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent iDangNhap = new Intent(SlashScreenActivity.this,DangNhap.class);
+                Intent iDangNhap = new Intent(SlashScreenActivity.this, DangNhap.class);
                 startActivity(iDangNhap);
                 finish();
 
 
             }
-        },2000);
+        }, 2000);
     }
 }

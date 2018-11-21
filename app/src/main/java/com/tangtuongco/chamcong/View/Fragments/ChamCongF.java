@@ -104,7 +104,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         String currentGio=FormatHelper.formatGio(ngaycheckin);
 
         data=firebaseDatabase.getReference().child("GioCong").child(String.valueOf(thang)).child(String.valueOf(ngay));
-        data.addValueEventListener(new ValueEventListener() {
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -203,8 +203,8 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         gioCong.setGioVao(currentGio);
         gioCong.setGioRa("00");
         gioCong.setNgay(currentNgay);
-        gioCong.setClickIn(true);
         data=firebaseDatabase.getReference().child("GioCong");
+        Log.d("kiemtra",currentNv.getManv()+"");
         data.child(String.valueOf(thang)).child(String.valueOf(ngay)).child(currentNv.getManv()).setValue(gioCong);
         Toasty.info(getActivity(),"Bạn đã check in vào " + currentGio,Toast.LENGTH_SHORT).show();
         txtIn.setText(gioCong.getGioVao());

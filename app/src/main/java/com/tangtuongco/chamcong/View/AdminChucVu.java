@@ -39,7 +39,7 @@ public class AdminChucVu extends AppCompatActivity {
     DatabaseReference mData;
     FirebaseDatabase firebaseDatabase;
     FirebaseRecyclerOptions<ChucVu> options;
-    FirebaseRecyclerAdapter<ChucVu,ChucVuViewHolder> adapter;
+    FirebaseRecyclerAdapter<ChucVu, ChucVuViewHolder> adapter;
     Toolbar toolbar;
     String maCV;
 
@@ -58,8 +58,8 @@ public class AdminChucVu extends AppCompatActivity {
             }
         });
         //Data
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        mData=firebaseDatabase.getReference().child("ChucVu");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mData = firebaseDatabase.getReference().child("ChucVu");
         //Init
         init();
         //Add Chuc Vu
@@ -73,8 +73,8 @@ public class AdminChucVu extends AppCompatActivity {
     }
 
     private void openDialog() {
-        ThemChucVuDialog themChucVuDialog= new ThemChucVuDialog();
-        themChucVuDialog.show(getSupportFragmentManager(),"Thêm Chức Vụ");
+        ThemChucVuDialog themChucVuDialog = new ThemChucVuDialog();
+        themChucVuDialog.show(getSupportFragmentManager(), "Thêm Chức Vụ");
     }
 
     private void init() {
@@ -89,7 +89,7 @@ public class AdminChucVu extends AppCompatActivity {
             @NonNull
             @Override
             public ChucVuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chuc_vu_admin,parent,false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_chuc_vu_admin, parent, false);
                 return new ChucVuViewHolder(view);
             }
 
@@ -110,7 +110,7 @@ public class AdminChucVu extends AppCompatActivity {
 
             }
         };
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(),1);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 1);
         listChucVu.setLayoutManager(gridLayoutManager);
         adapter.startListening();
         listChucVu.setAdapter(adapter);
@@ -118,46 +118,46 @@ public class AdminChucVu extends AppCompatActivity {
     }
 
     private void saveMaCV(String idChucVu) {
-        maCV=idChucVu;
+        maCV = idChucVu;
     }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.setHeaderTitle("Lựa chọn");
-        getMenuInflater().inflate(R.menu.floatingmenu,menu);
+        getMenuInflater().inflate(R.menu.floatingmenu, menu);
 
 
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.optionXoa:
                 deleteUserData(maCV);
-                Toasty.warning(AdminChucVu.this,"Xoá thành công",Toast.LENGTH_SHORT).show();
-                return  true;
+                Toasty.warning(AdminChucVu.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.optionSua:
                 EditChucVu();
                 return true;
-                default:
-                    return super.onContextItemSelected(item);
+            default:
+                return super.onContextItemSelected(item);
         }
 
 
     }
 
     private void EditChucVu() {
-        SuaChucVuDialog suaChucVuDialog= new SuaChucVuDialog().newIn(maCV);
-        suaChucVuDialog.show(getSupportFragmentManager(),"Sửa Chức Vụ");
+        SuaChucVuDialog suaChucVuDialog = new SuaChucVuDialog().newIn(maCV);
+        suaChucVuDialog.show(getSupportFragmentManager(), "Sửa Chức Vụ");
     }
 
     private void anhxa() {
-        listChucVu=findViewById(R.id.listChucVu);
-        btnThemChucVu=findViewById(R.id.btnThemChucVu);
-        toolbar=findViewById(R.id.toolbarAdminChucVu);
+        listChucVu = findViewById(R.id.listChucVu);
+        btnThemChucVu = findViewById(R.id.btnThemChucVu);
+        toolbar = findViewById(R.id.toolbarAdminChucVu);
     }
+
     private void deleteUserData(String maCV) {
         mData.child(maCV).removeValue();
     }

@@ -32,6 +32,7 @@ import com.tangtuongco.chamcong.Model.ChucVu;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
+import com.tangtuongco.chamcong.Ulty.Random;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,22 +42,24 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 public class DangKy extends AppCompatActivity implements View.OnClickListener {
-    EditText edtId,edtPass,edtEmail,edtHoTen,edtSdt,edtChucVu,edtNgayvaolam;
-    Button btn,btnNgayVaoLam;
+    EditText edtId, edtPass, edtEmail, edtHoTen, edtSdt, edtChucVu, edtNgayvaolam;
+    Button btn, btnNgayVaoLam;
     FirebaseAuth mAuth;
     DatabaseReference mData;
     FirebaseDatabase firebaseDatabase;
     ProgressDialog progressDialog;
-    int mYear,mMonth,mDay;
+    int mYear, mMonth, mDay;
     Toolbar toolbar;
-
+    ArrayList<ChucVu> SpinnerList;
+    Spinner spinner;
+    ArrayList<String> listMSNV;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         anhxa();
         //toolbar
         toolbar.setTitle("Thêm Quản Lý");
@@ -69,121 +72,172 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         });
 
 
-        progressDialog =new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         btnNgayVaoLam.setOnClickListener(this);
         btn.setOnClickListener(this);
         //Data
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        edtChucVu.setText("QL");
-
-
-
-
-
-
-
-
-
-
-
+        SpinnerList = new ArrayList<ChucVu>();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        getDSCV();
+        getDSNV();
 
 
     }
 
+    private void getDSNV() {
+        mData = firebaseDatabase.getReference().child("NhanVien");
+        mData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                SaveListMSNV(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void SaveListMSNV(DataSnapshot dataSnapshot) {
+        listMSNV = new ArrayList<>();
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            listMSNV.add(ds.getValue(NhanVien.class).getManv());
+        }
+        GenMSNV();
+    }
+
+    private void addSpiner() {
+        ArrayAdapter<ChucVu> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, SpinnerList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
 
+    }
 
+    private void getDSCV() {
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        mData = firebaseDatabase.getReference().child("ChucVu");
+        mData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                SaveData(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void SaveData(DataSnapshot dataSnapshot) {
+
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            ChucVu a = ds.getValue(ChucVu.class);
+            SpinnerList.add(a);
+        }
+        addSpiner();
+    }
+
+    private void GenMSNV() {
+        int msnv = 1000;
+        msnv = listMSNV.size() + msnv + 1;
+        edtId.setText(msnv + "");
+        edtId.setEnabled(false);
+        progressDialog.dismiss();
+
+    }
 
     private void dangky() {
-        final String id=edtId.getText().toString().trim();
-        final String email=edtEmail.getText().toString().trim();
-        final String pass=edtPass.getText().toString().trim();
-        final String hoten=edtHoTen.getText().toString();
-        final String sdt=edtSdt.getText().toString();
-        final String chucuv=edtChucVu.getText().toString();
-        final String ngayvaolam=edtNgayvaolam.getText().toString();
-        mData=firebaseDatabase.getReference().child("NhanVien");
+        final String id = edtId.getText().toString().trim();
+        final String email = edtEmail.getText().toString().trim();
+        final String pass = edtPass.getText().toString().trim();
+        final String hoten = edtHoTen.getText().toString();
+        final String sdt = edtSdt.getText().toString();
+        final String ngayvaolam = edtNgayvaolam.getText().toString();
+        final ChucVu chucvu = (ChucVu) spinner.getSelectedItem();
+        mData = firebaseDatabase.getReference().child("NhanVien");
+        progressDialog.setMessage("Đăng ký...");
+        progressDialog.show();
 
 
-        mAuth.createUserWithEmailAndPassword(email,pass)
-                .addOnCompleteListener(this,new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
+                        if (task.isSuccessful()) {
 
-                            NhanVien nv=new NhanVien();
+                            NhanVien nv = new NhanVien();
                             nv.setManv(id);
                             nv.setEmail(email);
                             nv.setHoten(hoten);
                             nv.setAva("1");
                             nv.setSdt(sdt);
-                            nv.setChucvu(chucuv);
+                            nv.setChucvu(chucvu.getIdChucVu());
                             try {
                                 nv.setNgayvaolam(FormatHelper.formatstring(ngayvaolam));
                             } catch (Exception e) {
                                 e.printStackTrace();
-                           }
+                            }
                             mData.push().setValue(nv);
-                            Toasty.success(DangKy.this,"Thành công",Toast.LENGTH_LONG,true).show();
+                            progressDialog.dismiss();
+                            Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
+                            finish();
 
 
-                        }
-                        else
-                        {
-                            Toasty.error(DangKy.this,"Thất bại",Toast.LENGTH_LONG,true).show();
+                        } else {
+                            progressDialog.dismiss();
+                            Toasty.error(DangKy.this, "Thất bại", Toast.LENGTH_LONG, true).show();
                         }
                     }
                 });
-
 
 
     }
 
 
     private void anhxa() {
-        edtId=findViewById(R.id.edtID);
-        edtEmail=findViewById(R.id.edtEmail);
-        edtPass=findViewById(R.id.edtPass);
-        edtHoTen=findViewById(R.id.edtHoTen);
-        edtChucVu=findViewById(R.id.edtTenChucVuDangKy);
-        edtNgayvaolam=findViewById(R.id.edtNgayVaoLam);
-        btnNgayVaoLam=findViewById(R.id.btnChonDate);
-        edtSdt=findViewById(R.id.edtSDT);
-        btn=findViewById(R.id.btnDK);
+        edtId = findViewById(R.id.edtID);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPass = findViewById(R.id.edtPass);
+        edtHoTen = findViewById(R.id.edtHoTen);
+        spinner = findViewById(R.id.spinnerChucVu);
+        edtNgayvaolam = findViewById(R.id.edtNgayVaoLam);
+        btnNgayVaoLam = findViewById(R.id.btnChonDate);
+        edtSdt = findViewById(R.id.edtSDT);
+        btn = findViewById(R.id.btnDK);
 
-        toolbar=findViewById(R.id.toolbarDangKy);
+        toolbar = findViewById(R.id.toolbarDangKy);
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v == btn)
-        {
+        if (v == btn) {
             dangky();
-        }
-        else if(v==btnNgayVaoLam)
-        {
+        } else if (v == btnNgayVaoLam) {
 
-                // Get Current Date
-                final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                        new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                    new DatePickerDialog.OnDateSetListener() {
 
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int monthOfYear, int dayOfMonth) {
+                        @Override
+                        public void onDateSet(DatePicker view, int year,
+                                              int monthOfYear, int dayOfMonth) {
 
-                                edtNgayvaolam.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            edtNgayvaolam.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
 
-                            }
-                        }, mYear, mMonth, mDay);
-                datePickerDialog.show();
+                        }
+                    }, mYear, mMonth, mDay);
+            datePickerDialog.show();
         }
     }
 

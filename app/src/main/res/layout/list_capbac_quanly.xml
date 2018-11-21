@@ -10,26 +10,42 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/txtTenQuanLyList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:text="Name"
-            android:textStyle="bold"
-            android:textSize="15sp" />
+       <LinearLayout
+           android:id="@+id/lntt"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:id="@+id/txtTenQuanLyList"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="10dp"
+               android:gravity="center_vertical"
+               android:text="Name"
+               android:textStyle="bold"
+               android:textSize="15sp" />
 
+           <TextView
+               android:id="@+id/txtEmailQuanLyList"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:gravity="right"
+               android:layout_below="@id/txtTenQuanLyList"
+               android:layout_marginLeft="5dp"
+               android:layout_marginTop="10dp"
+               android:text="Email"
+               android:textSize="12sp" />
+       </LinearLayout>
         <TextView
-            android:id="@+id/txtEmailQuanLyList"
+            android:id="@+id/txtChucVuQuanLyList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtTenQuanLyList"
+            android:layout_below="@id/lntt"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
             android:gravity="center_vertical"
-            android:text="Email"
+            android:text="Chức Vụ"
             android:textSize="12sp" />
 
 

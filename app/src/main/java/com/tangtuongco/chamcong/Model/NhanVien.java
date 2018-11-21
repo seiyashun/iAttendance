@@ -19,8 +19,8 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 public class NhanVien {
-    private String manv,hoten,diachi,chucvu,email,sdt,pass,ava;
-    private Date ngayvaolam;
+    public String manv,hoten,diachi,chucvu,email,sdt,pass,ava;
+    public Date ngayvaolam;
     List<GioCong> listGioCong;
 
 
