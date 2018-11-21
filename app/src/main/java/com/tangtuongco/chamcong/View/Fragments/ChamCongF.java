@@ -103,29 +103,27 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         String currentNgay = FormatHelper.formatNgay(ngaycheckin);
         String currentGio=FormatHelper.formatGio(ngaycheckin);
 
-        data=firebaseDatabase.getReference().child("GioCong").child(String.valueOf(thang)).child(String.valueOf(ngay));
+        data=firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(thang)).child(String.valueOf(ngay));
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                    GioCong a = dataSnapshot1.getValue(GioCong.class);
-                    if (a.getClickOut() == false) {
-                        a.setGioRa(FormatHelper.formatGio(ngaycheckin));
-                        txtOut.setText(FormatHelper.formatGio(ngaycheckin));
-                        a.setClickOut(true);
-                        txtIn.setText(a.getGioRa());
-                        data.child(currentNv.getManv()).setValue(a);
-                        Toasty.info(getActivity(), "Bạn đã check out vào " + a.getGioRa(), Toast.LENGTH_SHORT).show();
-                        try {
-                            String giora = TinhThoiGian.GioRaTruGioVao(a.getGioVao(),a.getGioRa());
-                            txtTinhToan.setText(giora);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-
-                    } else {
-                        Toasty.warning(getActivity(), "Bạn đã check out rồi", Toast.LENGTH_SHORT).show();
+                GioCong a = dataSnapshot.getValue(GioCong.class);
+                if (a.getClickOut() == false) {
+                    a.setGioRa(FormatHelper.formatGio(ngaycheckin));
+                    txtOut.setText(FormatHelper.formatGio(ngaycheckin));
+                    a.setClickOut(true);
+                    txtIn.setText(a.getGioRa());
+                    data.setValue(a);
+                    Toasty.info(getActivity(), "Bạn đã check out vào " + a.getGioRa(), Toast.LENGTH_SHORT).show();
+                    try {
+                        String giora = TinhThoiGian.GioRaTruGioVao(a.getGioVao(),a.getGioRa());
+                        txtTinhToan.setText(giora);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
                     }
+
+                } else {
+                    Toasty.warning(getActivity(), "Bạn đã check out rồi", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -205,7 +203,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         gioCong.setNgay(currentNgay);
         data=firebaseDatabase.getReference().child("GioCong");
         Log.d("kiemtra",currentNv.getManv()+"");
-        data.child(String.valueOf(thang)).child(String.valueOf(ngay)).child(currentNv.getManv()).setValue(gioCong);
+        data.child(currentNv.getManv()).child(String.valueOf(thang)).child(String.valueOf(ngay)).setValue(gioCong);
         Toasty.info(getActivity(),"Bạn đã check in vào " + currentGio,Toast.LENGTH_SHORT).show();
         txtIn.setText(gioCong.getGioVao());
 

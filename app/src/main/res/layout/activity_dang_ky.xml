@@ -38,6 +38,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <EditText
+            android:inputType="number"
+            android:id="@+id/edtMucLuong"
+            android:hint="Mức lương"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
             android:id="@+id/edtHoTen"
             android:hint="Họ tên"
             android:layout_width="match_parent"

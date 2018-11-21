@@ -21,6 +21,7 @@ import es.dmoral.toasty.Toasty;
 public class NhanVien {
     public String manv,hoten,diachi,chucvu,email,sdt,pass,ava;
     public Date ngayvaolam;
+    double mucluong;
     List<GioCong> listGioCong;
 
 
@@ -30,22 +31,7 @@ public class NhanVien {
 
     }
 
-    public NhanVien(String manv, String hoten, String diachi, String chucvu, String email, String sdt, String pass, String ava, Date ngayvaolam, List<GioCong> listGioCong) {
-
-        this.manv = manv;
-        this.hoten = hoten;
-        this.diachi = diachi;
-        this.chucvu = chucvu;
-        this.email = email;
-        this.sdt = sdt;
-        this.pass = pass;
-        this.ava = ava;
-        this.ngayvaolam = ngayvaolam;
-        this.listGioCong = listGioCong;
-    }
-
     public String getManv() {
-
         return manv;
     }
 
@@ -117,6 +103,14 @@ public class NhanVien {
         this.ngayvaolam = ngayvaolam;
     }
 
+    public double getMucluong() {
+        return mucluong;
+    }
+
+    public void setMucluong(double mucluong) {
+        this.mucluong = mucluong;
+    }
+
     public List<GioCong> getListGioCong() {
         return listGioCong;
     }
@@ -125,13 +119,18 @@ public class NhanVien {
         this.listGioCong = listGioCong;
     }
 
+    public NhanVien(String manv, String hoten, String diachi, String chucvu, String email, String sdt, String pass, String ava, Date ngayvaolam, double mucluong, List<GioCong> listGioCong) {
 
-
-
-
-
-
-
-
-
+        this.manv = manv;
+        this.hoten = hoten;
+        this.diachi = diachi;
+        this.chucvu = chucvu;
+        this.email = email;
+        this.sdt = sdt;
+        this.pass = pass;
+        this.ava = ava;
+        this.ngayvaolam = ngayvaolam;
+        this.mucluong = mucluong;
+        this.listGioCong = listGioCong;
+    }
 }

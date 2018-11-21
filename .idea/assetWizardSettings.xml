@@ -34,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_add" />
-                            <entry key="sourceFile" value="C:\Users\tangt\Desktop\Cookies\Android\add.svg" />
+                            <entry key="outputName" value="ic_logo" />
+                            <entry key="sourceFile" value="C:\Users\tangt\Desktop\Cookies\Android\logo.svg" />
                           </map>
                         </option>
                       </PersistentState>

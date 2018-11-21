@@ -42,7 +42,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 public class DangKy extends AppCompatActivity implements View.OnClickListener {
-    EditText edtId, edtPass, edtEmail, edtHoTen, edtSdt, edtChucVu, edtNgayvaolam;
+    EditText edtId, edtPass, edtEmail, edtHoTen, edtSdt, edtChucVu, edtNgayvaolam,edtMucLuong;
     Button btn, btnNgayVaoLam;
     FirebaseAuth mAuth;
     DatabaseReference mData;
@@ -175,6 +175,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
                             nv.setHoten(hoten);
                             nv.setAva("1");
                             nv.setSdt(sdt);
+                            nv.setMucluong(Double.valueOf(edtMucLuong.getText().toString().trim()));
                             nv.setChucvu(chucvu.getIdChucVu());
                             try {
                                 nv.setNgayvaolam(FormatHelper.formatstring(ngayvaolam));
@@ -208,7 +209,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         btnNgayVaoLam = findViewById(R.id.btnChonDate);
         edtSdt = findViewById(R.id.edtSDT);
         btn = findViewById(R.id.btnDK);
-
+        edtMucLuong=findViewById(R.id.edtMucLuong);
         toolbar = findViewById(R.id.toolbarDangKy);
     }
 

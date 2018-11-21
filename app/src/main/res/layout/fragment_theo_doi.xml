@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".View.Fragments.TheoDoiF">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Đây là theo dõi" />
+    <Spinner
+        android:id="@+id/spinnerTheoDoi"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"></Spinner>
+   <LinearLayout
+       android:layout_margin="5dp"
+       android:layout_weight="6"
+       android:background="@drawable/khung"
+       android:orientation="vertical"
+       android:layout_width="match_parent"
+       android:layout_height="0dp">
 
-</FrameLayout>
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/listChamCong"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+       </android.support.v7.widget.RecyclerView>
+   </LinearLayout>
+    <LinearLayout
+        android:layout_marginBottom="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:gravity="right|bottom"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/txtTheoDoiSoTienLuong"
+            android:layout_marginRight="35dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="900.000 VND"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnTinhLuong"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="#23019f"
+            fancy:fb_focusColor="#3602d1"
+
+            fancy:fb_iconPosition="left"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="Tổng Lương"
+            fancy:fb_textColor="#FFFFFF" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
