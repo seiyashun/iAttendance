@@ -1,16 +1,19 @@
 package com.tangtuongco.chamcong.View.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.tangtuongco.chamcong.R;
+import com.tangtuongco.chamcong.View.QuanLyPanel;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -20,6 +23,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CaNhan extends Fragment {
 
     CircleImageView imgAva;
+    Button btn;
 
     public CaNhan() {
         // Required empty public constructor
@@ -36,7 +40,13 @@ public class CaNhan extends Fragment {
                 .load("https://i.ytimg.com/vi/vdPiMza1M6g/hqdefault.jpg")
                 .into(imgAva);
 
-
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), QuanLyPanel.class);
+                startActivity(i);
+            }
+        });
 
 
         return v;
@@ -44,6 +54,7 @@ public class CaNhan extends Fragment {
 
     private void anhxa(View v) {
         imgAva=v.findViewById(R.id.imgAvaCaNhan);
+        btn=v.findViewById(R.id.btnQuanLyPanel);
     }
 
 }

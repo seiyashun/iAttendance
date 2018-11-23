@@ -19,6 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity android:name=".View.DangNhap" />
         <activity android:name=".View.MainActivity" />
         <activity android:name=".View.DangKy" />
@@ -26,7 +29,8 @@
         <activity android:name=".View.ChatRieng" />
         <activity android:name=".View.AdminPanel" />
         <activity android:name=".View.AdminChucVu" />
-        <activity android:name=".View.AdminQuanLy"></activity>
+        <activity android:name=".View.AdminQuanLy" />
+        <activity android:name=".View.QuanLyPanel"></activity>
     </application>
 
 </manifest>

@@ -1,174 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:padding="20dp"
     android:orientation="vertical"
 
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-
-        android:orientation="vertical"
-        android:background="@drawable/khung"
+    <ViewFlipper
+        android:id="@+id/viewfliper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:textSize="25dp"
-            android:gravity="center"
-            android:textColor="@color/blue"
-            android:text="Thông Tin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:layout_height="200dp"></ViewFlipper>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="horizontal"
+
+            android:orientation="vertical"
+            android:background="@drawable/khung"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight=".7"
+            <TextView
+                android:textSize="25dp"
+                android:gravity="center"
+                android:textColor="@color/blue"
+                android:text="Thông Tin"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:textColor="@color/black"
-                    android:text="Ngày :"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/black"
-                    android:text="Check In :"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/black"
-                    android:text="Check Out :"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:textColor="@color/black"
-                    android:text="Số Giờ :"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-
-
-            </LinearLayout>
+                android:layout_height="wrap_content" />
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight=".5"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/txtNgayCC"
-                    android:textColor="@color/black"
-                    android:text="11/10/2018"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txtCheckInCC"
-                    android:textColor="@color/black"
-                    android:text="7:00"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txtCheckOutCC"
-                    android:textColor="@color/black"
-                    android:text="15:00"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/txtSoGioLamCC"
-                    android:textColor="@color/black"
-                    android:text="8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight=".7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="Ngày :"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="Check In :"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="Check Out :"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:textColor="@color/black"
+                        android:text="Số Giờ :"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_weight=".5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/txtNgayCC"
+                        android:textColor="@color/black"
+                        android:text="11/10/2018"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/txtCheckInCC"
+                        android:textColor="@color/black"
+                        android:text="7:00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/txtCheckOutCC"
+                        android:textColor="@color/black"
+                        android:text="15:00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/txtSoGioLamCC"
+                        android:textColor="@color/black"
+                        android:text="8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
 
         </LinearLayout>
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-
-            android:layout_weight=".5"
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/custombtn"
-            android:clickable="true">
+            android:layout_height="wrap_content">
+            <RelativeLayout
 
+                android:layout_weight=".5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custombtn"
+                android:clickable="true">
+
+                <Button
+
+                    android:id="@+id/btnCheckInCC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorPrimaryDark"
+                    android:drawableLeft="@drawable/ic_checkin"
+                    android:drawablePadding="6dp"
+                    android:drawableTint="@color/white"
+                    android:duplicateParentState="true"
+
+                    android:gravity="center"
+                    android:text="Check In"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+            <RelativeLayout
+
+                android:layout_weight=".5"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/custombtn"
+                android:clickable="true">
+
+                <Button
+
+                    android:id="@+id/btnCheckOutCC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="64dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/colorPrimaryDark"
+                    android:drawableLeft="@drawable/ic_checkout"
+                    android:drawablePadding="6dp"
+                    android:drawableTint="@color/white"
+                    android:duplicateParentState="true"
+
+                    android:gravity="center"
+                    android:text="Check Out"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/LinearOTP"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+
+                android:inputType="number"
+                android:textColor="#000000"
+                android:id="@+id/edtOTP"
+                android:hint="Xin nhập mã xác thực"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <Button
-
-                android:id="@+id/btnCheckInCC"
+                android:id="@+id/btnOTP"
+                android:text="Xác nhận"
                 android:layout_width="wrap_content"
-                android:layout_height="64dp"
-                android:layout_centerInParent="true"
-                android:background="@color/colorPrimaryDark"
-                android:drawableLeft="@drawable/ic_checkin"
-                android:drawablePadding="6dp"
-                android:drawableTint="@color/white"
-                android:duplicateParentState="true"
+                android:layout_height="45dp" />
 
-                android:gravity="center"
-                android:text="Check In"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-        </RelativeLayout>
-        <RelativeLayout
-
-            android:layout_weight=".5"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/custombtn"
-            android:clickable="true">
-
-            <Button
-
-                android:id="@+id/btnCheckOutCC"
-                android:layout_width="wrap_content"
-                android:layout_height="64dp"
-                android:layout_centerInParent="true"
-                android:background="@color/colorPrimaryDark"
-                android:drawableLeft="@drawable/ic_checkout"
-                android:drawablePadding="6dp"
-                android:drawableTint="@color/white"
-                android:duplicateParentState="true"
-
-                android:gravity="center"
-                android:text="Check Out"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-        </RelativeLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:visibility="gone"
-        android:id="@+id/LinearOTP"
-        android:gravity="center"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-
-            android:inputType="number"
-            android:textColor="#000000"
-            android:id="@+id/edtOTP"
-            android:hint="Xin nhập mã xác thực"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/btnOTP"
-            android:text="Xác nhận"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp" />
-
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

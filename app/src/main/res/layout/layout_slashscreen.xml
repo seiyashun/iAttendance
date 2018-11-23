@@ -4,9 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/coffeetek"
     tools:context=".View.SlashScreenActivity"
     android:orientation="vertical">
+    <ImageView
+        android:id="@+id/slashscreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 

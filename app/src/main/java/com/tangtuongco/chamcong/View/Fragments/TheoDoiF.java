@@ -123,6 +123,7 @@ public class TheoDoiF extends Fragment {
 
         giatien= String.valueOf(format.format(money))+ "000 VND";
         txtLuong.setText(giatien);
+        money=0;
 
 
     }

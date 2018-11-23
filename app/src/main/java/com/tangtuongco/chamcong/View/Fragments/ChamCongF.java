@@ -1,6 +1,7 @@
 package com.tangtuongco.chamcong.View.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,12 +10,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,11 +36,13 @@ import com.tangtuongco.chamcong.Ulty.TinhThoiGian;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
+import ss.com.bannerslider.ImageLoadingService;
 
 public class ChamCongF extends Fragment implements View.OnClickListener {
     Button checkin,checkout;
@@ -50,7 +58,8 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
     LinearLayout layoutOTP;
     Long OTPPP;
     Button btnOTP;
-
+    ViewFlipper viewFlipper;
+    ArrayList<String> mangquangcao;
 
     @Nullable
     @Override
@@ -64,10 +73,12 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         email= FirebaseAuth.getInstance().getCurrentUser().getEmail();
         firebaseDatabase=FirebaseDatabase.getInstance();
         currentNv=new NhanVien();
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading....");
-        progressDialog.show();
+
         getData();
+        //GetQC
+        createQC();
+
+
         //Check-in
 
 //        checkin.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +102,56 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
 
         return view;
     }
+
+    private void createQC() {
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading....");
+        progressDialog.show();
+        mangquangcao=new ArrayList<>();
+        mangquangcao.add("https://www.incimages.com/uploaded_files/image/970x450/getty_945685712_2000133420009280406_353733.jpg");
+        mangquangcao.add("https://vietblend.vn/wp-content/uploads/2017/02/thumb2-19bdc567b492626b59386e7a7aeb0117-20161019150220-630x394.jpg");
+        mangquangcao.add("https://cdn1.medicalnewstoday.com/content/images/articles/301/301759/coffee.jpg");
+        mangquangcao.add("https://www.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/Coffee1-banner.jpg");
+        for(int i=0;i<mangquangcao.size();i++)
+        {
+            Log.d("kiemtra",mangquangcao.get(i)+"");
+
+            ImageView imageView=new ImageView(getActivity());
+            Glide.with(getActivity())
+                    .load(mangquangcao.get(i))
+                    .into(imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            viewFlipper.addView(imageView);
+
+        }
+        viewFlipper.setFlipInterval(3000);
+        viewFlipper.setAutoStart(true);
+        Animation animation_slide_in = AnimationUtils.loadAnimation(getActivity(),R.anim.slide_in_right);
+        Animation animation_slide_out = AnimationUtils.loadAnimation(getActivity(),R.anim.slide_out_right);
+        viewFlipper.setInAnimation(animation_slide_in);
+        viewFlipper.setOutAnimation(animation_slide_out);
+        progressDialog.dismiss();
+
+    }
+
+//    private void getQC() {
+//        data=firebaseDatabase.getReference().child("QuangCao");
+//        data.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                LoadQc(dataSnapshot);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
+
+
+
 
 
 
@@ -287,6 +348,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         layoutOTP=view.findViewById(R.id.LinearOTP);
         edtOTP=view.findViewById(R.id.edtOTP);
         btnOTP=view.findViewById(R.id.btnOTP);
+        viewFlipper=view.findViewById(R.id.viewfliper);
     }
 
 
