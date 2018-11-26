@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:layout_margin="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.Fragments.CaNhan">
@@ -24,7 +25,7 @@
             android:textSize="25dp"
             android:textColor="#ff0000"
             android:layout_gravity="center"
-            android:text="Tăng Tường Cơ"
+
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -33,7 +34,7 @@
         android:paddingTop="15dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="vertical"
             android:layout_weight=".7"
@@ -57,20 +58,6 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:paddingBottom="10dp"
-                android:text="Giới tính :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="Địa chỉ :"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
                 android:text="Số điện thoại :"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -78,7 +65,7 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:paddingBottom="10dp"
-                android:text="Ngày sinh :"
+                android:text="Mức lương :"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
@@ -111,77 +98,82 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:id="@+id/txtCaNhanID"
                 android:textColor="@color/blue"
                 android:textSize="15dp"
                 android:paddingBottom="10dp"
-                android:text="3703"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="Tăng Tường Cơ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="Nam"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="256/34 Lãnh Binh Thăng TPHCM"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="0933622770"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="18/08/1996"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="seiyashun96@yahoo.com"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="22/02/2017"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:textColor="@color/blue"
-                android:textSize="15dp"
-                android:paddingBottom="10dp"
-                android:text="Phục Vụ"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btnQuanLyPanel"
-                android:text="QUẢN LÝ PANEL"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtCaNhanName"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtCaNhanSDT"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtCaNhanMucLuong"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtCaNhanEmail"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtCaNhanNgayVaoLam"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtCaNhanChucVu"
+                android:textColor="@color/blue"
+                android:textSize="15dp"
+                android:paddingBottom="10dp"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
 
+
     </LinearLayout>
+    <LinearLayout
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnSuaThongTin"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnQuanLyPanel"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </LinearLayout>

@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
+import com.tangtuongco.chamcong.Service.StartService;
 
 import es.dmoral.toasty.Toasty;
 
@@ -56,6 +57,7 @@ public class DangNhap extends AppCompatActivity {
 
     private void dangnhap() {
 
+
         final String id, pass;
         id = edtID.getText().toString().trim();
         pass = edtPass.getText().toString().trim();
@@ -85,10 +87,16 @@ public class DangNhap extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+
                                 progressDialog.dismiss();
                                 Intent i = new Intent(DangNhap.this, MainActivity.class);
-                                Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                                //Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                                 startActivity(i);
+
+
+
+
+
                             } else {
                                 progressDialog.dismiss();
                                 Toasty.error(DangNhap.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();

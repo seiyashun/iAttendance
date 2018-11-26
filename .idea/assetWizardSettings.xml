@@ -34,8 +34,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_web_management" />
-                            <entry key="sourceFile" value="C:\Users\tangt\Desktop\Cookies\Android\web-management.svg" />
+                            <entry key="outputName" value="ic_content" />
+                            <entry key="sourceFile" value="C:\Users\tangt\Desktop\Cookies\Android\content.svg" />
                           </map>
                         </option>
                       </PersistentState>

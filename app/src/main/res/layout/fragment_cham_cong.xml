@@ -7,11 +7,11 @@
     <ViewFlipper
         android:id="@+id/viewfliper"
         android:layout_width="match_parent"
-        android:layout_height="200dp"></ViewFlipper>
+        android:layout_height="150dp"></ViewFlipper>
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="20dp"
+        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout

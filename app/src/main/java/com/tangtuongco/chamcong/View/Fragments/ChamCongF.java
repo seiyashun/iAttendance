@@ -114,7 +114,6 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         mangquangcao.add("https://www.healthline.com/hlcmsresource/images/topic_centers/Food-Nutrition/Coffee1-banner.jpg");
         for(int i=0;i<mangquangcao.size();i++)
         {
-            Log.d("kiemtra",mangquangcao.get(i)+"");
 
             ImageView imageView=new ImageView(getActivity());
             Glide.with(getActivity())

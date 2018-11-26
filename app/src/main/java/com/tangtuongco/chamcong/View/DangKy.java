@@ -182,7 +182,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            mData.push().setValue(nv);
+                            mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
                             progressDialog.dismiss();
                             Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
                             finish();
