@@ -62,7 +62,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         mAuth = FirebaseAuth.getInstance();
         anhxa();
         //toolbar
-        toolbar.setTitle("Thêm Quản Lý");
+        toolbar.setTitle("Thêm mới");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,7 +173,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
                             nv.setManv(id);
                             nv.setEmail(email);
                             nv.setHoten(hoten);
-                            nv.setAva("1");
+                            nv.setAva("https://firebasestorage.googleapis.com/v0/b/chamcong-61010.appspot.com/o/user%5B1%5D.png?alt=media&token=0dd89d5e-e2b1-4854-a0e8-bb0ece88ddab");
                             nv.setSdt(sdt);
                             nv.setMucluong(Double.valueOf(edtMucLuong.getText().toString().trim()));
                             nv.setChucvu(chucvu.getIdChucVu());

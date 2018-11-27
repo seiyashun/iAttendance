@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.tangtuongco.chamcong.Model.ChucVu;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 {
                     stopService(service);
                 }
+                FirebaseAuth.getInstance().signOut();
                 finish();
                 dialog.dismiss();
             }

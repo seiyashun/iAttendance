@@ -1,5 +1,6 @@
 package com.tangtuongco.chamcong.View;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,7 +55,7 @@ public class QuanLyPanel extends AppCompatActivity {
         btnLuongNV.setIconPosition(FancyButton.POSITION_LEFT);
         btnLuongNV.setFontIconSize(30);
 
-        btnTTNV.setText("Quản Lý Thông Tin Nhân Viên");
+        btnTTNV.setText("Quản Lý Nhân Viên");
         btnTTNV.setBackgroundColor(Color.parseColor("#FF3366"));
         btnTTNV.setFocusBackgroundColor(Color.parseColor("#FF3399"));
         btnTTNV.setTextSize(20);
@@ -80,6 +81,17 @@ public class QuanLyPanel extends AppCompatActivity {
         btnXemLuong.setIconResource(R.drawable.ic_money);
         btnXemLuong.setIconPosition(FancyButton.POSITION_LEFT);
         btnXemLuong.setFontIconSize(30);
+
+
+
+        //Click
+        btnTTNV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(QuanLyPanel.this, QuanLyThongTinNhanVien.class);
+                startActivity(i);
+            }
+        });
 
 
 

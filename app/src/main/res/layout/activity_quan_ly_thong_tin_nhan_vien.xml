@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.AdminChucVu">
+
+    <android.support.v7.widget.Toolbar
+        android:background="#c59783"
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbarQuanLyNhanVien"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+    </android.support.v7.widget.Toolbar>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listQuanLyNhanVien"
+        android:layout_weight = "8.5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnThemNhanVien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="10dp"
+            fancy:fb_borderColor="#FFFFFF"
+            fancy:fb_borderWidth="1dp"
+            fancy:fb_defaultColor="@color/colorPrimaryDark"
+            fancy:fb_focusColor="#4b5041"
+            fancy:fb_iconPosition="left"
+            fancy:fb_iconResource="@drawable/ic_add"
+            fancy:fb_radius="30dp"
+            fancy:fb_text="Thêm nhân viên"
+            fancy:fb_textColor="#ffffff" />
+    </RelativeLayout>
+
+
+</LinearLayout>

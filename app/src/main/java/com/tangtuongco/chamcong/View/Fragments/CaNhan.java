@@ -1,6 +1,7 @@
 package com.tangtuongco.chamcong.View.Fragments;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -75,6 +76,7 @@ public class CaNhan extends Fragment {
     ProgressDialog progressDialog;
     Uri filepatch;
     int PICK_IMAGE_REQUEST = 1;
+    private Activity mActivity;
 
 
     public CaNhan() {
@@ -184,6 +186,7 @@ public class CaNhan extends Fragment {
 
     }
 
+
     private void LoadData() {
         progressDialog.setMessage("Loading...");
         progressDialog.show();
@@ -212,27 +215,44 @@ public class CaNhan extends Fragment {
 
 
     private void saveData(NhanVien a) {
-        currentUser = new NhanVien();
-        currentUser = a;
-        //set data
-        txtnameBu.setText(currentUser.getHoten());
-        txtname.setText(currentUser.getHoten());
-        txtsdt.setText(currentUser.getSdt());
-        txtngayvaolam.setText(FormatHelper.formatNgay(currentUser.getNgayvaolam()));
-        txtemail.setText(a.getEmail());
-        txtmucluong.setText(String.valueOf(a.getMucluong()));
-        txtid.setText(a.getManv());
-        Glide.with(getActivity())
-                .load(a.getAva())
-                .into(imgAva);
-        txtchucvu.setText(a.getChucvu());
-        progressDialog.dismiss();
-        if (a.getChucvu().equals("QL")) {
-            btnQuanLy.setVisibility(View.VISIBLE);
-        }
+      if(getActivity()!=null)
+      {
+          currentUser = new NhanVien();
+          currentUser = a;
+          //set data
+          txtnameBu.setText(currentUser.getHoten());
+          txtname.setText(currentUser.getHoten());
+          txtsdt.setText(currentUser.getSdt());
+          txtngayvaolam.setText(FormatHelper.formatNgay(currentUser.getNgayvaolam()));
+          txtemail.setText(a.getEmail());
+          txtmucluong.setText(String.valueOf(a.getMucluong()));
+          txtid.setText(a.getManv());
+          Glide.with(getActivity())
+                  .load(a.getAva())
+                  .into(imgAva);
+          txtchucvu.setText(a.getChucvu());
+          progressDialog.dismiss();
+          if (a.getChucvu().equals("QL")) {
+              btnQuanLy.setVisibility(View.VISIBLE);
+          }
 
+      }
 
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        mActivity = getActivity();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
+    }
+
 
     private void anhxa(View v) {
         imgAva = v.findViewById(R.id.imgAvaCaNhan);

@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +35,7 @@ public class DangNhap extends AppCompatActivity {
     EditText edtID, edtPass;
     ProgressDialog progressDialog;
     DatabaseReference mData;
+    TextView txtQenMatKhau;
 
 
     @Override
@@ -43,12 +46,46 @@ public class DangNhap extends AppCompatActivity {
         mData = FirebaseDatabase.getInstance().getReference().child("Admin");
         progressDialog = new ProgressDialog(this);
         anhxa();
+        //Data
+
+
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressDialog.setMessage("Đăng nhập...");
                 progressDialog.show();
                 dangnhap();
+            }
+        });
+        txtQenMatKhau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressDialog.setMessage("Loading...");
+                progressDialog.show();
+                String email = edtID.getText().toString().trim();
+
+                if (TextUtils.isEmpty(email)) {
+                    Toasty.warning(getApplication(), "Xin nhập địa chỉ Email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
+                mAuth.sendPasswordResetEmail(email)
+
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(DangNhap.this, "Đã gửi email khôi phục mật khẩu", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(DangNhap.this, "Sai địa chỉ email", Toast.LENGTH_SHORT).show();
+                                }
+                                progressDialog.dismiss();
+
+
+                            }
+                        });
             }
         });
 
@@ -99,7 +136,7 @@ public class DangNhap extends AppCompatActivity {
 
                             } else {
                                 progressDialog.dismiss();
-                                Toasty.error(DangNhap.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                                Toasty.error(DangNhap.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -111,6 +148,7 @@ public class DangNhap extends AppCompatActivity {
     private void anhxa() {
         edtPass = findViewById(R.id.edtPassDN);
         edtID = findViewById(R.id.edtEmailDN);
+        txtQenMatKhau=findViewById(R.id.txtQuenMatKhau);
         btnDangNhap = findViewById(R.id.btnDangNhap);
     }
 

@@ -20,9 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity android:name=".View.DangNhap" />
         <activity android:name=".View.MainActivity" />
         <activity android:name=".View.DangKy" />
@@ -31,9 +28,11 @@
         <activity android:name=".View.AdminPanel" />
         <activity android:name=".View.AdminChucVu" />
         <activity android:name=".View.AdminQuanLy" />
-        <activity android:name=".View.QuanLyPanel"></activity>
+        <activity android:name=".View.QuanLyPanel" />
 
-        <service android:name=".Service.StartService"/>
+        <service android:name=".Service.StartService" />
+
+        <activity android:name=".View.QuanLyThongTinNhanVien"></activity>
     </application>
 
 </manifest>

@@ -50,7 +50,7 @@ public class TheoDoiF extends Fragment {
     Spinner spinerThang;
     FancyButton btnTinhTong;
     RecyclerView listLuong;
-    TextView txtLuong;
+    TextView txtLuong,txtSoGioCong;
     ArrayList<String> listSpinner;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
@@ -109,6 +109,8 @@ public class TheoDoiF extends Fragment {
                money=money+Double.valueOf(listGioCong.get(i).substring(0,2));
            }
         }
+        DecimalFormat format = new DecimalFormat("0.#");
+        txtSoGioCong.setText("Số giờ công: " + format.format(money));
         String giatien;
         for(int i=0;i<listChucVu.size();i++)
         {
@@ -118,11 +120,12 @@ public class TheoDoiF extends Fragment {
                 money=(money*hesoluong*currentNv.getMucluong())/1000;
             }
         }
-        DecimalFormat format = new DecimalFormat("0.#");
+
 
 
         giatien= String.valueOf(format.format(money))+ "000 VND";
         txtLuong.setText(giatien);
+
         money=0;
 
 
@@ -265,6 +268,7 @@ public class TheoDoiF extends Fragment {
         btnTinhTong=v.findViewById(R.id.btnTinhLuong);
         listLuong=v.findViewById(R.id.listChamCong);
         txtLuong=v.findViewById(R.id.txtTheoDoiSoTienLuong);
+        txtSoGioCong=v.findViewById(R.id.txtTheoDoiSoGioCong);
     }
 
 }
