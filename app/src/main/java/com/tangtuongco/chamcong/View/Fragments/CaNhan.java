@@ -49,6 +49,7 @@ import com.tangtuongco.chamcong.Model.Upload;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
 import com.tangtuongco.chamcong.View.QuanLyPanel;
+import com.tangtuongco.chamcong.View.SuaThongTin;
 
 import java.io.ByteArrayOutputStream;
 
@@ -113,7 +114,7 @@ public class CaNhan extends Fragment {
 
     private void init() {
         //Setup fancy button
-        btnQuanLy.setText("Quản Lý Nhân Viên");
+        btnQuanLy.setText("Bảng Quản Lý");
         btnQuanLy.setBackgroundColor(Color.parseColor("#c59783"));
         btnQuanLy.setFocusBackgroundColor(Color.parseColor("#b98068"));
         btnQuanLy.setTextSize(20);
@@ -136,6 +137,13 @@ public class CaNhan extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), QuanLyPanel.class);
+                startActivity(i);
+            }
+        });
+        btnSuaThongTin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SuaThongTin.class);
                 startActivity(i);
             }
         });

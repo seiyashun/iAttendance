@@ -1,5 +1,6 @@
 package com.tangtuongco.chamcong.View;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +45,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
     FirebaseRecyclerAdapter<NhanVien, QuanLyViewHolder> adapter;
     ArrayList<ChucVu> arrayListChucVu;
     String emailNv;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
         arrayListChucVu=new ArrayList<ChucVu>();
         //toolbar
         //Toolbar
+        progressDialog=new ProgressDialog(this);
         toolbar.setTitle("Quản Lý Nhân Viên");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -67,7 +71,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         getChucVu();
         //Init
-        init();
+
         //xuly
         xuly();
 
@@ -89,6 +93,8 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
     }
 
     private void getChucVu() {
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         mData = firebaseDatabase.getReference().child("ChucVu");
         mData.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,6 +115,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
             ChucVu a = ds.getValue(ChucVu.class);
             arrayListChucVu.add(a);
         }
+        init();
 
     }
 
@@ -122,7 +129,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
                 .build();
         adapter = new FirebaseRecyclerAdapter<NhanVien, QuanLyViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final QuanLyViewHolder holder, int position, @NonNull NhanVien model) {
+            protected void onBindViewHolder(@NonNull final QuanLyViewHolder holder, int position, @NonNull final NhanVien model) {
                 holder.txtEmailQly.setText(model.getEmail());
                 holder.txtTenQly.setText(model.getHoten());
                 for (int i = 0; i < arrayListChucVu.size(); i++) {
@@ -133,9 +140,17 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        saveMaNV(holder.txtEmailQly.getText().toString());
-                        registerForContextMenu(v);
-                        return false;
+                        if(model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+                        {
+                            Toasty.warning(QuanLyThongTinNhanVien.this, "Đây là bạn!!!", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+                        else
+                        {
+                            saveMaNV(holder.txtEmailQly.getText().toString());
+                            registerForContextMenu(v);
+                            return false;
+                        }
                     }
                 });
 
@@ -153,6 +168,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
         listNhanVien.setLayoutManager(gridLayoutManager);
         adapter.startListening();
         listNhanVien.setAdapter(adapter);
+        progressDialog.dismiss();
     }
 
     private void saveMaNV(String s) {

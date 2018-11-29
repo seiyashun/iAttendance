@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.XemThongBao">
+    <android.support.v7.widget.Toolbar
+        android:background="#c59783"
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbarThongBao"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        />
+    <LinearLayout
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="#bb360ebc"
+            android:textStyle="bold"
+            android:textSize="40sp"
+            android:gravity="center"
+            android:text="Tiêu Đề"
+            android:id="@+id/txtTieuDe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:padding="5dp"
+                android:text="Người đăng :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtNguoiGui"
+                android:textColor="#bbdf0400"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:padding="5dp"
+                android:text="caybutchi@gmail.com"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:padding="5dp"
+                android:text="Ngày đăng :"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/txtNgayGui"
+                android:textColor="#fe5d3cd4"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:padding="5dp"
+                android:text="28/11/2018"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <TextView
+            android:textColor="#bb360ebc"
+            android:textStyle="bold"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:text="Nội Dung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtNoiDung"
+            android:textColor="#000000"
+            android:text="asdfsadfsadfsadfsadfsadfsd"
+            android:padding="5dp"
+            android:background="@drawable/khung"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

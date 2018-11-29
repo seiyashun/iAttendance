@@ -92,6 +92,14 @@ public class QuanLyPanel extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        btnThongBao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(QuanLyPanel.this, QuanLyThongBao.class);
+                startActivity(i);
+
+            }
+        });
 
 
 

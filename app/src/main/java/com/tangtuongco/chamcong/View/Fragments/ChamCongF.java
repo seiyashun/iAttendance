@@ -172,7 +172,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
                     a.setGioRa(FormatHelper.formatGio(ngaycheckin));
                     txtOut.setText(FormatHelper.formatGio(ngaycheckin));
                     a.setClickOut(true);
-                    txtIn.setText(a.getGioRa());
+                    txtIn.setText(a.getGioVao());
                     data.setValue(a);
                     Toasty.info(getActivity(), "Bạn đã check out vào " + a.getGioRa(), Toast.LENGTH_SHORT).show();
                     try {

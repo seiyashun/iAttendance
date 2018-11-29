@@ -1,8 +1,9 @@
 package com.tangtuongco.chamcong.Model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ThongBao {
+public class ThongBao implements Serializable {
     public String notiTitle;
     public String notiId;
     public String notiUser;

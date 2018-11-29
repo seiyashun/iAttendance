@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <EditText
+        android:hint="Tiêu Đề"
+        android:id="@+id/edtTieuDeThongBao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="Mã Thông Báo"
+        android:id="@+id/edtMaThongBao"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtTieuDeThongBao"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="Nội Dung Thông Báo"
+        android:id="@+id/edtNoiDungThongBao"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtMaThongBao"
+        android:lineSpacingExtra="5sp"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

@@ -107,6 +107,7 @@ public class AdminQuanLy extends AppCompatActivity {
     }
 
     private void init() {
+        emailNv=FirebaseAuth.getInstance().getCurrentUser().getEmail();
         mData = firebaseDatabase.getReference().child("NhanVien");
         listQuanLy.setHasFixedSize(true);
         listQuanLy.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -115,7 +116,7 @@ public class AdminQuanLy extends AppCompatActivity {
                 .build();
         adapter = new FirebaseRecyclerAdapter<NhanVien, QuanLyViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull final QuanLyViewHolder holder, int position, @NonNull NhanVien model) {
+            protected void onBindViewHolder(@NonNull final QuanLyViewHolder holder, int position, @NonNull final NhanVien model) {
                 holder.txtEmailQly.setText(model.getEmail());
                 holder.txtTenQly.setText(model.getHoten());
                 for (int i = 0; i < arrayListChucVu.size(); i++) {
@@ -126,10 +127,13 @@ public class AdminQuanLy extends AppCompatActivity {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        saveMaNV(holder.txtEmailQly.getText().toString());
-                        registerForContextMenu(v);
-                        return false;
-                    }
+
+
+                            saveMaNV(holder.txtEmailQly.getText().toString());
+                            registerForContextMenu(v);
+                            return false;
+                        }
+
                 });
 
             }

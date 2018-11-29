@@ -1,5 +1,6 @@
 package com.tangtuongco.chamcong.View.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.tangtuongco.chamcong.Model.ThongBao;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
+import com.tangtuongco.chamcong.View.XemThongBao;
 import com.tangtuongco.chamcong.ViewHolder.ThongBaoViewHolder;
 
 public class ThongBaoF extends Fragment {
@@ -48,9 +50,19 @@ public class ThongBaoF extends Fragment {
                 .build();
         adapter=new FirebaseRecyclerAdapter<ThongBao, ThongBaoViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ThongBaoViewHolder holder, int position, @NonNull ThongBao model) {
+            protected void onBindViewHolder(@NonNull ThongBaoViewHolder holder, int position, @NonNull final ThongBao model) {
                 holder.txtTitle.setText(model.getNotiTitle());
                 holder.txtDate.setText(FormatHelper.formatNgay(model.getNotiDate()));
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ThongBao a = model;
+                        Intent intent=new Intent(getActivity(), XemThongBao.class);
+                        intent.putExtra("data",a);
+                        startActivity(intent);
+                    }
+                });
+
             }
 
             @NonNull

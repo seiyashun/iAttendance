@@ -261,7 +261,9 @@ public class TheoDoiF extends Fragment {
         });
 
 
+
     }
+
 
     private void anhxa(View v) {
         spinerThang=v.findViewById(R.id.spinnerTheoDoi);
