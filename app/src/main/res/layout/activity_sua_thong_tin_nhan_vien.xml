@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.SuaThongTinNhanVien">
+
+
+    <android.support.v7.widget.Toolbar
+        android:background="#c59783"
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbarSuaThongTinNhanVien"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        >
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+        <EditText
+            android:hint="Mã nhân viên"
+            android:id="@+id/edtMaNhanVienSua"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:hint="Họ và Tên"
+            android:id="@+id/edtHoVaTenSua"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtMaNhanVienSua"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:inputType="number"
+            android:hint="Số điện thoại"
+            android:id="@+id/edtSDTSua"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtHoVaTenSua"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:hint="Mức Lương"
+            android:id="@+id/edtMucLuongSua"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtSDTSua"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:hint="Email"
+            android:id="@+id/edtEmailSua"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edtMucLuongSua"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:layout_below="@+id/edtEmailSua"
+            android:id="@+id/spinnerChucVuSua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Spinner>
+
+
+        <LinearLayout
+            android:id="@+id/Linear55"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_below="@+id/spinnerChucVuSua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:hint="Ngày vào làm"
+                android:enabled="false"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtNgayVaoLamSua"
+                />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn ngày"
+                android:id="@+id/btnChonDateSua"
+                android:layout_alignBottom="@+id/in_date"
+                android:layout_toRightOf="@+id/in_date"
+                android:layout_toEndOf="@+id/in_date" />
+
+        </LinearLayout>
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnSaveThongTinSua"
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/Linear55"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+</LinearLayout>

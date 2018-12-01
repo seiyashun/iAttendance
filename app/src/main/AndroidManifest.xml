@@ -35,7 +35,10 @@
         <activity android:name=".View.QuanLyThongTinNhanVien" />
         <activity android:name=".View.QuanLyThongBao" />
         <activity android:name=".View.XemThongBao" />
-        <activity android:name=".View.SuaThongTin"></activity>
+        <activity android:name=".View.SuaThongTin" />
+        <activity android:name=".View.SuaThongTinNhanVien" />
+        <activity android:name=".View.QuanLyLuong" />
+        <activity android:name=".View.QuanLyLuongMotNguoi"></activity>
     </application>
 
 </manifest>
