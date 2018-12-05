@@ -2,6 +2,7 @@ package com.tangtuongco.chamcong.View;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,7 +37,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
 
 public class QuanLyLuongMotNguoi extends AppCompatActivity {
     Spinner spinerThang;
-    FancyButton btnTinhTong;
+    FancyButton btnThemGioCong;
     RecyclerView listLuong;
     TextView txtLuong,txtSoGioCong;
     ArrayList<String> listSpinner;
@@ -51,6 +52,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
     NhanVien currentNv;
     ArrayList<String> listGioCong;
     double hesoluong;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,14 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         listSpinner.add("Tháng 10");
         listSpinner.add("Tháng 11");
         listSpinner.add("Tháng 12");
+
+        btnThemGioCong.setText("Thêm Giờ Công");
+        btnThemGioCong.setBackgroundColor(Color.parseColor("#c59783"));
+        btnThemGioCong.setFocusBackgroundColor(Color.parseColor("#c59783"));
+        btnThemGioCong.setTextSize(20);
+        btnThemGioCong.setRadius(7);
+        btnThemGioCong.setIconPadding(0,30,0,0);
+
 
 
         Intent iin= getIntent();
@@ -164,7 +174,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
     private void anhxa() {
         toolbar=findViewById(R.id.toolbarQuanLyLuong1);
         spinerThang=findViewById(R.id.spinnerTheoDoi1);
-
+        btnThemGioCong=findViewById(R.id.btnThemGioCong);
         listLuong=findViewById(R.id.listChamCong1);
     }
 }

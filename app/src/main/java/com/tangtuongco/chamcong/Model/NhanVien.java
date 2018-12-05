@@ -19,7 +19,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 public class NhanVien {
-    public String manv,hoten,diachi,chucvu,email,sdt,pass,ava;
+    public String manv,hoten,chucvu,email,sdt,pass,ava;
     public Date ngayvaolam;
     double mucluong;
     List<GioCong> listGioCong;
@@ -47,13 +47,9 @@ public class NhanVien {
         this.hoten = hoten;
     }
 
-    public String getDiachi() {
-        return diachi;
-    }
 
-    public void setDiachi(String diachi) {
-        this.diachi = diachi;
-    }
+
+
 
     public String getChucvu() {
         return chucvu;
@@ -119,11 +115,11 @@ public class NhanVien {
         this.listGioCong = listGioCong;
     }
 
-    public NhanVien(String manv, String hoten, String diachi, String chucvu, String email, String sdt, String pass, String ava, Date ngayvaolam, double mucluong, List<GioCong> listGioCong) {
+    public NhanVien(String manv, String hoten, String chucvu, String email, String sdt, String pass, String ava, Date ngayvaolam, double mucluong, List<GioCong> listGioCong) {
 
         this.manv = manv;
         this.hoten = hoten;
-        this.diachi = diachi;
+
         this.chucvu = chucvu;
         this.email = email;
         this.sdt = sdt;

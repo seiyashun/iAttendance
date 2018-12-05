@@ -33,6 +33,7 @@ import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Service.StartService;
 import com.tangtuongco.chamcong.View.Fragments.BanBeF;
 import com.tangtuongco.chamcong.View.Fragments.CaNhan;
+import com.tangtuongco.chamcong.View.Fragments.OrderF;
 import com.tangtuongco.chamcong.View.Fragments.TheoDoiF;
 import com.tangtuongco.chamcong.View.Fragments.TrangChuF;
 
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     TrangChuF trangChuF;
     TheoDoiF theoDoiF;
     CaNhan canhan;
+    OrderF orderF;
     ViewPager viewPager;
     BanBeF banBeF;
     Boolean aIsActive, bIsActive, cIsActive, dIsActive;
@@ -151,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         trangChuF = new TrangChuF();
         theoDoiF = new TheoDoiF();
         canhan = new CaNhan();
+        orderF= new OrderF();
         banBeF = new BanBeF();
         setFragment(trangChuF);
         aIsActive = bIsActive = cIsActive = dIsActive = false;
@@ -182,6 +185,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
 
                         return true;
+                    case R.id.navigation_monan:
+                        setFragment(orderF);
                 }
 
                 return true;

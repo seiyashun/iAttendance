@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,6 +44,7 @@ public class StartService extends Service {
     public void onCreate() {
         firebaseDatabase= FirebaseDatabase.getInstance();
         mData=firebaseDatabase.getReference().child("OTP");
+
         childEventListener=new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -73,7 +75,7 @@ public class StartService extends Service {
         };
         mData.addChildEventListener(childEventListener);
 
-        Toast.makeText(this, "onStartcommnd", Toast.LENGTH_SHORT).show();
+
         super.onCreate();
     }
 
@@ -87,9 +89,11 @@ public class StartService extends Service {
 
     }
     public void showAlertDialog(String key, int otp){
+        final MediaPlayer mp = MediaPlayer.create(getApplicationContext(),R.raw.sound);
+        mp.start();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Xác nhận");
-        builder.setMessage("Mã OTP Của Nhân Viên " +key + " là " +otp + "\n" + "Bạn có muốn gửi mã OTP này đến nhân viên không ???");
+        builder.setMessage("Mã OTP Của Nhân Viên " +key + " là : " +otp );
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -112,7 +116,7 @@ public class StartService extends Service {
 
     @Override
     public void onDestroy() {
-        Toast.makeText(this, "Destroyyyy", Toast.LENGTH_SHORT).show();
+
         mData.removeEventListener(childEventListener);
         super.onDestroy();
     }

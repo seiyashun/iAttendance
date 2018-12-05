@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Service.StartService;
+import com.tangtuongco.chamcong.Ulty.CheckEditext;
 
 import es.dmoral.toasty.Toasty;
 
@@ -98,50 +99,70 @@ public class DangNhap extends AppCompatActivity {
         final String id, pass;
         id = edtID.getText().toString().trim();
         pass = edtPass.getText().toString().trim();
-        if (id.equals("admin")) {
-            mData.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                        NhanVien a = dataSnapshot1.getValue(NhanVien.class);
-                        if (a.getPass().equals(pass)) {
-                            progressDialog.dismiss();
-                            Intent i = new Intent(DangNhap.this, AdminPanel.class);
-                            startActivity(i);
-                            Toasty.success(DangNhap.this, "Welcome back, Admin!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
+       if(CheckEditext.isEmail(id)==false)
+       {
+           progressDialog.dismiss();
+           Toasty.warning(this, "Xin nhập email", Toast.LENGTH_SHORT).show();
+       }
+       else if(CheckEditext.isEmpty(pass)==true)
+       {
+           Log.d("kiemtra",pass);
+           progressDialog.dismiss();
+           Toasty.warning(this, "Xin nhập mật khẩu", Toast.LENGTH_SHORT).show();
+       }
+       else
+       {
+           if (id.equals("admin")) {
+               mData.addListenerForSingleValueEvent(new ValueEventListener() {
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                       for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                           NhanVien a = dataSnapshot1.getValue(NhanVien.class);
+                           if (a.getPass().equals(pass)) {
+                               progressDialog.dismiss();
+                               Intent i = new Intent(DangNhap.this, AdminPanel.class);
+                               startActivity(i);
+                               Toasty.success(DangNhap.this, "Welcome back, Admin!", Toast.LENGTH_SHORT).show();
+                           }
+                           else
+                           {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                               progressDialog.dismiss();
+                               Toasty.error(DangNhap.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                           }
+                       }
+                   }
 
-                }
-            });
-        } else {
-            mAuth.signInWithEmailAndPassword(id, pass)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                progressDialog.dismiss();
-                                Intent i = new Intent(DangNhap.this, MainActivity.class);
-                                //Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-                                startActivity(i);
+                   }
+               });
+           } else {
+               mAuth.signInWithEmailAndPassword(id, pass)
+                       .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               if (task.isSuccessful()) {
+
+                                   progressDialog.dismiss();
+                                   Intent i = new Intent(DangNhap.this, MainActivity.class);
+                                   //Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+                                   startActivity(i);
 
 
 
 
 
-                            } else {
-                                progressDialog.dismiss();
-                                Toasty.error(DangNhap.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
-                            }
+                               } else {
+                                   progressDialog.dismiss();
+                                   Toasty.error(DangNhap.this, "Sai tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
+                               }
 
-                        }
-                    });
-        }
+                           }
+                       });
+           }
+       }
     }
 
 

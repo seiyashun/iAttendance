@@ -37,25 +37,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnQuanLyThongBao"
+            android:layout_marginBottom="5dp"
+            android:layout_width="290dp"
+            android:layout_height="50dp"/>
+        <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnQuanLyThongTinNhanVien"
             android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="290dp"
+            android:layout_height="50dp"/>
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnQuanLyLuongNhanVien"
             android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/btnQuanLyThongBao"
-            android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/btnXemTienLuong"
-            android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_width="290dp"
+            android:layout_height="50dp"/>
+
+
 
     </LinearLayout>
 

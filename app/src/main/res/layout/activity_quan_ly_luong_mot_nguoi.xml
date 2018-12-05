@@ -34,6 +34,12 @@
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:layout_gravity="center"
+        android:id="@+id/btnThemGioCong"
+        android:layout_marginBottom="5dp"
+        android:layout_width="190dp"
+        android:layout_height="50dp"/>
 
 
 </LinearLayout>

@@ -203,6 +203,11 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
     }
 
     private void editUser() {
+        Intent i = new Intent(QuanLyThongTinNhanVien.this, SuaThongTinNhanVien.class);
+
+        i.putExtra("email",emailNv);
+        startActivity(i);
+
 
     }
 

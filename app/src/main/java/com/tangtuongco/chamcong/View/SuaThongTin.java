@@ -18,8 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
+import com.tangtuongco.chamcong.Ulty.CheckEditext;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
 
+import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class SuaThongTin extends AppCompatActivity {
@@ -85,10 +87,18 @@ public class SuaThongTin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 nv.setSdt(edtSDT.getText().toString().trim());
-                nv.setHoten(edtHoTen.getText().toString());
-                mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
-                Toast.makeText(SuaThongTin.this, "Sửa thành công", Toast.LENGTH_SHORT).show();
-                finish();
+                nv.setHoten(edtHoTen.getText().toString().trim());
+                if(CheckEditext.isEmpty(nv.getSdt())==true || CheckEditext.isEmpty(nv.getHoten())==true )
+                {
+                    Toasty.warning(getApplicationContext(), "Xin nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
+                    Toast.makeText(SuaThongTin.this, "Sửa thành công", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
 
             }
         });

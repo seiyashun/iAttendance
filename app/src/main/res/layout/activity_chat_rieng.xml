@@ -37,7 +37,7 @@
 
         <ImageButton
             android:id="@+id/sendMessRieng"
-            android:layout_width="45dp"
+            android:layout_width="55dp"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+    <EditText
+        android:hint="Ngày"
+        android:id="@+id/edtNgayEditGioCong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="Giờ Vào"
+        android:id="@+id/edtGioVao"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtNgayEditGioCong"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:hint="Giờ Ra"
+        android:id="@+id/edtGioRa"
+        android:layout_width="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtGioVao"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

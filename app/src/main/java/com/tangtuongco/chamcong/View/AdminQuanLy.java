@@ -107,7 +107,7 @@ public class AdminQuanLy extends AppCompatActivity {
     }
 
     private void init() {
-        emailNv=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
         mData = firebaseDatabase.getReference().child("NhanVien");
         listQuanLy.setHasFixedSize(true);
         listQuanLy.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

@@ -8,6 +8,11 @@
     tools:context=".View.Fragments.TheoDoiF">
 
     <!-- TODO: Update blank fragment layout -->
+
+
+
+
+
     <Spinner
         android:id="@+id/spinnerTheoDoi"
         android:layout_width="150dp"

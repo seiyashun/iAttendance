@@ -96,6 +96,7 @@ public class SuaThongTinNhanVien extends AppCompatActivity implements View.OnCli
             public void onCallBack(NhanVien a) {
                 nv=a;
                 edtMaNv.setEnabled(false);
+                edtEmail.setEnabled(false);
                 edtSDT.setText(nv.getSdt());
                 edtNgayVaoLam.setText(FormatHelper.formatNgay(nv.getNgayvaolam()));
                 edtMaNv.setText(nv.getManv());

@@ -15,10 +15,15 @@
         android:id="@+id/navigation_theodoi"
         android:icon="@drawable/ic_study"
         android:title="Theo Dõi" />
+    <item
+        android:id="@+id/navigation_monan"
+        android:icon="@drawable/ic_monan"
+        android:title="Đặt Món" />
 
     <item
         android:id="@+id/navigation_canhan"
         android:icon="@drawable/ic_userr"
         android:title="Cá Nhân" />
+
 
 </menu>

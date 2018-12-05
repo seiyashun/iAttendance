@@ -46,7 +46,7 @@ public class QuanLyPanel extends AppCompatActivity {
         FTV.setTexts(texts);
         FTV.setTimeout(3, TimeUnit.SECONDS);
         //Setup fancy button
-        btnLuongNV.setText("Quản Lý Lương Nhân Viên");
+        btnLuongNV.setText("Quản Lý Giờ Công");
         btnLuongNV.setBackgroundColor(Color.parseColor("#3b5998"));
         btnLuongNV.setFocusBackgroundColor(Color.parseColor("#5474b8"));
         btnLuongNV.setTextSize(20);
@@ -54,12 +54,14 @@ public class QuanLyPanel extends AppCompatActivity {
         btnLuongNV.setIconResource(R.drawable.ic_salary);
         btnLuongNV.setIconPosition(FancyButton.POSITION_LEFT);
         btnLuongNV.setFontIconSize(30);
+        btnLuongNV.setIconPadding(0,30,0,0);
 
         btnTTNV.setText("Quản Lý Nhân Viên");
         btnTTNV.setBackgroundColor(Color.parseColor("#FF3366"));
         btnTTNV.setFocusBackgroundColor(Color.parseColor("#FF3399"));
         btnTTNV.setTextSize(20);
         btnTTNV.setRadius(7);
+        btnTTNV.setIconPadding(0,30,0,0);
         btnTTNV.setIconResource(R.drawable.ic_web_management);
         btnTTNV.setIconPosition(FancyButton.POSITION_LEFT);
         btnTTNV.setFontIconSize(30);
@@ -72,15 +74,9 @@ public class QuanLyPanel extends AppCompatActivity {
         btnThongBao.setIconResource(R.drawable.ic_notification);
         btnThongBao.setIconPosition(FancyButton.POSITION_LEFT);
         btnThongBao.setFontIconSize(30);
+        btnThongBao.setIconPadding(0,30,0,0);
 
-        btnXemLuong.setText("Kiểm Tra Lương");
-        btnXemLuong.setBackgroundColor(Color.parseColor("#ECAB53"));
-        btnXemLuong.setFocusBackgroundColor(Color.parseColor("#DDC488"));
-        btnXemLuong.setTextSize(20);
-        btnXemLuong.setRadius(7);
-        btnXemLuong.setIconResource(R.drawable.ic_money);
-        btnXemLuong.setIconPosition(FancyButton.POSITION_LEFT);
-        btnXemLuong.setFontIconSize(30);
+
 
 
 
@@ -100,6 +96,13 @@ public class QuanLyPanel extends AppCompatActivity {
 
             }
         });
+        btnLuongNV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(QuanLyPanel.this, QuanLyLuong.class);
+                startActivity(i);
+            }
+        });
 
 
 
@@ -112,7 +115,7 @@ public class QuanLyPanel extends AppCompatActivity {
         btnLuongNV=findViewById(R.id.btnQuanLyLuongNhanVien);
         btnThongBao=findViewById(R.id.btnQuanLyThongBao);
         btnTTNV=findViewById(R.id.btnQuanLyThongTinNhanVien);
-        btnXemLuong=findViewById(R.id.btnXemTienLuong);
+
 
         toolbar=findViewById(R.id.toolbarQuanLyPanel);
 
