@@ -11,13 +11,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -28,11 +31,13 @@ import com.tangtuongco.chamcong.Model.GioCong;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.TinhThoiGian;
+import com.tangtuongco.chamcong.View.Fragments.SuaGioCongDialog;
 import com.tangtuongco.chamcong.ViewHolder.GioCongViewHolder;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class QuanLyLuongMotNguoi extends AppCompatActivity {
@@ -52,6 +57,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
     NhanVien currentNv;
     ArrayList<String> listGioCong;
     double hesoluong;
+    String ngaytxt;
 
 
     @Override
@@ -102,7 +108,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         if(b!=null)
         {
             manv=(String) b.get("id");
-            Log.d("kiemtra",manv);
+
 
         }
 
@@ -141,7 +147,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
                 .build();
         adapter=new FirebaseRecyclerAdapter<GioCong, GioCongViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull GioCongViewHolder holder, int position, @NonNull GioCong model) {
+            protected void onBindViewHolder(@NonNull GioCongViewHolder holder, int position, @NonNull final GioCong model) {
                 holder.txtGioVao.setText(model.getGioVao());
                 holder.txtGioRa.setText(model.getGioRa());
                 holder.txtNgay.setText(model.getNgay());
@@ -151,6 +157,14 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        registerForContextMenu(v);
+                        savetxtNgay(model.getNgay());
+                        return false;
+                    }
+                });
 
 
 
@@ -169,6 +183,39 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         listLuong.setLayoutManager(gridLayoutManager);
         adapter.startListening();
         listLuong.setAdapter(adapter);
+    }
+
+    private void savetxtNgay(String ngay) {
+        ngaytxt=ngay+manv;
+
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Lựa chọn");
+        getMenuInflater().inflate(R.menu.floatingmenu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.optionXoa:
+
+                Toasty.warning(QuanLyLuongMotNguoi.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.optionSua:
+                EditGioCong();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+    private void EditGioCong() {
+        SuaGioCongDialog suaGioCongDialog = new SuaGioCongDialog().newIn(ngaytxt);
+        suaGioCongDialog.show(getSupportFragmentManager(), "Sửa Giờ Công");
     }
 
     private void anhxa() {
