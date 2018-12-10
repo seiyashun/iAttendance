@@ -22,6 +22,8 @@ import com.tangtuongco.chamcong.Model.GioCong;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.CheckEditext;
 
+import java.util.Calendar;
+
 public class SuaGioCongDialog extends AppCompatDialogFragment {
     EditText edtNgay,edtGioVao,edtGioRa;
     FirebaseDatabase firebaseDatabase;
@@ -47,8 +49,10 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
         firebaseDatabase=FirebaseDatabase.getInstance();
         int thangint= Integer.valueOf(thang);
         thangint=thangint-1;
-        edtNgay.setEnabled(false);
-        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(thangint));
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+
+        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(year)).child(String.valueOf(thangint));
         mData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -79,6 +83,7 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_dialog_edit_giocong,null);
         anhxa(view);
+        edtNgay.setEnabled(false);
         builder.setView(view)
                 .setTitle("Thay Đổi Giờ Công")
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -98,6 +103,8 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
     }
 
     private void UpdateGioCong() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
 
         String GioVao=edtGioVao.getText().toString();
         String GioRa=edtGioRa.getText().toString();
@@ -115,7 +122,7 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
             firebaseDatabase=FirebaseDatabase.getInstance();
             int thangint= Integer.valueOf(thang);
             thangint=thangint-1;
-            mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(thangint)).child(ngay);
+            mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(year)).child(String.valueOf(thangint)).child(ngay);
 
             GioCong gioCong=new GioCong();
             gioCong.setClickOut(true);

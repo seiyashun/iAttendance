@@ -13,6 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver android:name=".Ulty.NetworkChangeReceiver"
+            android:label="NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+
+        </receiver>
         <activity android:name=".View.SlashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,6 +47,9 @@
         <activity android:name=".View.SuaThongTinNhanVien" />
         <activity android:name=".View.QuanLyLuong" />
         <activity android:name=".View.QuanLyLuongMotNguoi"></activity>
+
+
+
     </application>
 
 </manifest>

@@ -1,14 +1,18 @@
 package com.tangtuongco.chamcong.View;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +41,10 @@ public class DangNhap extends AppCompatActivity {
     ProgressDialog progressDialog;
     DatabaseReference mData;
     TextView txtQenMatKhau;
+    CheckBox checkbox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
 
 
     @Override
@@ -55,9 +63,36 @@ public class DangNhap extends AppCompatActivity {
             public void onClick(View v) {
                 progressDialog.setMessage("Đăng nhập...");
                 progressDialog.show();
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(edtID.getWindowToken(), 0);
+                String username,password;
+                username = edtID.getText().toString();
+                password = edtPass.getText().toString();
+
+                if (checkbox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
                 dangnhap();
             }
         });
+
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            edtID.setText(loginPreferences.getString("username", ""));
+            edtPass.setText(loginPreferences.getString("password", ""));
+            checkbox.setChecked(true);
+        }
+
+
         txtQenMatKhau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,6 +128,7 @@ public class DangNhap extends AppCompatActivity {
     }
 
     private void dangnhap() {
+
 
 
         final String id, pass;
@@ -152,6 +188,10 @@ public class DangNhap extends AppCompatActivity {
                     });
 
         }
+
+
+
+
     }
 
 
@@ -160,6 +200,7 @@ public class DangNhap extends AppCompatActivity {
         edtID = findViewById(R.id.edtEmailDN);
         txtQenMatKhau = findViewById(R.id.txtQuenMatKhau);
         btnDangNhap = findViewById(R.id.btnDangNhap);
+        checkbox=findViewById(R.id.saveLoginCheckBox);
     }
 
 

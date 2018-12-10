@@ -36,16 +36,17 @@ import com.tangtuongco.chamcong.ViewHolder.GioCongViewHolder;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class QuanLyLuongMotNguoi extends AppCompatActivity {
-    Spinner spinerThang;
+    Spinner spinerThang,spinnerNam;
     FancyButton btnThemGioCong;
     RecyclerView listLuong;
     TextView txtLuong,txtSoGioCong;
-    ArrayList<String> listSpinner;
+    ArrayList<String> listSpinner,listNam;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
     ArrayList<ChucVu> listChucVu;
@@ -112,6 +113,27 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
 
         }
 
+        //Spiiner Nam
+        //Spinner Nam
+        getNam();
+        ArrayAdapter<String> adapterNam = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listNam);
+        adapterNam.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerNam.setAdapter(adapterNam);
+        spinnerNam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                listLuong.setAdapter(null);
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listSpinner);
@@ -135,10 +157,22 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
 
 
     }
+    private void getNam()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int year1=year-1;
+        listNam=new ArrayList<>();
+        listNam.add(String.valueOf(year));
+        listNam.add(String.valueOf(year1));
+    }
+
 
     private void getGioCong(int position) {
+
         firebaseDatabase=FirebaseDatabase.getInstance();
-        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(position));
+        String nam= (String) spinnerNam.getSelectedItem();
+        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(nam).child(String.valueOf(position));
         listLuong.setHasFixedSize(true);
         listLuong.setLayoutManager(new LinearLayoutManager(this));
 
@@ -219,6 +253,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
     }
 
     private void anhxa() {
+        spinnerNam=findViewById(R.id.spinnerNam1);
         toolbar=findViewById(R.id.toolbarQuanLyLuong1);
         spinerThang=findViewById(R.id.spinnerTheoDoi1);
         btnThemGioCong=findViewById(R.id.btnThemGioCong);

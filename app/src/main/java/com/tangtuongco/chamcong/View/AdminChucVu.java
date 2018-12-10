@@ -19,9 +19,13 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.ChucVu;
+import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.Model.ThongBao;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
@@ -42,6 +46,7 @@ public class AdminChucVu extends AppCompatActivity {
     FirebaseRecyclerAdapter<ChucVu, ChucVuViewHolder> adapter;
     Toolbar toolbar;
     String maCV;
+    NhanVien nv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +63,7 @@ public class AdminChucVu extends AppCompatActivity {
             }
         });
         //Data
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        mData = firebaseDatabase.getReference().child("ChucVu");
+
         //Init
         init();
         //Add Chuc Vu
@@ -78,6 +82,8 @@ public class AdminChucVu extends AppCompatActivity {
     }
 
     private void init() {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mData = firebaseDatabase.getReference().child("ChucVu");
         listChucVu.setHasFixedSize(true);
         listChucVu.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         options = new FirebaseRecyclerOptions.Builder<ChucVu>()
@@ -134,8 +140,8 @@ public class AdminChucVu extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.optionXoa:
-                deleteUserData(maCV);
-                Toasty.warning(AdminChucVu.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
+                kiemtraUserTonTai();
+
                 return true;
             case R.id.optionSua:
                 EditChucVu();
@@ -159,6 +165,59 @@ public class AdminChucVu extends AppCompatActivity {
     }
 
     private void deleteUserData(String maCV) {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mData = firebaseDatabase.getReference().child("ChucVu");
         mData.child(maCV).removeValue();
+        Toasty.warning(AdminChucVu.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
+
+
+
+
     }
+    private void kiemtraUserTonTai()
+    {
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        mData = firebaseDatabase.getReference().child("NhanVien");
+        final int[] count = {0};
+
+        mData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds:dataSnapshot.getChildren())
+                {
+
+                    NhanVien a= ds.getValue(NhanVien.class);
+                    {
+                        if(a.getChucvu().equals(maCV))
+                        {
+                            Toasty.warning(getApplicationContext(), "Tồn tại nhân viên!!!", Toast.LENGTH_SHORT).show();
+                            break;
+                        }
+                        else
+                        {
+                            count[0]++;
+                        }
+                        Log.d("kiemtra", count[0] +" count");
+                        Log.d("kiemtra",ds.getChildrenCount()+"ds");
+                        if(count[0] ==ds.getChildrenCount())
+                        {
+                            deleteUserData(maCV);
+                        }
+
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
+
+
 }

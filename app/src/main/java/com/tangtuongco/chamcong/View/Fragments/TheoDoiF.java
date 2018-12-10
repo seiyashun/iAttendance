@@ -38,7 +38,9 @@ import com.tangtuongco.chamcong.ViewHolder.GioCongViewHolder;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
@@ -47,11 +49,11 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
  * A simple {@link Fragment} subclass.
  */
 public class TheoDoiF extends Fragment {
-    Spinner spinerThang;
+    Spinner spinerThang,spinnerNam;
     FancyButton btnTinhTong;
     RecyclerView listLuong;
     TextView txtLuong,txtSoGioCong;
-    ArrayList<String> listSpinner;
+    ArrayList<String> listSpinner,listNam;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
     ArrayList<ChucVu> listChucVu;
@@ -175,7 +177,8 @@ public class TheoDoiF extends Fragment {
     private void getGioCong(int thang)
     {
         listGioCong=new ArrayList<String>();
-        mData=firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(thang));
+        String nam= (String) spinnerNam.getSelectedItem();
+        mData=firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(nam).child(String.valueOf(thang));
         listLuong.setHasFixedSize(true);
         listLuong.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -224,6 +227,16 @@ public class TheoDoiF extends Fragment {
         }
     }
 
+    private void getNam()
+    {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int year1=year-1;
+        listNam=new ArrayList<>();
+        listNam.add(String.valueOf(year));
+        listNam.add(String.valueOf(year1));
+    }
+
     private void init() {
         listSpinner = new ArrayList<>();
         listSpinner.add("Tháng 1");
@@ -239,6 +252,29 @@ public class TheoDoiF extends Fragment {
         listSpinner.add("Tháng 11");
         listSpinner.add("Tháng 12");
 
+        //Spinner Nam
+        getNam();
+        ArrayAdapter<String> adapterNam = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listNam);
+        adapterNam.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerNam.setAdapter(adapterNam);
+        spinnerNam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                listLuong.setAdapter(null);
+
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_item,listSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinerThang.setAdapter(adapter);
@@ -249,6 +285,7 @@ public class TheoDoiF extends Fragment {
                 progressDialog.show();
                 getGioCong(position);
                 txtLuong.setText("");
+                txtSoGioCong.setText("");
 
 
 
@@ -267,6 +304,7 @@ public class TheoDoiF extends Fragment {
 
     private void anhxa(View v) {
         spinerThang=v.findViewById(R.id.spinnerTheoDoi);
+        spinnerNam=v.findViewById(R.id.spinnerNam);
         btnTinhTong=v.findViewById(R.id.btnTinhLuong);
         listLuong=v.findViewById(R.id.listChamCong);
         txtLuong=v.findViewById(R.id.txtTheoDoiSoTienLuong);

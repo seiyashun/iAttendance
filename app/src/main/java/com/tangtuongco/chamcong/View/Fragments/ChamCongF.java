@@ -155,6 +155,8 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
 
 
     private void clickCheckOut() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
         gioCong=new GioCong();
         final Date ngaycheckin= Calendar.getInstance().getTime();
         final int thang=Calendar.getInstance().get(Calendar.MONTH);
@@ -163,7 +165,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         String currentNgay = FormatHelper.formatNgay(ngaycheckin);
         String currentGio=FormatHelper.formatGio(ngaycheckin);
 
-        data=firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(thang)).child(String.valueOf(ngay));
+        data=firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(String.valueOf(thang)).child(String.valueOf(ngay));
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -250,6 +252,8 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
     }
 
     private void CheckIn() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
         gioCong=new GioCong();
         Date ngaycheckin= Calendar.getInstance().getTime();
         int thang=Calendar.getInstance().get(Calendar.MONTH);
@@ -263,7 +267,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         gioCong.setNgay(currentNgay);
         data=firebaseDatabase.getReference().child("GioCong");
         Log.d("kiemtra",currentNv.getManv()+"");
-        data.child(currentNv.getManv()).child(String.valueOf(thang)).child(String.valueOf(ngay)).setValue(gioCong);
+        data.child(currentNv.getManv()).child(String.valueOf(year)).child(String.valueOf(thang)).child(String.valueOf(ngay)).setValue(gioCong);
         Toasty.info(getActivity(),"Bạn đã check in vào " + currentGio,Toast.LENGTH_SHORT).show();
         txtIn.setText(gioCong.getGioVao());
 
