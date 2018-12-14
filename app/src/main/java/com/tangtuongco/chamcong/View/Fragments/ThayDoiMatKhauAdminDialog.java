@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.Model.ThongBao;
 import com.tangtuongco.chamcong.R;
+import com.tangtuongco.chamcong.View.AdminPanel;
 
 public class ThayDoiMatKhauAdminDialog extends AppCompatDialogFragment {
     EditText edtPass1,edtPass2;
@@ -71,7 +72,6 @@ public class ThayDoiMatKhauAdminDialog extends AppCompatDialogFragment {
                                         NhanVien a= ds.getValue(NhanVien.class);
                                         a.setPass(password);
                                         ds.getRef().setValue(a);
-                                        Toast.makeText(getActivity(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 
@@ -80,6 +80,7 @@ public class ThayDoiMatKhauAdminDialog extends AppCompatDialogFragment {
 
                                 }
                             });
+                            Toast.makeText(getActivity(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

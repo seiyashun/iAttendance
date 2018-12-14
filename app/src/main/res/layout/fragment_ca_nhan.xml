@@ -167,12 +167,17 @@
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnSuaThongTin"
             android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"/>
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnDoiMatKhau"
+            android:layout_marginBottom="5dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"/>
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnQuanLyPanel"
             android:layout_marginBottom="5dp"
-            android:layout_width="wrap_content"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 

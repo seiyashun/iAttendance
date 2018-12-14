@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -67,7 +68,7 @@ import static android.app.Activity.RESULT_OK;
 public class CaNhan extends Fragment {
 
     CircleImageView imgAva;
-    FancyButton btnQuanLy, btnSuaThongTin;
+    FancyButton btnQuanLy, btnSuaThongTin,btnDoiMatKhau;
     TextView txtid, txtname, txtnameBu, txtchucvu, txtmucluong, txtngayvaolam, txtsdt, txtemail;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
@@ -123,6 +124,15 @@ public class CaNhan extends Fragment {
         btnQuanLy.setIconPosition(FancyButton.POSITION_LEFT);
         btnQuanLy.setFontIconSize(30);
 
+        btnDoiMatKhau.setText("Thay Đổi Mật Khẩu");
+        btnDoiMatKhau.setBackgroundColor(Color.parseColor("#83c597"));
+        btnDoiMatKhau.setFocusBackgroundColor(Color.parseColor("#83c5a8"));
+        btnDoiMatKhau.setTextSize(20);
+        btnDoiMatKhau.setRadius(7);
+        btnDoiMatKhau.setIconResource(R.drawable.ic_trumcuoi);
+        btnDoiMatKhau.setIconPosition(FancyButton.POSITION_LEFT);
+        btnDoiMatKhau.setFontIconSize(30);
+
         btnSuaThongTin.setText("Sửa Thông Tin Cá Nhân");
         btnSuaThongTin.setBackgroundColor(Color.parseColor("#3b5998"));
         btnSuaThongTin.setFocusBackgroundColor(Color.parseColor("#5474b8"));
@@ -147,6 +157,18 @@ public class CaNhan extends Fragment {
                 startActivity(i);
             }
         });
+        btnDoiMatKhau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DoiMatKhau();
+            }
+        });
+
+    }
+
+    private void DoiMatKhau() {
+        ThayDoiMatKhauUserDialog thayDoiMatKhauUserDialog = new ThayDoiMatKhauUserDialog();
+        thayDoiMatKhauUserDialog.show(getActivity().getSupportFragmentManager(),"Thay đổi mật khẩu");
     }
 
     @Override
@@ -266,6 +288,7 @@ public class CaNhan extends Fragment {
         imgAva = v.findViewById(R.id.imgAvaCaNhan);
         btnQuanLy = v.findViewById(R.id.btnQuanLyPanel);
         btnSuaThongTin = v.findViewById(R.id.btnSuaThongTin);
+        btnDoiMatKhau=v.findViewById(R.id.btnDoiMatKhau);
         txtchucvu = v.findViewById(R.id.txtCaNhanChucVu);
         txtemail = v.findViewById(R.id.txtCaNhanEmail);
         txtid = v.findViewById(R.id.txtCaNhanID);
