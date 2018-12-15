@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,9 +34,10 @@ import com.tangtuongco.chamcong.Service.StartService;
 import com.tangtuongco.chamcong.Ulty.CheckEditext;
 
 import es.dmoral.toasty.Toasty;
+import mehdi.sakout.fancybuttons.FancyButton;
 
 public class DangNhap extends AppCompatActivity {
-    Button btnDangNhap;
+    FancyButton btnDangNhap;
     private FirebaseAuth mAuth;
     EditText edtID, edtPass;
     ProgressDialog progressDialog;
@@ -56,6 +58,14 @@ public class DangNhap extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         anhxa();
         //Data
+
+        btnDangNhap.setText("Đăng Nhập");
+        btnDangNhap.setBackgroundColor(Color.parseColor("#c59783"));
+        btnDangNhap.setFocusBackgroundColor(Color.parseColor("#c59783"));
+        btnDangNhap.setTextSize(20);
+        btnDangNhap.setRadius(15);
+        btnDangNhap.setIconPosition(FancyButton.POSITION_LEFT);
+        btnDangNhap.setFontIconSize(30);
 
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {

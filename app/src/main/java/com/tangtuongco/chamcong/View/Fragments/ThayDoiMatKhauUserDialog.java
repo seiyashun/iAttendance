@@ -2,6 +2,7 @@ package com.tangtuongco.chamcong.View.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,10 +27,13 @@ public class ThayDoiMatKhauUserDialog extends AppCompatDialogFragment {
     EditText edtPass1,edtPass2,edtPassOld;
     FirebaseAuth mAuth;
     FirebaseUser user;
+    ProgressDialog progressDialog;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        progressDialog = new ProgressDialog(getActivity());
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         final View view = inflater.inflate(R.layout.layout_dialog_edit_matkhau,null);
         anhxa(view);
@@ -55,15 +59,19 @@ public class ThayDoiMatKhauUserDialog extends AppCompatDialogFragment {
     }
 
     private void UpdatePassword(final View view) {
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         final String email=FirebaseAuth.getInstance().getCurrentUser().getEmail();
         user=FirebaseAuth.getInstance().getCurrentUser();
         if(!edtPass2.getText().toString().equals(edtPass1.getText().toString()))
         {
             Toast.makeText(getActivity(), "Mật khẩu nhập lại không trùng khớp!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
         }
         else if(edtPass1.getText().toString().equals("") || edtPass2.getText().toString().equals("")  ||edtPassOld.getText().toString().equals("")  )
         {
             Toast.makeText(getActivity(), "Mật khẩu không được để trống!", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
         }
         else
 
@@ -80,7 +88,9 @@ public class ThayDoiMatKhauUserDialog extends AppCompatDialogFragment {
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     Toast.makeText(view.getContext(), "Thay đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 } else {
+                                    progressDialog.dismiss();
                                     Toast.makeText(view.getContext(), "Thay đổi không mật khẩu thành công", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -88,11 +98,13 @@ public class ThayDoiMatKhauUserDialog extends AppCompatDialogFragment {
                     }
                     else
                     {
+                        progressDialog.dismiss();
                         Toast.makeText(view.getContext(), "Mật khẩu hiện tại không đúng!", Toast.LENGTH_SHORT).show();
                     }
 
                 }
             });
+
         }
     }
 

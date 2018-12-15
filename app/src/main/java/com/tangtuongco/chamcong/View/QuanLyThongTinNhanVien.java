@@ -140,17 +140,20 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        if(model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
-                        {
-                            Toasty.warning(QuanLyThongTinNhanVien.this, "Đây là bạn!!!", Toast.LENGTH_SHORT).show();
-                            return false;
-                        }
-                        else
-                        {
-                            saveMaNV(holder.txtEmailQly.getText().toString());
-                            registerForContextMenu(v);
-                            return false;
-                        }
+//                        if(model.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
+//                        {
+//                            Toasty.warning(QuanLyThongTinNhanVien.this, "Đây là bạn!!!", Toast.LENGTH_SHORT).show();
+//                            return false;
+//                        }
+//                        else
+//                        {
+//                            saveMaNV(holder.txtEmailQly.getText().toString());
+//                            registerForContextMenu(v);
+//                            return false;
+//                        }
+                        saveMaNV(holder.txtEmailQly.getText().toString());
+                        registerForContextMenu(v);
+                        return false;
                     }
                 });
 

@@ -143,8 +143,23 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
 
     private void GenMSNV() {
         int msnv = 1000;
-        msnv = listMSNV.size() + msnv + 1;
-        edtId.setText(msnv + "");
+        int max=0;
+        max= Integer.parseInt(listMSNV.get(0));
+//        msnv = listMSNV.size() + msnv + 1;
+        //Tim Max
+        for(int i=0;i<listMSNV.size();i++)
+        {
+          if(Integer.parseInt(listMSNV.get(i))>=max)
+          {
+              max=Integer.parseInt(listMSNV.get(i));
+
+          }
+
+
+        }
+        max=max+1;
+
+        edtId.setText(max + "");
         edtId.setEnabled(false);
         progressDialog.dismiss();
 
