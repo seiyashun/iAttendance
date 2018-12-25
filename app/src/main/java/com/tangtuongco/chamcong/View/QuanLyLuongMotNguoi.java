@@ -2,7 +2,6 @@ package com.tangtuongco.chamcong.View;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -24,8 +22,11 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.ChucVu;
 import com.tangtuongco.chamcong.Model.GioCong;
 import com.tangtuongco.chamcong.Model.NhanVien;
@@ -42,11 +43,11 @@ import es.dmoral.toasty.Toasty;
 import mehdi.sakout.fancybuttons.FancyButton;
 
 public class QuanLyLuongMotNguoi extends AppCompatActivity {
-    Spinner spinerThang,spinnerNam;
+    Spinner spinerThang, spinnerNam;
     FancyButton btnThemGioCong;
     RecyclerView listLuong;
-    TextView txtLuong,txtSoGioCong;
-    ArrayList<String> listSpinner,listNam;
+    TextView txtLuong, txtSoGioCong;
+    ArrayList<String> listSpinner, listNam;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
     ArrayList<ChucVu> listChucVu;
@@ -94,21 +95,12 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         listSpinner.add("Tháng 11");
         listSpinner.add("Tháng 12");
 
-        btnThemGioCong.setText("Thêm Giờ Công");
-        btnThemGioCong.setBackgroundColor(Color.parseColor("#c59783"));
-        btnThemGioCong.setFocusBackgroundColor(Color.parseColor("#c59783"));
-        btnThemGioCong.setTextSize(20);
-        btnThemGioCong.setRadius(7);
-        btnThemGioCong.setIconPadding(0,30,0,0);
 
-
-
-        Intent iin= getIntent();
+        Intent iin = getIntent();
         Bundle b = iin.getExtras();
 
-        if(b!=null)
-        {
-            manv=(String) b.get("id");
+        if (b != null) {
+            manv = (String) b.get("id");
 
 
         }
@@ -116,14 +108,15 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         //Spiiner Nam
         //Spinner Nam
         getNam();
-        ArrayAdapter<String> adapterNam = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listNam);
+        ArrayAdapter<String> adapterNam = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listNam);
         adapterNam.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerNam.setAdapter(adapterNam);
         spinnerNam.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                listLuong.setAdapter(null);
-
+//                listLuong.setAdapter(null);
+                spinerThang.setSelection(0);
+                getGioCong(0);
 
 
             }
@@ -135,16 +128,15 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         });
 
 
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,listSpinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listSpinner);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinerThang.setAdapter(adapter);
+        getGioCong(0);
+
         spinerThang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 getGioCong(position);
-
-
 
 
             }
@@ -157,12 +149,12 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
 
 
     }
-    private void getNam()
-    {
+
+    private void getNam() {
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
-        int year1=year-1;
-        listNam=new ArrayList<>();
+        int year1 = year - 1;
+        listNam = new ArrayList<>();
         listNam.add(String.valueOf(year));
         listNam.add(String.valueOf(year1));
     }
@@ -170,23 +162,29 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
 
     private void getGioCong(int position) {
 
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        String nam= (String) spinnerNam.getSelectedItem();
-        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(nam).child(String.valueOf(position));
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        String nam = (String) spinnerNam.getSelectedItem();
+        String thangString;
+        if (position < 10) {
+            thangString = "0" + String.valueOf(position);
+        } else {
+            thangString = String.valueOf(position);
+        }
+        mData = firebaseDatabase.getReference().child("GioCong").child(manv).child(nam).child(thangString);
         listLuong.setHasFixedSize(true);
         listLuong.setLayoutManager(new LinearLayoutManager(this));
 
         options = new FirebaseRecyclerOptions.Builder<GioCong>()
                 .setQuery(mData, GioCong.class)
                 .build();
-        adapter=new FirebaseRecyclerAdapter<GioCong, GioCongViewHolder>(options) {
+        adapter = new FirebaseRecyclerAdapter<GioCong, GioCongViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull GioCongViewHolder holder, int position, @NonNull final GioCong model) {
+            protected void onBindViewHolder(@NonNull final GioCongViewHolder holder, int position, @NonNull final GioCong model) {
                 holder.txtGioVao.setText(model.getGioVao());
                 holder.txtGioRa.setText(model.getGioRa());
                 holder.txtNgay.setText(model.getNgay());
                 try {
-                    String gio = TinhThoiGian.GioRaTruGioVao(model.getGioVao(),model.getGioRa());
+                    String gio = TinhThoiGian.GioRaTruGioVao(model.getGioVao(), model.getGioRa());
                     holder.txtGioThucTe.setText(gio);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -199,8 +197,6 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
                         return false;
                     }
                 });
-
-
 
 
             }
@@ -220,7 +216,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
     }
 
     private void savetxtNgay(String ngay) {
-        ngaytxt=ngay+manv;
+        ngaytxt = ngay + manv;
 
     }
 
@@ -236,7 +232,7 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.optionXoa:
-
+                DeleteGioCong();
                 Toasty.warning(QuanLyLuongMotNguoi.this, "Xoá thành công", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.optionSua:
@@ -247,16 +243,45 @@ public class QuanLyLuongMotNguoi extends AppCompatActivity {
         }
     }
 
+    private void DeleteGioCong() {
+        ngaytxt = ngaytxt.substring(0, 10);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        String nam = (String) spinnerNam.getSelectedItem();
+        int thang = spinerThang.getSelectedItemPosition();
+        String thangString;
+        if (thang < 10) {
+            thangString = "0" + String.valueOf(thang);
+        } else {
+            thangString = String.valueOf(thang);
+        }
+        mData = firebaseDatabase.getReference().child("GioCong").child(manv).child(nam).child(thangString);
+        mData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    GioCong a = ds.getValue(GioCong.class);
+                    if (a.getNgay().equals(ngaytxt)) {
+                        ds.getRef().removeValue();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void EditGioCong() {
         SuaGioCongDialog suaGioCongDialog = new SuaGioCongDialog().newIn(ngaytxt);
         suaGioCongDialog.show(getSupportFragmentManager(), "Sửa Giờ Công");
     }
 
     private void anhxa() {
-        spinnerNam=findViewById(R.id.spinnerNam1);
-        toolbar=findViewById(R.id.toolbarQuanLyLuong1);
-        spinerThang=findViewById(R.id.spinnerTheoDoi1);
-        btnThemGioCong=findViewById(R.id.btnThemGioCong);
-        listLuong=findViewById(R.id.listChamCong1);
+        spinnerNam = findViewById(R.id.spinnerNam1);
+        toolbar = findViewById(R.id.toolbarQuanLyLuong1);
+        spinerThang = findViewById(R.id.spinnerTheoDoi1);
+        listLuong = findViewById(R.id.listChamCong1);
     }
 }

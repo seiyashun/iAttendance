@@ -53,8 +53,7 @@ public class SuaThongBaoDialog extends AppCompatDialogFragment {
                 thongbao=a;
             }
         });
-        Log.d("kiemtra",thongbao.getNotiId()+"");
-        Log.d("kiemtra",getArguments().getString("idthongbao"));
+
 
         firebaseDatabase=FirebaseDatabase.getInstance();
         mData=firebaseDatabase.getReference().child("ThongBao");

@@ -160,9 +160,10 @@
 
     </LinearLayout>
     <LinearLayout
+        android:layout_gravity="center"
         android:gravity="center|top"
         android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="match_parent">
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnSuaThongTin"

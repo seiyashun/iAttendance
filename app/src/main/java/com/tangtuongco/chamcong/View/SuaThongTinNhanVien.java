@@ -64,7 +64,7 @@ public class SuaThongTinNhanVien extends AppCompatActivity implements View.OnCli
         if(b!=null)
         {
             email =(String) b.get("email");
-            Log.d("kiemtra",email);
+
 
         }
 

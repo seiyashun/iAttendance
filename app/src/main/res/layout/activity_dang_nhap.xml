@@ -90,7 +90,7 @@
                 android:layout_marginTop="7dp"
                 android:id="@+id/btnDangNhap"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="35dp">
 
             </mehdi.sakout.fancybuttons.FancyButton>
         </LinearLayout>

@@ -222,7 +222,7 @@ public class QuanLyThongTinNhanVien extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.d("kiemtra", emailNv);
+
                     NhanVien a = ds.getValue(NhanVien.class);
                     if (a.email.equals(emailNv)) {
                         ds.getRef().removeValue();

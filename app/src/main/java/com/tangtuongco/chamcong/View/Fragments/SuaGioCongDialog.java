@@ -28,7 +28,7 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
     EditText edtNgay,edtGioVao,edtGioRa;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
-    String fulldate,ngay,thang,manv;
+    String fulldate,ngay,thang,manv,nam;
     public static SuaGioCongDialog newIn(String ngaytxt)
     {
         SuaGioCongDialog fragment= new SuaGioCongDialog();
@@ -49,10 +49,18 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
         firebaseDatabase=FirebaseDatabase.getInstance();
         int thangint= Integer.valueOf(thang);
         thangint=thangint-1;
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
+        String thangString;
+        if(thangint<10)
+        {
+            thangString="0"+String.valueOf(thangint);
+        }
+        else
+        {
+            thangString=String.valueOf(thangint);
+        }
 
-        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(year)).child(String.valueOf(thangint));
+
+        mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(nam)).child(thangString);
         mData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,7 +72,7 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
                         edtGioRa.setText(a.getGioRa());
                         edtGioVao.setText(a.getGioVao());
                         edtNgay.setText(a.getNgay());
-                        Log.d("kiemtra",a.getNgay());
+
                     }
                 }
             }
@@ -103,8 +111,8 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
     }
 
     private void UpdateGioCong() {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
+
+        int year = Integer.valueOf(nam);
 
         String GioVao=edtGioVao.getText().toString();
         String GioRa=edtGioRa.getText().toString();
@@ -122,7 +130,16 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
             firebaseDatabase=FirebaseDatabase.getInstance();
             int thangint= Integer.valueOf(thang);
             thangint=thangint-1;
-            mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(year)).child(String.valueOf(thangint)).child(ngay);
+            String thangString;
+            if(thangint<10)
+            {
+                thangString="0"+String.valueOf(thangint);
+            }
+            else
+            {
+                thangString=String.valueOf(thangint);
+            }
+            mData=firebaseDatabase.getReference().child("GioCong").child(manv).child(String.valueOf(year)).child(thangString).child(ngay);
 
             GioCong gioCong=new GioCong();
             gioCong.setClickOut(true);
@@ -151,15 +168,15 @@ public class SuaGioCongDialog extends AppCompatDialogFragment {
         ngayNV=getArguments().getString("id");
 
 
+
         ngay=ngayNV.substring(0,2);
-        if(Integer.valueOf(ngay)<10)
-        {
-            ngay=ngay.substring(1);
-        }
+
+
+        nam=ngayNV.substring(6,10);
         thang=ngayNV.substring(3,5);
         manv=ngayNV.substring(10,14);
         fulldate=ngayNV.substring(0,10);
-        Log.d("kiemtra",manv);
+
 
 
     }

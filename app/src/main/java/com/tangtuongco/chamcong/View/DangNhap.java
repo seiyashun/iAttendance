@@ -172,7 +172,7 @@ public class DangNhap extends AppCompatActivity {
             progressDialog.dismiss();
             Toasty.warning(this, "Xin nhập email", Toast.LENGTH_SHORT).show();
         } else if (CheckEditext.isEmpty(pass) == true) {
-            Log.d("kiemtra", pass);
+
             progressDialog.dismiss();
             Toasty.warning(this, "Xin nhập mật khẩu", Toast.LENGTH_SHORT).show();
         } else {

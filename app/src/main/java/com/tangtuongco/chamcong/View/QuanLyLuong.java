@@ -110,6 +110,7 @@ public class QuanLyLuong extends AppCompatActivity {
         progressDialog.dismiss();
 
 
+
     }
     private void getChucVu() {
         progressDialog.setMessage("Loading...");

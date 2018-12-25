@@ -156,8 +156,26 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         long a = 00;
         String currentNgay = FormatHelper.formatNgay(ngaycheckin);
         String currentGio = FormatHelper.formatGio(ngaycheckin);
+        String thangString;
+        String ngayString;
+        if(thang<10)
+        {
+            thangString="0"+String.valueOf(thang);
+        }
+        else
+        {
+            thangString=String.valueOf(thang);
+        }
+        if(ngay<10)
+        {
+            ngayString="0"+String.valueOf(ngay);
+        }
+        else
+        {
+            ngayString=String.valueOf(ngay);
+        }
 
-        data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(String.valueOf(thang)).child(String.valueOf(ngay));
+        data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(thangString).child(ngayString);
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -202,7 +220,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         btnOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("kiemtra", OTPPP + "");
+
                 //Kiem tra OTP nhap vao
                 if (edtOTP.getText().toString().equals(OTPPP.toString())) {
 
@@ -248,8 +266,26 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         gioCong.setGioRa("00");
         gioCong.setNgay(currentNgay);
         data = firebaseDatabase.getReference().child("GioCong");
-        Log.d("kiemtra", currentNv.getManv() + "");
-        data.child(currentNv.getManv()).child(String.valueOf(year)).child(String.valueOf(thang)).child(String.valueOf(ngay)).setValue(gioCong);
+
+        String thangString;
+        String ngayString;
+        if(thang<10)
+        {
+            thangString="0"+String.valueOf(thang);
+        }
+        else
+        {
+            thangString=String.valueOf(thang);
+        }
+        if(ngay<10)
+        {
+            ngayString="0"+String.valueOf(ngay);
+        }
+        else
+        {
+            ngayString=String.valueOf(ngay);
+        }
+        data.child(currentNv.getManv()).child(String.valueOf(year)).child(thangString).child(ngayString).setValue(gioCong);
         Toasty.info(getActivity(), "Bạn đã check in vào " + currentGio, Toast.LENGTH_SHORT).show();
         txtIn.setText(gioCong.getGioVao());
 

@@ -158,7 +158,7 @@ public class ChatRieng extends AppCompatActivity {
             @Override
             public int getItemViewType(int position) {
                 TinNhan tinNhan = this.getItem(position);
-                Log.d("kiemtra", tinNhan.getMessUser().toString());
+
                 if (tinNhan.getMessUser().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                     return 1;
                 } else {

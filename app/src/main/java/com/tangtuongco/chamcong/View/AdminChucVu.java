@@ -197,12 +197,11 @@ public class AdminChucVu extends AppCompatActivity {
                         {
                             count[0]++;
                         }
-                        Log.d("kiemtra", count[0] +" count");
-                        Log.d("kiemtra",dataSnapshot.getChildrenCount()+"ds");
+
                         if(count[0] ==dataSnapshot.getChildrenCount())
                         {
                             Boolean test=false;
-                            Log.d("kiemtra", String.valueOf((test=count[0]==ds.getChildrenCount())));
+
                             deleteUserData(maCV);
                         }
 
