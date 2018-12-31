@@ -24,14 +24,11 @@ public class NhanVien {
     double mucluong;
     List<GioCong> listGioCong;
 
-
-
     public NhanVien() {
-
-
     }
 
     public String getManv() {
+
         return manv;
     }
 
@@ -46,10 +43,6 @@ public class NhanVien {
     public void setHoten(String hoten) {
         this.hoten = hoten;
     }
-
-
-
-
 
     public String getChucvu() {
         return chucvu;
@@ -119,7 +112,6 @@ public class NhanVien {
 
         this.manv = manv;
         this.hoten = hoten;
-
         this.chucvu = chucvu;
         this.email = email;
         this.sdt = sdt;

@@ -67,6 +67,8 @@ public class DangNhap extends AppCompatActivity {
         btnDangNhap.setIconPosition(FancyButton.POSITION_LEFT);
         btnDangNhap.setFontIconSize(30);
 
+        autoLogin();
+
 
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +137,17 @@ public class DangNhap extends AppCompatActivity {
         });
 
 
+    }
+
+    private void autoLogin() {
+        if(mAuth.getCurrentUser()!=null)
+        {
+            //progressDialog.dismiss();
+            Intent i = new Intent(DangNhap.this, MainActivity.class);
+            //Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+            startActivity(i);
+         
+        }
     }
 
     private void dangnhap() {

@@ -102,62 +102,72 @@
 
             </LinearLayout>
             <LinearLayout
-                android:gravity="center"
+                android:gravity="left"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <RelativeLayout
+                <TextView
+                    android:textColor="#000"
+                    android:text="Trạng Thái: "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Switch
+                    android:id="@+id/switchTrangThai"
+                    android:text="Nghỉ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <!--<RelativeLayout-->
 
-                    android:layout_weight=".5"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/custombtn"
-                    android:clickable="true">
+                    <!--android:layout_weight=".5"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:background="@drawable/custombtn"-->
+                    <!--android:clickable="true">-->
 
-                    <Button
+                    <!--<Button-->
 
-                        android:id="@+id/btnCheckInCC"
-                        android:layout_width="wrap_content"
-                        android:layout_height="64dp"
-                        android:layout_centerInParent="true"
-                        android:background="@color/colorPrimaryDark"
-                        android:drawableLeft="@drawable/ic_checkin"
-                        android:drawablePadding="6dp"
-                        android:drawableTint="@color/white"
-                        android:duplicateParentState="true"
+                        <!--android:id="@+id/btnCheckInCC"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="64dp"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:background="@color/colorPrimaryDark"-->
+                        <!--android:drawableLeft="@drawable/ic_checkin"-->
+                        <!--android:drawablePadding="6dp"-->
+                        <!--android:drawableTint="@color/white"-->
+                        <!--android:duplicateParentState="true"-->
 
-                        android:gravity="center"
-                        android:text="Check In"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        <!--android:gravity="center"-->
+                        <!--android:text="Check In"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="15sp" />-->
 
-                </RelativeLayout>
-                <RelativeLayout
+                <!--</RelativeLayout>-->
+                <!--<RelativeLayout-->
 
-                    android:layout_weight=".5"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/custombtn"
-                    android:clickable="true">
+                    <!--android:layout_weight=".5"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:background="@drawable/custombtn"-->
+                    <!--android:clickable="true">-->
 
-                    <Button
+                    <!--<Button-->
 
-                        android:id="@+id/btnCheckOutCC"
-                        android:layout_width="wrap_content"
-                        android:layout_height="64dp"
-                        android:layout_centerInParent="true"
-                        android:background="@color/colorPrimaryDark"
-                        android:drawableLeft="@drawable/ic_checkout"
-                        android:drawablePadding="6dp"
-                        android:drawableTint="@color/white"
-                        android:duplicateParentState="true"
+                        <!--android:id="@+id/btnCheckOutCC"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="64dp"-->
+                        <!--android:layout_centerInParent="true"-->
+                        <!--android:background="@color/colorPrimaryDark"-->
+                        <!--android:drawableLeft="@drawable/ic_checkout"-->
+                        <!--android:drawablePadding="6dp"-->
+                        <!--android:drawableTint="@color/white"-->
+                        <!--android:duplicateParentState="true"-->
 
-                        android:gravity="center"
-                        android:text="Check Out"
-                        android:textColor="@color/white"
-                        android:textSize="15sp" />
+                        <!--android:gravity="center"-->
+                        <!--android:text="Check Out"-->
+                        <!--android:textColor="@color/white"-->
+                        <!--android:textSize="15sp" />-->
 
-                </RelativeLayout>
+                <!--</RelativeLayout>-->
 
             </LinearLayout>
             <LinearLayout

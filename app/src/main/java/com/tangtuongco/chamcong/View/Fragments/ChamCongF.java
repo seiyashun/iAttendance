@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -32,6 +34,7 @@ import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
 import com.tangtuongco.chamcong.Ulty.TinhThoiGian;
+import com.tangtuongco.chamcong.View.SuaThongTinNhanVien;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -44,7 +47,7 @@ import java.util.Random;
 import es.dmoral.toasty.Toasty;
 import ss.com.bannerslider.ImageLoadingService;
 
-public class ChamCongF extends Fragment implements View.OnClickListener {
+public class ChamCongF extends Fragment {
     Button checkin, checkout;
     TextView txtNgay, txtIn, txtOut, txtTinhToan;
     FirebaseAuth mAuth;
@@ -58,6 +61,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
     LinearLayout layoutOTP;
     Long OTPPP;
     Button btnOTP;
+    Switch switchButton;
     ViewFlipper viewFlipper;
     ArrayList<String> mangquangcao;
 
@@ -73,6 +77,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         firebaseDatabase = FirebaseDatabase.getInstance();
         currentNv = new NhanVien();
+
 
         getData();
         //GetQC
@@ -93,12 +98,87 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
 //                clickCheckOut();
 //            }
 //        });
-        checkin.setOnClickListener(this);
-        checkout.setOnClickListener(this);
+//        checkin.setOnClickListener(this);
+//        checkout.setOnClickListener(this);
+
+
+
+
+
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (switchButton.isChecked()) {
+                    ClickCheckIn();
+                    switchButton.setText("Làm Việc");
+
+                } else {
+                    clickCheckOut();
+                    layoutOTP.setVisibility(View.INVISIBLE);
+                    switchButton.setText("Nghỉ");
+                }
+            }
+        });
+
 
 
         return view;
     }
+
+    private void loadSwitch() {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        gioCong = new GioCong();
+        final Date ngaycheckin = Calendar.getInstance().getTime();
+        final int thang = Calendar.getInstance().get(Calendar.MONTH);
+        final int ngay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        long a = 00;
+        String currentNgay = FormatHelper.formatNgay(ngaycheckin);
+        String currentGio = FormatHelper.formatGio(ngaycheckin);
+        String thangString;
+        final String ngayString;
+        if (thang < 10) {
+            thangString = "0" + String.valueOf(thang);
+        } else {
+            thangString = String.valueOf(thang);
+        }
+        if (ngay < 10) {
+            ngayString = "0" + String.valueOf(ngay);
+        } else {
+            ngayString = String.valueOf(ngay);
+        }
+
+
+        data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(thangString);
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds:dataSnapshot.getChildren())
+                {
+                    GioCong a = ds.getValue(GioCong.class);
+                    if(a.getNgay().equals(FormatHelper.formatNgay(ngaycheckin)))
+                    {
+
+                        if(a.getClickIn()==true && a.getClickOut()==false )
+                        {
+                            switchButton.setChecked(true);
+                            txtIn.setText(a.getGioVao());
+                        }
+                        else
+                        {
+                            switchButton.setChecked(false);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     private void createQC() {
         progressDialog = new ProgressDialog(getActivity());
@@ -158,21 +238,15 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         String currentGio = FormatHelper.formatGio(ngaycheckin);
         String thangString;
         String ngayString;
-        if(thang<10)
-        {
-            thangString="0"+String.valueOf(thang);
+        if (thang < 10) {
+            thangString = "0" + String.valueOf(thang);
+        } else {
+            thangString = String.valueOf(thang);
         }
-        else
-        {
-            thangString=String.valueOf(thang);
-        }
-        if(ngay<10)
-        {
-            ngayString="0"+String.valueOf(ngay);
-        }
-        else
-        {
-            ngayString=String.valueOf(ngay);
+        if (ngay < 10) {
+            ngayString = "0" + String.valueOf(ngay);
+        } else {
+            ngayString = String.valueOf(ngay);
         }
 
         data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(thangString).child(ngayString);
@@ -197,7 +271,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
                     }
 
                 } else {
-                    Toasty.warning(getActivity(), "Bạn đã check out rồi", Toast.LENGTH_SHORT).show();
+                    Toasty.warning(getActivity(), "Bạn đã thực hiện chấm công trước đó", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -209,26 +283,95 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
 
     }
 
+    private void readData(final ChamCongF.FirebaseCallBack firebaseCallBack) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        gioCong = new GioCong();
+        final Date ngaycheckin = Calendar.getInstance().getTime();
+        final int thang = Calendar.getInstance().get(Calendar.MONTH);
+        final int ngay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        long a = 00;
+        String currentNgay = FormatHelper.formatNgay(ngaycheckin);
+        String currentGio = FormatHelper.formatGio(ngaycheckin);
+        String thangString;
+        final String ngayString;
+        if (thang < 10) {
+            thangString = "0" + String.valueOf(thang);
+        } else {
+            thangString = String.valueOf(thang);
+        }
+        if (ngay < 10) {
+            ngayString = "0" + String.valueOf(ngay);
+        } else {
+            ngayString = String.valueOf(ngay);
+        }
+
+
+        data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(thangString);
+        data.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+             if(dataSnapshot.hasChild(ngayString))
+             {
+                 GioCong a = dataSnapshot.getValue(GioCong.class);
+                 firebaseCallBack.onCallBack(a);
+             }
+             else
+             {
+                 GioCong a= null;
+                 firebaseCallBack.onCallBack(a);
+             }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    private interface FirebaseCallBack {
+        void onCallBack(GioCong a);
+    }
+
 
     private void ClickCheckIn() {
 //        data=firebaseDatabase.getReference().child("GioCong");
 
-        data = firebaseDatabase.getReference().child("OTP").child(currentNv.getManv());
-        data.setValue(random());
-        layoutOTP.setVisibility(View.VISIBLE);
-        getOTP();
-        btnOTP.setOnClickListener(new View.OnClickListener() {
+        readData(new FirebaseCallBack() {
             @Override
-            public void onClick(View v) {
+            public void onCallBack(GioCong a) {
+                GioCong test=a;
 
-                //Kiem tra OTP nhap vao
-                if (edtOTP.getText().toString().equals(OTPPP.toString())) {
+                if(test==null)
+                {
+                    data = firebaseDatabase.getReference().child("OTP").child(currentNv.getManv());
+                    data.setValue(random());
+                    layoutOTP.setVisibility(View.VISIBLE);
+                    getOTP();
+                    btnOTP.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
 
-                    CheckIn();
-                    layoutOTP.setVisibility(View.INVISIBLE);
-                } else {
-                    Toast.makeText(getActivity(), "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
+                            //Kiem tra OTP nhap vao
+                            if (edtOTP.getText().toString().equals(OTPPP.toString())) {
+
+                                CheckIn();
+                                layoutOTP.setVisibility(View.INVISIBLE);
+                            } else {
+                                Toast.makeText(getActivity(), "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
+
+
+
+
             }
         });
 
@@ -265,25 +408,21 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         gioCong.setGioVao(currentGio);
         gioCong.setGioRa("00");
         gioCong.setNgay(currentNgay);
+        gioCong.setClickIn(true);
+
         data = firebaseDatabase.getReference().child("GioCong");
 
         String thangString;
         String ngayString;
-        if(thang<10)
-        {
-            thangString="0"+String.valueOf(thang);
+        if (thang < 10) {
+            thangString = "0" + String.valueOf(thang);
+        } else {
+            thangString = String.valueOf(thang);
         }
-        else
-        {
-            thangString=String.valueOf(thang);
-        }
-        if(ngay<10)
-        {
-            ngayString="0"+String.valueOf(ngay);
-        }
-        else
-        {
-            ngayString=String.valueOf(ngay);
+        if (ngay < 10) {
+            ngayString = "0" + String.valueOf(ngay);
+        } else {
+            ngayString = String.valueOf(ngay);
         }
         data.child(currentNv.getManv()).child(String.valueOf(year)).child(thangString).child(ngayString).setValue(gioCong);
         Toasty.info(getActivity(), "Bạn đã check in vào " + currentGio, Toast.LENGTH_SHORT).show();
@@ -311,7 +450,7 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
 
 
     private int random() {
-        int min = 0;
+        int min = 1000;
         int max = 9999;
         int random = new Random().nextInt((max - min) + 1);
         return random;
@@ -343,6 +482,8 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
 
     private void saveNV(NhanVien a) {
         currentNv = a;
+        loadSwitch();
+
     }
 
     private void saveOTP(Long otp) {
@@ -358,8 +499,8 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
     }
 
     private void anhxa(View view) {
-        checkin = view.findViewById(R.id.btnCheckInCC);
-        checkout = view.findViewById(R.id.btnCheckOutCC);
+//        checkin = view.findViewById(R.id.btnCheckInCC);
+//        checkout = view.findViewById(R.id.btnCheckOutCC);
         txtNgay = view.findViewById(R.id.txtNgayCC);
         txtIn = view.findViewById(R.id.txtCheckInCC);
         txtOut = view.findViewById(R.id.txtCheckOutCC);
@@ -368,19 +509,20 @@ public class ChamCongF extends Fragment implements View.OnClickListener {
         edtOTP = view.findViewById(R.id.edtOTP);
         btnOTP = view.findViewById(R.id.btnOTP);
         viewFlipper = view.findViewById(R.id.viewfliper);
+        switchButton = view.findViewById(R.id.switchTrangThai);
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnCheckInCC:
-                ClickCheckIn();
-                break;
-            case R.id.btnCheckOutCC:
-                clickCheckOut();
-                break;
-        }
-
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.btnCheckInCC:
+//                ClickCheckIn();
+//                break;
+//            case R.id.btnCheckOutCC:
+//                clickCheckOut();
+//                break;
+//        }
+//
+//    }
 }
