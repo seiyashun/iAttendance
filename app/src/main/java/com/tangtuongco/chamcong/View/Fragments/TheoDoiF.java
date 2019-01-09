@@ -3,6 +3,7 @@ package com.tangtuongco.chamcong.View.Fragments;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -192,6 +193,7 @@ public class TheoDoiF extends Fragment {
     }
 
     private void getData() {
+
         mData = firebaseDatabase.getReference().child("NhanVien");
         mData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -235,52 +237,116 @@ public class TheoDoiF extends Fragment {
 
     private void getGioCong(int thang) {
         listGioCong = new ArrayList<String>();
-        String thangString;
+        final String thangString;
         if (thang < 10) {
             thangString = "0" + String.valueOf(thang);
         } else {
             thangString = String.valueOf(thang);
         }
-        String nam = (String) spinnerNam.getSelectedItem();
-        mData = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(nam).child(thangString);
+        final String nam = (String) spinnerNam.getSelectedItem();
 
-        listLuong.setHasFixedSize(true);
-        listLuong.setLayoutManager(new LinearLayoutManager(getActivity()));
+        if(currentNv==null)
+        {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after 5s = 5000ms
+                    String testnam=nam;
+                    String testthangString=thangString;
+                    mData = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(testnam)
+                            .child(testthangString);
 
-        options = new FirebaseRecyclerOptions.Builder<GioCong>()
-                .setQuery(mData, GioCong.class)
-                .build();
-        adapter = new FirebaseRecyclerAdapter<GioCong, GioCongViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull GioCongViewHolder holder, int position, @NonNull GioCong model) {
-                holder.txtGioVao.setText(model.getGioVao());
-                holder.txtGioRa.setText(model.getGioRa());
-                holder.txtNgay.setText(model.getNgay());
+                    listLuong.setHasFixedSize(true);
+                    listLuong.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-                try {
-                    String gio = TinhThoiGian.GioRaTruGioVao(model.getGioVao(), model.getGioRa());
-                    holder.txtGioThucTe.setText(gio);
-                    listGioCong.add(gio);
-                } catch (ParseException e) {
-                    e.printStackTrace();
+                    options = new FirebaseRecyclerOptions.Builder<GioCong>()
+                            .setQuery(mData, GioCong.class)
+                            .build();
+                    adapter = new FirebaseRecyclerAdapter<GioCong, GioCongViewHolder>(options) {
+                        @Override
+                        protected void onBindViewHolder(@NonNull GioCongViewHolder holder, int position, @NonNull GioCong model) {
+                            holder.txtGioVao.setText(model.getGioVao());
+                            holder.txtGioRa.setText(model.getGioRa());
+                            holder.txtNgay.setText(model.getNgay());
+
+                            try {
+                                String gio = TinhThoiGian.GioRaTruGioVao(model.getGioVao(), model.getGioRa());
+                                holder.txtGioThucTe.setText(gio);
+                                listGioCong.add(gio);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+                        }
+
+                        @NonNull
+                        @Override
+                        public GioCongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_giocong, parent, false);
+
+                            return new GioCongViewHolder(view);
+                        }
+                    };
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+                    listLuong.setLayoutManager(gridLayoutManager);
+                    adapter.startListening();
+                    listLuong.setAdapter(adapter);
+                    progressDialog.dismiss();
+                }
+            }, 3000);
+
+        }
+        else
+        {
+            String testnam=nam;
+            String testthangString=thangString;
+            mData = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(testnam)
+                    .child(testthangString);
+
+            listLuong.setHasFixedSize(true);
+            listLuong.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            options = new FirebaseRecyclerOptions.Builder<GioCong>()
+                    .setQuery(mData, GioCong.class)
+                    .build();
+            adapter = new FirebaseRecyclerAdapter<GioCong, GioCongViewHolder>(options) {
+                @Override
+                protected void onBindViewHolder(@NonNull GioCongViewHolder holder, int position, @NonNull GioCong model) {
+                    holder.txtGioVao.setText(model.getGioVao());
+                    holder.txtGioRa.setText(model.getGioRa());
+                    holder.txtNgay.setText(model.getNgay());
+
+                    try {
+                        String gio = TinhThoiGian.GioRaTruGioVao(model.getGioVao(), model.getGioRa());
+                        holder.txtGioThucTe.setText(gio);
+                        listGioCong.add(gio);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
                 }
 
+                @NonNull
+                @Override
+                public GioCongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_giocong, parent, false);
 
-            }
+                    return new GioCongViewHolder(view);
+                }
+            };
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
+            listLuong.setLayoutManager(gridLayoutManager);
+            adapter.startListening();
+            listLuong.setAdapter(adapter);
+            progressDialog.dismiss();
+        }
 
-            @NonNull
-            @Override
-            public GioCongViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_giocong, parent, false);
 
-                return new GioCongViewHolder(view);
-            }
-        };
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 1);
-        listLuong.setLayoutManager(gridLayoutManager);
-        adapter.startListening();
-        listLuong.setAdapter(adapter);
-        progressDialog.dismiss();
+
+
     }
 
     private void saveChucVu(DataSnapshot dataSnapshot) {

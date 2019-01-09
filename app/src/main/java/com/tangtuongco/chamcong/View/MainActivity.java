@@ -13,7 +13,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tangtuongco.chamcong.Adapter.AdapterMain;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Service.StartService;
@@ -30,6 +33,8 @@ import com.tangtuongco.chamcong.View.Fragments.BanBeF;
 import com.tangtuongco.chamcong.View.Fragments.CaNhan;
 import com.tangtuongco.chamcong.View.Fragments.TheoDoiF;
 import com.tangtuongco.chamcong.View.Fragments.TrangChuF;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener  {
@@ -47,6 +52,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     DatabaseReference mData;
     FirebaseAuth mAuth;
     NhanVien currentUser;
+
+
+    AdapterMain adapter;
+    ArrayList<Fragment> fragmentArrayList;
+    ArrayList<String> titleArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,64 +154,114 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     private void xuly() {
 
 
+        fragmentArrayList = new ArrayList<>();
+        titleArrayList = new ArrayList<>();
+
         trangChuF = new TrangChuF();
         theoDoiF = new TheoDoiF();
         canhan = new CaNhan();
-
         banBeF = new BanBeF();
-        setFragment(trangChuF);
-        aIsActive = bIsActive = cIsActive = dIsActive = false;
 
+        fragmentArrayList.add(trangChuF);
+        fragmentArrayList.add(banBeF);
+        fragmentArrayList.add(theoDoiF);
+        fragmentArrayList.add(canhan);
+
+        adapter = new AdapterMain(getSupportFragmentManager(), fragmentArrayList, titleArrayList);
+        viewPager.setAdapter(adapter);
 
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-
                 switch (item.getItemId()) {
                     case R.id.navigation_trangchu:
-                        setFragment(trangChuF);
+                        viewPager.setCurrentItem(0);
 
-
-                        return true;
+                        break;
                     case R.id.navigation_tinnhan:
-                        setFragment(banBeF);
+                        viewPager.setCurrentItem(1);
 
-
-                        return true;
+                        break;
                     case R.id.navigation_theodoi:
-                        setFragment(theoDoiF);
+                        viewPager.setCurrentItem(2);
 
-
-                        return true;
+                        break;
                     case R.id.navigation_canhan:
-                        setFragment(canhan);
+                        viewPager.setCurrentItem(3);
 
+                        break;
+                    default:
+                        viewPager.setCurrentItem(0);
+                        break;
+                }
 
-                        return true;
-                                  }
 
                 return true;
-
             }
         });
 
 
+
+
+//        trangChuF = new TrangChuF();
+//        theoDoiF = new TheoDoiF();
+//        canhan = new CaNhan();
+//
+//        banBeF = new BanBeF();
+//        setFragment(trangChuF);
+//        aIsActive = bIsActive = cIsActive = dIsActive = false;
+//
+//
+//        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//
+//                switch (item.getItemId()) {
+//                    case R.id.navigation_trangchu:
+//                        setFragment(trangChuF);
+//
+//
+//                        return true;
+//                    case R.id.navigation_tinnhan:
+//                        setFragment(banBeF);
+//
+//
+//                        return true;
+//                    case R.id.navigation_theodoi:
+//                        setFragment(theoDoiF);
+//
+//
+//                        return true;
+//                    case R.id.navigation_canhan:
+//                        setFragment(canhan);
+//
+//
+//                        return true;
+//                                  }
+//
+//                return true;
+//
+//            }
+//        });
+
+
     }
 
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment);
-        fragmentTransaction.commit();
-    }
+//    private void setFragment(Fragment fragment) {
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.frame_container, fragment);
+//        fragmentTransaction.commit();
+//    }
 
 
     private void anhxa() {
 //
         navigation = findViewById(R.id.navigation);
-        frameLayout = findViewById(R.id.frame_container);
-        viewPager = findViewById(R.id.viewpager);
+//        frameLayout = findViewById(R.id.frame_container);
+        viewPager = findViewById(R.id.viewPager);
 
 
     }
@@ -214,10 +275,15 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     @Override
     public void onPageSelected(int position) {
         navigation.getMenu().getItem(position).setChecked(true);
+
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
+
+
+
+
 }

@@ -48,7 +48,9 @@ public class SuaThongTin extends AppCompatActivity {
     private void init() {
         //Toolbar
         toolbar.setTitle("Thông Tin Cá Nhân");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        toolbar.setNavigationIcon(R.drawable.ic_backv2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

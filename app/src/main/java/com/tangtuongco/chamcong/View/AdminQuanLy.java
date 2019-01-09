@@ -1,6 +1,7 @@
 package com.tangtuongco.chamcong.View;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,7 +56,9 @@ public class AdminQuanLy extends AppCompatActivity {
         arrayListChucVu=new ArrayList<ChucVu>();
         //Toolbar
         toolbar.setTitle("Quản Lý");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        toolbar.setNavigationIcon(R.drawable.ic_backv2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

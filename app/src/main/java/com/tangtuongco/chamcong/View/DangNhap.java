@@ -146,7 +146,7 @@ public class DangNhap extends AppCompatActivity {
             Intent i = new Intent(DangNhap.this, MainActivity.class);
             //Toasty.success(DangNhap.this, "Welcome " + mAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
             startActivity(i);
-         
+
         }
     }
 

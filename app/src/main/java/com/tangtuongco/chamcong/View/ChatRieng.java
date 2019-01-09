@@ -1,5 +1,6 @@
 package com.tangtuongco.chamcong.View;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,9 @@ public class ChatRieng extends AppCompatActivity {
         anhxa();
 
         toolbar.setTitle("Tin nhắn");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        toolbar.setNavigationIcon(R.drawable.ic_backv2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

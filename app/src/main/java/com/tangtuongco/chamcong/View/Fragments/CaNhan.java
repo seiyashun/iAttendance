@@ -49,6 +49,7 @@ import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.Model.Upload;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
+import com.tangtuongco.chamcong.View.DangKyLichLam;
 import com.tangtuongco.chamcong.View.QuanLyPanel;
 import com.tangtuongco.chamcong.View.SuaThongTin;
 
@@ -68,7 +69,7 @@ import static android.app.Activity.RESULT_OK;
 public class CaNhan extends Fragment {
 
     CircleImageView imgAva;
-    FancyButton btnQuanLy, btnSuaThongTin,btnDoiMatKhau;
+    FancyButton btnQuanLy, btnSuaThongTin,btnDoiMatKhau,btnDangKyLichLam;
     TextView txtid, txtname, txtnameBu, txtchucvu, txtmucluong, txtngayvaolam, txtsdt, txtemail;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
@@ -98,7 +99,8 @@ public class CaNhan extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mStora = FirebaseStorage.getInstance().getReference("avatar");
         progressDialog = new ProgressDialog(getActivity());
-        btnQuanLy.setVisibility(View.INVISIBLE);
+        btnQuanLy.setVisibility(View.GONE);
+        btnDangKyLichLam.setVisibility(View.GONE);
         LoadData();
         //Floading
         imgAva.setOnLongClickListener(new View.OnLongClickListener() {
@@ -115,33 +117,55 @@ public class CaNhan extends Fragment {
 
     private void init() {
         //Setup fancy button
-        btnQuanLy.setText("Bảng Quản Lý");
+        btnQuanLy.setText("Bảng\n Quản Lý");
         btnQuanLy.setBackgroundColor(Color.parseColor("#c59783"));
         btnQuanLy.setFocusBackgroundColor(Color.parseColor("#b98068"));
-        btnQuanLy.setTextSize(20);
+        btnQuanLy.setTextSize(13);
         btnQuanLy.setRadius(7);
         btnQuanLy.setIconResource(R.drawable.ic_discussion);
-        btnQuanLy.setIconPosition(FancyButton.POSITION_LEFT);
+        btnQuanLy.setIconPosition(FancyButton.POSITION_TOP);
         btnQuanLy.setFontIconSize(30);
 
         btnDoiMatKhau.setText("Thay Đổi Mật Khẩu");
         btnDoiMatKhau.setBackgroundColor(Color.parseColor("#83c597"));
-        btnDoiMatKhau.setFocusBackgroundColor(Color.parseColor("#83c5a8"));
-        btnDoiMatKhau.setTextSize(20);
+        btnDoiMatKhau.setFocusBackgroundColor(Color.parseColor("#2ba6f2"));
+        btnDoiMatKhau.setTextSize(13);
         btnDoiMatKhau.setRadius(7);
         btnDoiMatKhau.setIconResource(R.drawable.ic_trumcuoi);
-        btnDoiMatKhau.setIconPosition(FancyButton.POSITION_LEFT);
+        btnDoiMatKhau.setIconPosition(FancyButton.POSITION_TOP);
         btnDoiMatKhau.setFontIconSize(30);
+
+        btnDangKyLichLam.setText("Đăng Ký Lịch Làm");
+        btnDangKyLichLam.setBackgroundColor(Color.parseColor("#c41db6"));
+        btnDangKyLichLam.setFocusBackgroundColor(Color.parseColor("#c59783"));
+        btnDangKyLichLam.setTextSize(13);
+        btnDangKyLichLam.setRadius(7);
+        btnDangKyLichLam.setIconResource(R.drawable.ic_time);
+        btnDangKyLichLam.setIconPosition(FancyButton.POSITION_TOP);
+        btnDangKyLichLam.setFontIconSize(30);
 
         btnSuaThongTin.setText("Sửa Thông Tin Cá Nhân");
         btnSuaThongTin.setBackgroundColor(Color.parseColor("#3b5998"));
         btnSuaThongTin.setFocusBackgroundColor(Color.parseColor("#5474b8"));
-        btnSuaThongTin.setTextSize(20);
+        btnSuaThongTin.setTextSize(13);
         btnSuaThongTin.setRadius(7);
         btnSuaThongTin.setIconResource(R.drawable.ic_content);
-        btnSuaThongTin.setIconPosition(FancyButton.POSITION_LEFT);
+        btnSuaThongTin.setIconPosition(FancyButton.POSITION_TOP);
         btnSuaThongTin.setFontIconSize(30);
 
+        btnDangKyLichLam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), DangKyLichLam.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("MaNV", currentUser.getManv());
+                Log.d("kiemtra",currentUser.getManv());
+                i.putExtras(bundle);
+                startActivity(i);
+
+
+            }
+        });
 
         btnQuanLy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -265,6 +289,10 @@ public class CaNhan extends Fragment {
           if (a.getChucvu().equals("QL")) {
               btnQuanLy.setVisibility(View.VISIBLE);
           }
+          else
+          {
+              btnDangKyLichLam.setVisibility(View.VISIBLE);
+          }
 
       }
 
@@ -289,6 +317,7 @@ public class CaNhan extends Fragment {
         btnQuanLy = v.findViewById(R.id.btnQuanLyPanel);
         btnSuaThongTin = v.findViewById(R.id.btnSuaThongTin);
         btnDoiMatKhau=v.findViewById(R.id.btnDoiMatKhau);
+        btnDangKyLichLam=v.findViewById(R.id.btnDangKyLichLam);
         txtchucvu = v.findViewById(R.id.txtCaNhanChucVu);
         txtemail = v.findViewById(R.id.txtCaNhanEmail);
         txtid = v.findViewById(R.id.txtCaNhanID);

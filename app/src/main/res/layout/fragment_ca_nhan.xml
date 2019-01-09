@@ -162,24 +162,32 @@
     <LinearLayout
         android:layout_gravity="center"
         android:gravity="center|top"
-        android:orientation="vertical"
-        android:layout_width="250dp"
-        android:layout_height="match_parent">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnSuaThongTin"
             android:layout_marginBottom="5dp"
-            android:layout_width="350dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"/>
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnDoiMatKhau"
             android:layout_marginBottom="5dp"
-            android:layout_width="350dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"/>
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnDangKyLichLam"
+            android:layout_marginBottom="5dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"/>
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btnQuanLyPanel"
             android:layout_marginBottom="5dp"
-            android:layout_width="350dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"/>
+
     </LinearLayout>
+
+
 
 </LinearLayout>

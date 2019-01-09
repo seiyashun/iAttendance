@@ -17,7 +17,7 @@ import ss.com.bannerslider.Slider;
 
 public class QuanLyPanel extends AppCompatActivity {
     FadingTextView FTV;
-    FancyButton btnTTNV,btnLuongNV,btnThongBao,btnXemLuong;
+    FancyButton btnTTNV,btnLuongNV,btnThongBao,btnXemLuong,btnQuanLyLichNhanVien;
     Toolbar toolbar;
 
 
@@ -33,7 +33,9 @@ public class QuanLyPanel extends AppCompatActivity {
         //Set toolbar
         //Toolbar
         toolbar.setTitle("Quản Lý");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        toolbar.setNavigationIcon(R.drawable.ic_backv2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +60,7 @@ public class QuanLyPanel extends AppCompatActivity {
 
         btnTTNV.setText("Quản Lý Nhân Viên");
         btnTTNV.setBackgroundColor(Color.parseColor("#FF3366"));
-        btnTTNV.setFocusBackgroundColor(Color.parseColor("#FF3399"));
+        btnTTNV.setFocusBackgroundColor(Color.parseColor("#161b23"));
         btnTTNV.setTextSize(20);
         btnTTNV.setRadius(7);
         btnTTNV.setIconPadding(0,30,0,0);
@@ -68,13 +70,23 @@ public class QuanLyPanel extends AppCompatActivity {
 
         btnThongBao.setText("Quản Lý Thông Báo");
         btnThongBao.setBackgroundColor(Color.parseColor("#00CC00"));
-        btnThongBao.setFocusBackgroundColor(Color.parseColor("#00DD00"));
+        btnThongBao.setFocusBackgroundColor(Color.parseColor("#161b23"));
         btnThongBao.setTextSize(20);
         btnThongBao.setRadius(7);
         btnThongBao.setIconResource(R.drawable.ic_notification);
         btnThongBao.setIconPosition(FancyButton.POSITION_LEFT);
         btnThongBao.setFontIconSize(30);
         btnThongBao.setIconPadding(0,30,0,0);
+
+        btnQuanLyLichNhanVien.setText("Quản Lý Lịch Nhân Viên");
+        btnQuanLyLichNhanVien.setBackgroundColor(Color.parseColor("#545b66"));
+        btnQuanLyLichNhanVien.setFocusBackgroundColor(Color.parseColor("#081d3d"));
+        btnQuanLyLichNhanVien.setTextSize(20);
+        btnQuanLyLichNhanVien.setRadius(7);
+        btnQuanLyLichNhanVien.setIconResource(R.drawable.ic_time);
+        btnQuanLyLichNhanVien.setIconPosition(FancyButton.POSITION_LEFT);
+        btnQuanLyLichNhanVien.setFontIconSize(30);
+        btnQuanLyLichNhanVien.setIconPadding(0,30,0,0);
 
 
 
@@ -103,6 +115,13 @@ public class QuanLyPanel extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        btnQuanLyLichNhanVien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(QuanLyPanel.this, LichNhanVienPanel.class);
+                startActivity(i);
+            }
+        });
 
 
 
@@ -115,6 +134,7 @@ public class QuanLyPanel extends AppCompatActivity {
         btnLuongNV=findViewById(R.id.btnQuanLyLuongNhanVien);
         btnThongBao=findViewById(R.id.btnQuanLyThongBao);
         btnTTNV=findViewById(R.id.btnQuanLyThongTinNhanVien);
+        btnQuanLyLichNhanVien=findViewById(R.id.btnQuanLyLichNhanVien);
 
 
         toolbar=findViewById(R.id.toolbarQuanLyPanel);

@@ -4,6 +4,7 @@ package com.tangtuongco.chamcong.View.Fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class TrangChuF extends Fragment  implements ViewPager.OnPageChangeListen
                 break;
         }
 
+
     }
 
     @Override
@@ -86,6 +88,7 @@ public class TrangChuF extends Fragment  implements ViewPager.OnPageChangeListen
                 viewPagerTrangChu.setCurrentItem(0);
                 break;
         }
+
 
     }
 }

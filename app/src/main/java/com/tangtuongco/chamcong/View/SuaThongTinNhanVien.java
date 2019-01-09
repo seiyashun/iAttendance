@@ -70,7 +70,9 @@ public class SuaThongTinNhanVien extends AppCompatActivity implements View.OnCli
 
         //Toolbar
         toolbar.setTitle("Thông Tin Nhân Viên");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        toolbar.setNavigationIcon(R.drawable.ic_backv2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

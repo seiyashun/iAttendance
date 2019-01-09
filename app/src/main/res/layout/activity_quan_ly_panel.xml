@@ -51,6 +51,11 @@
             android:layout_marginBottom="5dp"
             android:layout_width="290dp"
             android:layout_height="50dp"/>
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btnQuanLyLichNhanVien"
+            android:layout_marginBottom="5dp"
+            android:layout_width="290dp"
+            android:layout_height="50dp"/>
 
 
 

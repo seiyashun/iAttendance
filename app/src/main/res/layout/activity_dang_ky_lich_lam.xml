@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.DangKyLichLam">
+    <android.support.v7.widget.Toolbar
+        android:background="#c59783"
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbarDangKyLichLam"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listLichLamDangKy"
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/edtNgayLam"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="Ngày làm" />
+            </android.support.design.widget.TextInputLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/spinnerLichLam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"></Spinner>
+                <mehdi.sakout.fancybuttons.FancyButton
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/btnLuuLichLam"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#43483d"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text="Hướng dẫn"
+                android:layout_weight="5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ScrollView
+                android:id="@+id/ScrollView01"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp">
+
+                <TextView
+                    android:textColor="#000"
+                    android:id="@+id/txtHuongDan"
+
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

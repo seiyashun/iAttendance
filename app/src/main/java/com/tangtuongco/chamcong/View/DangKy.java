@@ -63,7 +63,9 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         anhxa();
         //toolbar
         toolbar.setTitle("Thêm mới");
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setTitleTextColor(Color.WHITE);
+
+        toolbar.setNavigationIcon(R.drawable.ic_backv2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
