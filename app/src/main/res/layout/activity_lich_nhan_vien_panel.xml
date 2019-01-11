@@ -55,6 +55,10 @@
 
 
         </LinearLayout>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#FF0000FF" />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listNhanVienDangKy"
             android:layout_width="match_parent"
@@ -74,7 +78,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:textSize="18sp"
-                android:textColor="#000"
+                android:textColor="#0636c6"
                 android:text="Lịch Quản Lý Sắp Xếp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

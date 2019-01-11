@@ -1,8 +1,9 @@
 package com.tangtuongco.chamcong.View.Fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,20 +35,17 @@ import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
 import com.tangtuongco.chamcong.Ulty.TinhThoiGian;
-import com.tangtuongco.chamcong.View.SuaThongTinNhanVien;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
-import ss.com.bannerslider.ImageLoadingService;
 
 public class ChamCongF extends Fragment {
+    private static final int REQUEST_LOCATION = 1;
     Button checkin, checkout;
     TextView txtNgay, txtIn, txtOut, txtTinhToan;
     FirebaseAuth mAuth;
@@ -65,12 +63,16 @@ public class ChamCongF extends Fragment {
     ViewFlipper viewFlipper;
     ArrayList<String> mangquangcao;
 
+
+    LocationManager locationManager;
+    double lattitude,longitude;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cham_cong, container, false);
         anhxa(view);
-
         capnhat();
         //Lay data
         //Lay email;
@@ -102,15 +104,13 @@ public class ChamCongF extends Fragment {
 //        checkout.setOnClickListener(this);
 
 
-
-
-
         switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (switchButton.isChecked()) {
                     ClickCheckIn();
                     switchButton.setText("Làm Việc");
+
 
                 } else {
                     clickCheckOut();
@@ -121,9 +121,17 @@ public class ChamCongF extends Fragment {
         });
 
 
-
         return view;
     }
+
+
+
+
+
+
+
+
+
 
     private void loadSwitch() {
         Calendar calendar = Calendar.getInstance();
@@ -153,19 +161,14 @@ public class ChamCongF extends Fragment {
         data.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds:dataSnapshot.getChildren())
-                {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     GioCong a = ds.getValue(GioCong.class);
-                    if(a.getNgay().equals(FormatHelper.formatNgay(ngaycheckin)))
-                    {
+                    if (a.getNgay().equals(FormatHelper.formatNgay(ngaycheckin))) {
 
-                        if(a.getClickIn()==true && a.getClickOut()==false )
-                        {
+                        if (a.getClickIn() == true && a.getClickOut() == false) {
                             switchButton.setChecked(true);
                             txtIn.setText(a.getGioVao());
-                        }
-                        else
-                        {
+                        } else {
                             switchButton.setChecked(false);
                         }
                     }
@@ -284,55 +287,61 @@ public class ChamCongF extends Fragment {
     }
 
     private void readData(final ChamCongF.FirebaseCallBack firebaseCallBack) {
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        gioCong = new GioCong();
-        final Date ngaycheckin = Calendar.getInstance().getTime();
-        final int thang = Calendar.getInstance().get(Calendar.MONTH);
-        final int ngay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        long a = 00;
-        String currentNgay = FormatHelper.formatNgay(ngaycheckin);
-        String currentGio = FormatHelper.formatGio(ngaycheckin);
-        String thangString;
-        final String ngayString;
-        if (thang < 10) {
-            thangString = "0" + String.valueOf(thang);
-        } else {
-            thangString = String.valueOf(thang);
-        }
-        if (ngay < 10) {
-            ngayString = "0" + String.valueOf(ngay);
-        } else {
-            ngayString = String.valueOf(ngay);
-        }
 
 
-        data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(thangString);
-        data.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-             if(dataSnapshot.hasChild(ngayString))
-             {
-                 GioCong a = dataSnapshot.getValue(GioCong.class);
-                 firebaseCallBack.onCallBack(a);
-             }
-             else
-             {
-                 GioCong a= null;
-                 firebaseCallBack.onCallBack(a);
-             }
+            public void run() {
+                Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                gioCong = new GioCong();
+                final Date ngaycheckin = Calendar.getInstance().getTime();
+                final int thang = Calendar.getInstance().get(Calendar.MONTH);
+                final int ngay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+                long a = 00;
+                String currentNgay = FormatHelper.formatNgay(ngaycheckin);
+                String currentGio = FormatHelper.formatGio(ngaycheckin);
+                String thangString;
+                final String ngayString;
+                if (thang < 10) {
+                    thangString = "0" + String.valueOf(thang);
+                } else {
+                    thangString = String.valueOf(thang);
+                }
+                if (ngay < 10) {
+                    ngayString = "0" + String.valueOf(ngay);
+                } else {
+                    ngayString = String.valueOf(ngay);
+                }
+                data = firebaseDatabase.getReference().child("GioCong").child(currentNv.getManv()).child(String.valueOf(year)).child(thangString);
+
+                data.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(ngayString)) {
+                            GioCong a = dataSnapshot.getValue(GioCong.class);
+                            firebaseCallBack.onCallBack(a);
+                        } else {
+                            GioCong a = null;
+                            firebaseCallBack.onCallBack(a);
+                        }
 
 
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        },500);
 
 
     }
+
 
     private interface FirebaseCallBack {
         void onCallBack(GioCong a);
@@ -340,15 +349,15 @@ public class ChamCongF extends Fragment {
 
 
     private void ClickCheckIn() {
+
 //        data=firebaseDatabase.getReference().child("GioCong");
 
         readData(new FirebaseCallBack() {
             @Override
             public void onCallBack(GioCong a) {
-                GioCong test=a;
+                GioCong test = a;
 
-                if(test==null)
-                {
+                if (test == null) {
                     data = firebaseDatabase.getReference().child("OTP").child(currentNv.getManv());
                     data.setValue(random());
                     layoutOTP.setVisibility(View.VISIBLE);
@@ -368,8 +377,6 @@ public class ChamCongF extends Fragment {
                         }
                     });
                 }
-
-
 
 
             }
@@ -450,9 +457,8 @@ public class ChamCongF extends Fragment {
 
 
     private int random() {
-        int min = 1000;
-        int max = 9999;
-        int random = new Random().nextInt((max - min) + 1);
+
+        int random = new Random().nextInt(9999 - 1000) + 1000;
         return random;
     }
 

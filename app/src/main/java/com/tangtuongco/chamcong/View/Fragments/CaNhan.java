@@ -117,7 +117,7 @@ public class CaNhan extends Fragment {
 
     private void init() {
         //Setup fancy button
-        btnQuanLy.setText("Bảng\n Quản Lý");
+        btnQuanLy.setText("Bảng\nQuản Lý");
         btnQuanLy.setBackgroundColor(Color.parseColor("#c59783"));
         btnQuanLy.setFocusBackgroundColor(Color.parseColor("#b98068"));
         btnQuanLy.setTextSize(13);
@@ -126,7 +126,7 @@ public class CaNhan extends Fragment {
         btnQuanLy.setIconPosition(FancyButton.POSITION_TOP);
         btnQuanLy.setFontIconSize(30);
 
-        btnDoiMatKhau.setText("Thay Đổi Mật Khẩu");
+        btnDoiMatKhau.setText("Thay Đổi\nMật Khẩu");
         btnDoiMatKhau.setBackgroundColor(Color.parseColor("#83c597"));
         btnDoiMatKhau.setFocusBackgroundColor(Color.parseColor("#2ba6f2"));
         btnDoiMatKhau.setTextSize(13);
@@ -135,7 +135,7 @@ public class CaNhan extends Fragment {
         btnDoiMatKhau.setIconPosition(FancyButton.POSITION_TOP);
         btnDoiMatKhau.setFontIconSize(30);
 
-        btnDangKyLichLam.setText("Đăng Ký Lịch Làm");
+        btnDangKyLichLam.setText("Đăng Ký\nLịch Làm");
         btnDangKyLichLam.setBackgroundColor(Color.parseColor("#c41db6"));
         btnDangKyLichLam.setFocusBackgroundColor(Color.parseColor("#c59783"));
         btnDangKyLichLam.setTextSize(13);
@@ -144,7 +144,7 @@ public class CaNhan extends Fragment {
         btnDangKyLichLam.setIconPosition(FancyButton.POSITION_TOP);
         btnDangKyLichLam.setFontIconSize(30);
 
-        btnSuaThongTin.setText("Sửa Thông Tin Cá Nhân");
+        btnSuaThongTin.setText("Sửa Thông Tin\nCá Nhân");
         btnSuaThongTin.setBackgroundColor(Color.parseColor("#3b5998"));
         btnSuaThongTin.setFocusBackgroundColor(Color.parseColor("#5474b8"));
         btnSuaThongTin.setTextSize(13);
