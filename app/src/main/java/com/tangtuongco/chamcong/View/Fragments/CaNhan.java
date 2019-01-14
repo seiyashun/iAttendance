@@ -11,9 +11,13 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -30,6 +34,8 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,6 +51,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tangtuongco.chamcong.Model.LichLam;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.Model.Upload;
 import com.tangtuongco.chamcong.R;
@@ -52,8 +59,11 @@ import com.tangtuongco.chamcong.Ulty.FormatHelper;
 import com.tangtuongco.chamcong.View.DangKyLichLam;
 import com.tangtuongco.chamcong.View.QuanLyPanel;
 import com.tangtuongco.chamcong.View.SuaThongTin;
+import com.tangtuongco.chamcong.ViewHolder.LichLamCaNhanViewHolder;
+import com.tangtuongco.chamcong.ViewHolder.LichLamViewHolder;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Calendar;
 
 import javax.xml.transform.Result;
 
@@ -69,7 +79,7 @@ import static android.app.Activity.RESULT_OK;
 public class CaNhan extends Fragment {
 
     CircleImageView imgAva;
-    FancyButton btnQuanLy, btnSuaThongTin,btnDoiMatKhau,btnDangKyLichLam;
+    FancyButton btnQuanLy, btnSuaThongTin, btnDoiMatKhau, btnDangKyLichLam;
     TextView txtid, txtname, txtnameBu, txtchucvu, txtmucluong, txtngayvaolam, txtsdt, txtemail;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference mData;
@@ -80,6 +90,9 @@ public class CaNhan extends Fragment {
     Uri filepatch;
     int PICK_IMAGE_REQUEST = 1;
     private Activity mActivity;
+    RecyclerView listLichLamCaNhan;
+    FirebaseRecyclerOptions<LichLam> options;
+    FirebaseRecyclerAdapter<LichLam, LichLamCaNhanViewHolder> adapter;
 
 
     public CaNhan() {
@@ -110,9 +123,84 @@ public class CaNhan extends Fragment {
                 return false;
             }
         });
+        LoadLichLam();
 
 
         return v;
+    }
+
+    private void LoadLichLam() {
+        final Calendar c = Calendar.getInstance();
+        int mMonth = c.get(Calendar.MONTH) + 1;
+        final String thang = (mMonth < 10 ? "0" : "") + mMonth;
+
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mData = firebaseDatabase.getReference().child("LichLam").child("LichChinhThucNhanVien").child(currentUser.getManv())
+                        .child(thang);
+                listLichLamCaNhan.setHasFixedSize(true);
+                listLichLamCaNhan.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                options = new FirebaseRecyclerOptions.Builder<LichLam>()
+                        .setQuery(mData, LichLam.class)
+                        .build();
+                adapter = new FirebaseRecyclerAdapter<LichLam, LichLamCaNhanViewHolder>(options) {
+                    @Override
+                    protected void onBindViewHolder(@NonNull LichLamCaNhanViewHolder holder, int position, @NonNull final LichLam model) {
+                        holder.txtNgay.setText(model.getNgayLam());
+                        holder.txtCa.setText(model.getCaLam());
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ShowNoiDung(model.getCaLam());
+                            }
+                        });
+                    }
+
+                    @NonNull
+                    @Override
+                    public LichLamCaNhanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_lich_lam_ca_nhan,
+                                parent, false);
+
+                        return new LichLamCaNhanViewHolder(view);
+                    }
+                };
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,
+                        false);
+                listLichLamCaNhan.setLayoutManager(layoutManager);
+                adapter.startListening();
+                listLichLamCaNhan.setAdapter(adapter);
+
+
+            }
+        }, 500);
+    }
+
+    private void ShowNoiDung(String caLam) {
+        if(caLam.equals("A"))
+        {
+            Toast.makeText(mActivity, "08:00->15:00", Toast.LENGTH_SHORT).show();
+        }
+        else if(caLam.equals("B"))
+        {
+            Toast.makeText(mActivity, "15:00->23:00", Toast.LENGTH_SHORT).show();
+        }
+        else if(caLam.equals("C"))
+        {
+            Toast.makeText(mActivity, "12:00->18:00", Toast.LENGTH_SHORT).show();
+        }
+        else if(caLam.equals("D"))
+        {
+            Toast.makeText(mActivity, "09:00->15:00", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(mActivity, "18:00->23:00", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void init() {
@@ -159,7 +247,7 @@ public class CaNhan extends Fragment {
                 Intent i = new Intent(getActivity(), DangKyLichLam.class);
                 Bundle bundle = new Bundle();
                 bundle.putString("MaNV", currentUser.getManv());
-                Log.d("kiemtra",currentUser.getManv());
+                Log.d("kiemtra", currentUser.getManv());
                 i.putExtras(bundle);
                 startActivity(i);
 
@@ -192,7 +280,7 @@ public class CaNhan extends Fragment {
 
     private void DoiMatKhau() {
         ThayDoiMatKhauUserDialog thayDoiMatKhauUserDialog = new ThayDoiMatKhauUserDialog();
-        thayDoiMatKhauUserDialog.show(getActivity().getSupportFragmentManager(),"Thay đổi mật khẩu");
+        thayDoiMatKhauUserDialog.show(getActivity().getSupportFragmentManager(), "Thay đổi mật khẩu");
     }
 
     @Override
@@ -269,32 +357,29 @@ public class CaNhan extends Fragment {
 
 
     private void saveData(NhanVien a) {
-      if(getActivity()!=null)
-      {
-          currentUser = new NhanVien();
-          currentUser = a;
-          //set data
-          txtnameBu.setText(currentUser.getHoten());
-          txtname.setText(currentUser.getHoten());
-          txtsdt.setText(currentUser.getSdt());
-          txtngayvaolam.setText(FormatHelper.formatNgay(currentUser.getNgayvaolam()));
-          txtemail.setText(a.getEmail());
-          txtmucluong.setText(String.valueOf(a.getMucluong()));
-          txtid.setText(a.getManv());
-          Glide.with(getActivity())
-                  .load(a.getAva())
-                  .into(imgAva);
-          txtchucvu.setText(a.getChucvu());
-          progressDialog.dismiss();
-          if (a.getChucvu().equals("QL")) {
-              btnQuanLy.setVisibility(View.VISIBLE);
-          }
-          else
-          {
-              btnDangKyLichLam.setVisibility(View.VISIBLE);
-          }
+        if (getActivity() != null) {
+            currentUser = new NhanVien();
+            currentUser = a;
+            //set data
+            txtnameBu.setText(currentUser.getHoten());
+            txtname.setText(currentUser.getHoten());
+            txtsdt.setText(currentUser.getSdt());
+            txtngayvaolam.setText(FormatHelper.formatNgay(currentUser.getNgayvaolam()));
+            txtemail.setText(a.getEmail());
+            txtmucluong.setText(String.valueOf(a.getMucluong()));
+            txtid.setText(a.getManv());
+            Glide.with(getActivity())
+                    .load(a.getAva())
+                    .into(imgAva);
+            txtchucvu.setText(a.getChucvu());
+            progressDialog.dismiss();
+            if (a.getChucvu().equals("QL")) {
+                btnQuanLy.setVisibility(View.VISIBLE);
+            } else {
+                btnDangKyLichLam.setVisibility(View.VISIBLE);
+            }
 
-      }
+        }
 
     }
 
@@ -316,8 +401,8 @@ public class CaNhan extends Fragment {
         imgAva = v.findViewById(R.id.imgAvaCaNhan);
         btnQuanLy = v.findViewById(R.id.btnQuanLyPanel);
         btnSuaThongTin = v.findViewById(R.id.btnSuaThongTin);
-        btnDoiMatKhau=v.findViewById(R.id.btnDoiMatKhau);
-        btnDangKyLichLam=v.findViewById(R.id.btnDangKyLichLam);
+        btnDoiMatKhau = v.findViewById(R.id.btnDoiMatKhau);
+        btnDangKyLichLam = v.findViewById(R.id.btnDangKyLichLam);
         txtchucvu = v.findViewById(R.id.txtCaNhanChucVu);
         txtemail = v.findViewById(R.id.txtCaNhanEmail);
         txtid = v.findViewById(R.id.txtCaNhanID);
@@ -326,6 +411,7 @@ public class CaNhan extends Fragment {
         txtsdt = v.findViewById(R.id.txtCaNhanSDT);
         txtname = v.findViewById(R.id.txtCaNhanName);
         txtnameBu = v.findViewById(R.id.txtNameCaNhan);
+        listLichLamCaNhan = v.findViewById(R.id.listLichLamCaNhan);
     }
 
     private String getFileExtension(Uri uri) {

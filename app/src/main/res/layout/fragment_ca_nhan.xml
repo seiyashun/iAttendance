@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_margin="5dp"
+    android:layout_marginBottom="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".View.Fragments.CaNhan">
@@ -187,6 +188,19 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+    <TextView
+        android:gravity="center"
+        android:textSize="15sp"
+        android:textColor="#000"
+        android:text="Lịch Làm Trong Tháng"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listLichLamCaNhan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 
