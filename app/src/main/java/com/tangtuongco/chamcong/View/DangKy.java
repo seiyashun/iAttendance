@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.ChucVu;
 import com.tangtuongco.chamcong.Model.NhanVien;
 import com.tangtuongco.chamcong.R;
+import com.tangtuongco.chamcong.Ulty.CheckEditext;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
 import com.tangtuongco.chamcong.Ulty.Random;
 
@@ -42,7 +43,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 
 public class DangKy extends AppCompatActivity implements View.OnClickListener {
-    EditText edtId, edtPass, edtEmail, edtHoTen, edtSdt, edtChucVu, edtNgayvaolam,edtMucLuong;
+    EditText edtId, edtPass, edtEmail, edtHoTen, edtSdt, edtChucVu, edtNgayvaolam, edtMucLuong;
     Button btn, btnNgayVaoLam;
     FirebaseAuth mAuth;
     DatabaseReference mData;
@@ -145,21 +146,19 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
 
     private void GenMSNV() {
         int msnv = 1000;
-        int max=0;
-        max= Integer.parseInt(listMSNV.get(0));
+        int max = 0;
+        max = Integer.parseInt(listMSNV.get(0));
 //        msnv = listMSNV.size() + msnv + 1;
         //Tim Max
-        for(int i=0;i<listMSNV.size();i++)
-        {
-          if(Integer.parseInt(listMSNV.get(i))>=max)
-          {
-              max=Integer.parseInt(listMSNV.get(i));
+        for (int i = 0; i < listMSNV.size(); i++) {
+            if (Integer.parseInt(listMSNV.get(i)) >= max) {
+                max = Integer.parseInt(listMSNV.get(i));
 
-          }
+            }
 
 
         }
-        max=max+1;
+        max = max + 1;
 
         edtId.setText(max + "");
         edtId.setEnabled(false);
@@ -175,42 +174,72 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         final String sdt = edtSdt.getText().toString();
         final String ngayvaolam = edtNgayvaolam.getText().toString();
         final ChucVu chucvu = (ChucVu) spinner.getSelectedItem();
-        mData = firebaseDatabase.getReference().child("NhanVien");
-        progressDialog.setMessage("Đăng ký...");
-        progressDialog.show();
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add(id);
+        list.add(email);
+        list.add(pass);
+        list.add(hoten);
+        list.add(sdt);
+        list.add(ngayvaolam);
+        boolean flag = true;
+
+        for (int i = 0; i < list.size(); i++) {
+            if(CheckEditext.isEmpty(list.get(i))==true)
+            {
+                Toasty.warning(this, "Không được bỏ trống", Toast.LENGTH_SHORT).show();
+                flag=false;
+                break;
+            }
+        }
+
+        if (flag == true) {
+           if(CheckEditext.isEmail(email)==true)
+           {
+               mData = firebaseDatabase.getReference().child("NhanVien");
+               progressDialog.setMessage("Đăng ký...");
+               progressDialog.show();
 
 
-        mAuth.createUserWithEmailAndPassword(email, pass)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+               mAuth.createUserWithEmailAndPassword(email, pass)
+                       .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               if (task.isSuccessful()) {
 
-                            NhanVien nv = new NhanVien();
-                            nv.setManv(id);
-                            nv.setEmail(email);
-                            nv.setHoten(hoten);
-                            nv.setAva("https://firebasestorage.googleapis.com/v0/b/chamcong-61010.appspot.com/o/user%5B1%5D.png?alt=media&token=0dd89d5e-e2b1-4854-a0e8-bb0ece88ddab");
-                            nv.setSdt(sdt);
-                            nv.setMucluong(Double.valueOf(edtMucLuong.getText().toString().trim()));
-                            nv.setChucvu(chucvu.getIdChucVu());
-                            try {
-                                nv.setNgayvaolam(FormatHelper.formatstring(ngayvaolam));
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
-                            progressDialog.dismiss();
-                            Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
-                            finish();
+                                   NhanVien nv = new NhanVien();
+                                   nv.setManv(id);
+                                   nv.setEmail(email);
+                                   nv.setHoten(hoten);
+                                   nv.setAva("https://firebasestorage.googleapis.com/v0/b/chamcong-61010.appspot.com/o/user%5B1%5D.png?alt=media&token=0dd89d5e-e2b1-4854-a0e8-bb0ece88ddab");
+                                   nv.setSdt(sdt);
+                                   nv.setMucluong(Double.valueOf(edtMucLuong.getText().toString().trim()));
+                                   nv.setChucvu(chucvu.getIdChucVu());
+                                   try {
+                                       nv.setNgayvaolam(FormatHelper.formatstring(ngayvaolam));
+                                   } catch (Exception e) {
+                                       e.printStackTrace();
+                                   }
+                                   mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
+                                   progressDialog.dismiss();
+                                   Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
+                                   finish();
 
 
-                        } else {
-                            progressDialog.dismiss();
-                            Toasty.error(DangKy.this, "Thất bại", Toast.LENGTH_LONG, true).show();
-                        }
-                    }
-                });
+                               } else {
+                                   progressDialog.dismiss();
+                                   Toasty.error(DangKy.this, "Thất bại", Toast.LENGTH_LONG, true).show();
+                               }
+                           }
+                       });
+           }
+           else
+           {
+               edtEmail.setError("Xin nhập đúng định dạng email");
+               edtEmail.setFocusable(true);
+               Toast.makeText(this, "Xin nhập đúng định dạng email", Toast.LENGTH_SHORT).show();
+           }
+        }
 
 
     }
@@ -226,7 +255,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         btnNgayVaoLam = findViewById(R.id.btnChonDate);
         edtSdt = findViewById(R.id.edtSDT);
         btn = findViewById(R.id.btnDK);
-        edtMucLuong=findViewById(R.id.edtMucLuong);
+        edtMucLuong = findViewById(R.id.edtMucLuong);
         toolbar = findViewById(R.id.toolbarDangKy);
     }
 

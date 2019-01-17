@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.tangtuongco.chamcong.Model.ThongBao;
 import com.tangtuongco.chamcong.R;
 import com.tangtuongco.chamcong.Ulty.FormatHelper;
@@ -36,17 +38,20 @@ public class ThongBaoF extends Fragment {
         View view=inflater.inflate(R.layout.fragment_thong_bao,container,false);
         anhxa(view);
         firebaseDatabase=FirebaseDatabase.getInstance();
-        dataThongBao=firebaseDatabase.getReference().child("ThongBao");
+
         init();
 
         return view;
     }
 
     private void init() {
+        Query query=firebaseDatabase.getReference().child("ThongBao").orderByChild("notiDate").limitToFirst(5);
+
+
         listThongBao.setHasFixedSize(true);
         listThongBao.setLayoutManager(new LinearLayoutManager(getActivity()));
         options=new FirebaseRecyclerOptions.Builder<ThongBao>()
-                .setQuery(dataThongBao,ThongBao.class)
+                .setQuery(query,ThongBao.class)
                 .build();
         adapter=new FirebaseRecyclerAdapter<ThongBao, ThongBaoViewHolder>(options) {
             @Override
@@ -72,8 +77,11 @@ public class ThongBaoF extends Fragment {
                 return new ThongBaoViewHolder(view);
             }
         };
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(),1);
-        listThongBao.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
+        listThongBao.setLayoutManager(linearLayoutManager);
+
         adapter.startListening();
         listThongBao.setAdapter(adapter);
     }

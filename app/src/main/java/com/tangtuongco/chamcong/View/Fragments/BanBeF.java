@@ -25,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.tangtuongco.chamcong.Model.NhanVien;
 
@@ -124,9 +125,10 @@ public class BanBeF extends Fragment {
                 .into(imgAvaNhom);
         listViewBanBe.setHasFixedSize(true);
         listViewBanBe.setLayoutManager(new LinearLayoutManager(getActivity()));
+        Query query=dataNhanVien.orderByChild("hoten");
 
         options=new FirebaseRecyclerOptions.Builder<NhanVien>()
-                .setQuery(dataNhanVien,NhanVien.class)
+                .setQuery(query,NhanVien.class)
                 .build();
         adapter=new FirebaseRecyclerAdapter<NhanVien, BanBeViewHolder>(options) {
             @Override
