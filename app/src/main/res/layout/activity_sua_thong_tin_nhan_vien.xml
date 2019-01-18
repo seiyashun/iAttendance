@@ -42,6 +42,7 @@
             android:layout_below="@+id/edtHoVaTenSua"
             android:layout_height="wrap_content" />
         <EditText
+            android:inputType="number"
             android:hint="Mức Lương"
             android:id="@+id/edtMucLuongSua"
             android:layout_width="match_parent"

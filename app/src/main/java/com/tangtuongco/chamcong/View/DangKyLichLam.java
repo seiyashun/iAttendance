@@ -193,18 +193,25 @@ public class DangKyLichLam extends AppCompatActivity {
 
     private void DangKyLich() {
         String ngaylam = edtNgayLam.getText().toString().trim();
-        LichLam a = new LichLam();
-        a.setCaLam(spinnerCaLam.getSelectedItem().toString());
-        a.setMaNV(MaNV);
-        a.setNgayLam(ngaylam);
-        ngaylam=ngaylam.replace("/","");
-        String ngay=ngaylam.substring(0,2);
-        String thang=ngaylam.substring(2,4);
+       if(ngaylam.trim().length()!=0)
+       {
+           LichLam a = new LichLam();
+           a.setCaLam(spinnerCaLam.getSelectedItem().toString());
+           a.setMaNV(MaNV);
+           a.setNgayLam(ngaylam);
+           ngaylam=ngaylam.replace("/","");
+           String ngay=ngaylam.substring(0,2);
+           String thang=ngaylam.substring(2,4);
 
-        mData=firebaseDatabase.getReference().child("LichLam").child("LichDangKy").child(thang).child(ngay).child(MaNV);
-        mData.setValue(a);
-        addLichTheoThang(a,ngaylam);
-        //Log.d("kiemtra",spinnerCaLam.getSelectedItem().toString()+"");
+           mData=firebaseDatabase.getReference().child("LichLam").child("LichDangKy").child(thang).child(ngay).child(MaNV);
+           mData.setValue(a);
+           addLichTheoThang(a,ngaylam);
+           //Log.d("kiemtra",spinnerCaLam.getSelectedItem().toString()+"");
+       }
+       else
+       {
+           Toasty.warning(this, "Bạn chưa chọn ngày!!!", Toast.LENGTH_SHORT).show();
+       }
 
 
 

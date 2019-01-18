@@ -16,6 +16,8 @@
         android:layout_below="@+id/edtEditTenChucVu"
         android:layout_height="wrap_content" />
     <EditText
+        android:inputType="number"
+        android:digits="0123456789."
         android:hint="Hệ Số Lương"
         android:id="@+id/edtEditHeSoLuong"
         android:layout_width="match_parent"

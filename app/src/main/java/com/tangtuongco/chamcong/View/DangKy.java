@@ -114,6 +114,11 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         ArrayAdapter<ChucVu> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, SpinnerList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        if(mAuth.getCurrentUser()==null)
+        {
+            spinner.setSelection(3);
+            spinner.setEnabled(false);
+        }
 
 
     }
