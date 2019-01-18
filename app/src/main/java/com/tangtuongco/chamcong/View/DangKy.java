@@ -114,13 +114,26 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         ArrayAdapter<ChucVu> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, SpinnerList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        if(mAuth.getCurrentUser()==null)
-        {
-            spinner.setSelection(3);
+        if (mAuth.getCurrentUser() == null) {
+            spinner.setSelection(timvitri());
             spinner.setEnabled(false);
+        } else {
+            ChucVu a = (ChucVu) spinner.getItemAtPosition(timvitri());
+            adapter.remove(a);
+            adapter.notifyDataSetChanged();
         }
 
 
+    }
+
+    private int timvitri() {
+        for (int i = 0; i <= spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equals("Quản Lý")) {
+
+                return i;
+            }
+        }
+        return 0;
     }
 
     private void getDSCV() {
@@ -190,60 +203,56 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         boolean flag = true;
 
         for (int i = 0; i < list.size(); i++) {
-            if(CheckEditext.isEmpty(list.get(i))==true)
-            {
+            if (CheckEditext.isEmpty(list.get(i)) == true) {
                 Toasty.warning(this, "Không được bỏ trống", Toast.LENGTH_SHORT).show();
-                flag=false;
+                flag = false;
                 break;
             }
         }
 
         if (flag == true) {
-           if(CheckEditext.isEmail(email)==true)
-           {
-               mData = firebaseDatabase.getReference().child("NhanVien");
-               progressDialog.setMessage("Đăng ký...");
-               progressDialog.show();
+            if (CheckEditext.isEmail(email) == true) {
+                mData = firebaseDatabase.getReference().child("NhanVien");
+                progressDialog.setMessage("Đăng ký...");
+                progressDialog.show();
 
 
-               mAuth.createUserWithEmailAndPassword(email, pass)
-                       .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                           @Override
-                           public void onComplete(@NonNull Task<AuthResult> task) {
-                               if (task.isSuccessful()) {
+                mAuth.createUserWithEmailAndPassword(email, pass)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
 
-                                   NhanVien nv = new NhanVien();
-                                   nv.setManv(id);
-                                   nv.setEmail(email);
-                                   nv.setHoten(hoten);
-                                   nv.setAva("https://firebasestorage.googleapis.com/v0/b/chamcong-61010.appspot.com/o/user%5B1%5D.png?alt=media&token=0dd89d5e-e2b1-4854-a0e8-bb0ece88ddab");
-                                   nv.setSdt(sdt);
-                                   nv.setMucluong(Double.valueOf(edtMucLuong.getText().toString().trim()));
-                                   nv.setChucvu(chucvu.getIdChucVu());
-                                   try {
-                                       nv.setNgayvaolam(FormatHelper.formatstring(ngayvaolam));
-                                   } catch (Exception e) {
-                                       e.printStackTrace();
-                                   }
-                                   mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
-                                   progressDialog.dismiss();
-                                   Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
-                                   finish();
+                                    NhanVien nv = new NhanVien();
+                                    nv.setManv(id);
+                                    nv.setEmail(email);
+                                    nv.setHoten(hoten);
+                                    nv.setAva("https://firebasestorage.googleapis.com/v0/b/chamcong-61010.appspot.com/o/user%5B1%5D.png?alt=media&token=0dd89d5e-e2b1-4854-a0e8-bb0ece88ddab");
+                                    nv.setSdt(sdt);
+                                    nv.setMucluong(Double.valueOf(edtMucLuong.getText().toString().trim()));
+                                    nv.setChucvu(chucvu.getIdChucVu());
+                                    try {
+                                        nv.setNgayvaolam(FormatHelper.formatstring(ngayvaolam));
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
+                                    progressDialog.dismiss();
+                                    Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
+                                    finish();
 
 
-                               } else {
-                                   progressDialog.dismiss();
-                                   Toasty.error(DangKy.this, "Thất bại", Toast.LENGTH_LONG, true).show();
-                               }
-                           }
-                       });
-           }
-           else
-           {
-               edtEmail.setError("Xin nhập đúng định dạng email");
-               edtEmail.setFocusable(true);
-               Toast.makeText(this, "Xin nhập đúng định dạng email", Toast.LENGTH_SHORT).show();
-           }
+                                } else {
+                                    progressDialog.dismiss();
+                                    Toasty.error(DangKy.this, "Thất bại", Toast.LENGTH_LONG, true).show();
+                                }
+                            }
+                        });
+            } else {
+                edtEmail.setError("Xin nhập đúng định dạng email");
+                edtEmail.setFocusable(true);
+                Toast.makeText(this, "Xin nhập đúng định dạng email", Toast.LENGTH_SHORT).show();
+            }
         }
 
 

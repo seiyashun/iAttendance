@@ -176,8 +176,26 @@ public class SuaThongTinNhanVien extends AppCompatActivity implements View.OnCli
         ArrayAdapter<ChucVu> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, SpinnerList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        mAuth=FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() == null) {
+            spinner.setSelection(timvitri());
+            spinner.setEnabled(false);
+        } else {
+            ChucVu a = (ChucVu) spinner.getItemAtPosition(timvitri());
+            adapter.remove(a);
+            adapter.notifyDataSetChanged();
+        }
 
 
+    }
+    private int timvitri() {
+        for (int i = 0; i <= spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equals("Quản Lý")) {
+
+                return i;
+            }
+        }
+        return 0;
     }
 
     @Override
