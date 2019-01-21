@@ -126,6 +126,7 @@ public class CaNhan extends Fragment {
         LoadLichLam();
 
 
+
         return v;
     }
 

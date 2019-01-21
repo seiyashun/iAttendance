@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +47,7 @@ import es.dmoral.toasty.Toasty;
 public class DangKy extends AppCompatActivity implements View.OnClickListener {
     EditText edtId, edtPass, edtEmail, edtHoTen, edtSdt, edtChucVu, edtNgayvaolam, edtMucLuong;
     Button btn, btnNgayVaoLam;
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth,mAuth2;
     DatabaseReference mData;
     FirebaseDatabase firebaseDatabase;
     ProgressDialog progressDialog;
@@ -54,6 +56,9 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
     ArrayList<ChucVu> SpinnerList;
     Spinner spinner;
     ArrayList<String> listMSNV;
+    private static final String ID="chamcong-61010";
+    private static final String API="AIzaSyB4yS6Uzo6Ysa2vFw0tNMb0xx5Fsi4Piyc";
+    private static final String Database="https://chamcong-61010.firebaseio.com/";
 
 
     @Override
@@ -61,6 +66,22 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
         mAuth = FirebaseAuth.getInstance();
+
+
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setApiKey(API)
+                .setApplicationId(ID)
+                .setDatabaseUrl(Database)
+                .build();
+        try { FirebaseApp app = FirebaseApp.initializeApp(getApplicationContext(), options, "secondary");
+            mAuth2 = FirebaseAuth.getInstance(app);
+        } catch (IllegalStateException e){
+            mAuth2 = FirebaseAuth.getInstance(FirebaseApp.getInstance("secondary"));
+        }
+
+
+
+
         anhxa();
         //toolbar
         toolbar.setTitle("Thêm mới");
@@ -217,7 +238,7 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
                 progressDialog.show();
 
 
-                mAuth.createUserWithEmailAndPassword(email, pass)
+                mAuth2.createUserWithEmailAndPassword(email, pass)
                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -236,8 +257,12 @@ public class DangKy extends AppCompatActivity implements View.OnClickListener {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    mData.child(mAuth.getCurrentUser().getUid()).setValue(nv);
+                                    mData.child(mAuth2.getCurrentUser().getUid()).setValue(nv);
+                                    mAuth2.signOut();
+
+
                                     progressDialog.dismiss();
+
                                     Toasty.success(DangKy.this, "Thành công", Toast.LENGTH_LONG, true).show();
                                     finish();
 
